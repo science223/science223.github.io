@@ -1,220 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>浮岛</title>
-		<style>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+<title>Islands in the Sky: The Lost Kingdom</title>
+<style>
+@font-face {
+	font-family: "Pixel";
+	src: url(data:font/woff2;base64,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) format("woff2");
+}
 html, body, #canvas {
 	margin: 0;
 	padding: 0;
 	border: 0;
 }
-
 body {
-	color: white;
-	background-color: black;
+	color: #f7f3e8;
+	background: #5b9bdc;
 	overflow: hidden;
 	touch-action: none;
 }
-
 #canvas {
 	display: block;
 }
-
 #canvas:focus {
 	outline: none;
 }
-
-#status, #status-splash, #status-progress {
+#status {
+	position: fixed;
+	inset: 0;
+	overflow: hidden;
+	transition: opacity 0.35s;
+}
+#status.done {
+	opacity: 0;
+}
+#scene {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	image-rendering: pixelated;
+}
+#words {
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	top: 12%;
+	text-align: center;
+	font-family: "Pixel", system-ui, sans-serif;
+	-webkit-font-smoothing: none;
+	text-shadow: 0 3px 0 #2b2238;
+}
+#words h1 {
+	margin: 0;
+	font-size: clamp(36px, 7vw, 72px);
+	font-weight: normal;
+	line-height: 1.1;
+	color: #f2c94c;
+}
+#words p {
+	margin: 8px 0 0;
+	font-size: clamp(24px, 3.4vw, 36px);
+	color: #f7f3e8;
+}
+#loading {
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	bottom: 13%;
+	text-align: center;
+	font: 24px "Pixel", system-ui, sans-serif;
+	-webkit-font-smoothing: none;
+	color: #2b2238;
+}
+#hops {
 	position: absolute;
 	left: 0;
 	right: 0;
-}
-
-#status, #status-splash {
-	top: 0;
-	bottom: 0;
-}
-
-#status {
-	background-color: #6fa8e0;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-}
-
-#status-splash {
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
-
-#status-splash.show-image--false {
-	display: none;
-}
-
-#status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
-#status-splash.use-filter--false {
-	image-rendering: pixelated;
-}
-
-#status-progress, #status-notice {
-	display: none;
-}
-
-#status-progress {
-	bottom: 10%;
-	width: 50%;
-	margin: 0 auto;
-}
-
-#status-notice {
-	background-color: #5b3943;
-	border-radius: 0.5rem;
-	border: 1px solid #9b3943;
-	color: #e0e0e0;
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	line-height: 1.3;
-	margin: 0 2rem;
-	overflow: hidden;
-	padding: 1rem;
+	bottom: calc(13% - 26px);
 	text-align: center;
-	z-index: 1;
 }
-		</style>
-		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+#hops i {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin: 0 4px;
+	background: #2b2238;
+	will-change: transform;
+	animation: hop 0.9s steps(4) infinite;
+}
+#hops i:nth-child(2) {
+	background: #c29a2e;
+	animation-delay: 0.15s;
+}
+#hops i:nth-child(3) {
+	animation-delay: 0.3s;
+}
+@keyframes hop {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+#status-notice {
+	display: none;
+	position: absolute;
+	left: 16px;
+	right: 16px;
+	bottom: 24px;
+	padding: 12px;
+	border-radius: 4px;
+	background: #2b2238;
+	color: #f7f3e8;
+	font: 15px/1.5 system-ui, sans-serif;
+	text-align: center;
+}
+</style>
+<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 
-	</head>
-	<body>
-		<canvas id="canvas">
-			Your browser does not support the canvas tag.
-		</canvas>
+</head>
+<body>
+<canvas id="canvas">Your browser does not support the canvas tag.</canvas>
+<noscript>Your browser does not support JavaScript.</noscript>
 
-		<noscript>
-			Your browser does not support JavaScript.
-		</noscript>
+<div id="status">
+	<canvas id="scene" width="320" height="180"></canvas>
+	<div id="words"><h1 id="name">Islands in the Sky</h1><p id="sub">The Lost Kingdom</p></div>
+	<div id="loading">Loading</div>
+	<div id="hops"><i></i><i></i><i></i></div>
+	<div id="status-notice"></div>
+</div>
 
-		<div id="status">
-			<img id="status-splash" class="show-image--false fullsize--true use-filter--true" src="index.png" alt="">
-			<progress id="status-progress"></progress>
-			<div id="status-notice"></div>
-		</div>
-
-		<script src="index.js"></script>
-		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":17742252,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+<script src="index.js"></script>
+<script>
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":867768,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
 (function () {
-	const statusOverlay = document.getElementById('status');
-	const statusProgress = document.getElementById('status-progress');
-	const statusNotice = document.getElementById('status-notice');
+	const status = document.getElementById('status');
+	const notice = document.getElementById('status-notice');
+	const loading = document.getElementById('loading');
+	const chinese = (navigator.language || '').toLowerCase().startsWith('zh');
+	const words = chinese
+		? {name: '空中之岛', sub: '失落的王国', load: '加载中', almost: '马上就好'}
+		: {name: 'Islands in the Sky', sub: 'The Lost Kingdom', load: 'Loading', almost: 'Almost there'};
+	document.getElementById('name').textContent = words.name;
+	document.getElementById('sub').textContent = words.sub;
+	loading.textContent = words.load;
 
-	let initializing = true;
-	let statusMode = '';
+	// 加载动画：金线顺着进度缝过去，红斗篷的小人跟着滑。
+	const scene = document.getElementById('scene').getContext('2d');
+	const W = 320;
+	const H = 180;
+	const SKY = ['#5b9bdc', '#6ea9e0', '#86b9e4', '#a9cfe8', '#cbdde0', '#e4dfcc', '#f3dfbd'];
+	const CLOUDS = [[20, 58, 7], [120, 42, 4], [214, 70, 6], [290, 48, 3]];
+	const LEFT = 62;
+	const RIGHT = 258;
+	const LINE = 128;
+	let target = null;
+	let shown = 0;
+	let running = true;
+	let start = performance.now();
 
-	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
+	function box(color, x, y, w, h) {
+		scene.fillStyle = color;
+		scene.fillRect(Math.round(x), Math.round(y), w, h);
+	}
+
+	function cloud(x, y) {
+		box('#fff8ea', x + 6, y, 16, 3);
+		box('#fff8ea', x + 2, y + 3, 26, 3);
+		box('#fff8ea', x, y + 6, 32, 3);
+		box('#e8d8c6', x, y + 9, 32, 1);
+	}
+
+	function island(x, y, w) {
+		box('#5fae4f', x, y, w, 3);
+		box('#b8734a', x, y + 3, w, 4);
+		box('#6d5c97', x + 1, y + 7, w - 2, 5);
+		box('#5a4b82', x + 4, y + 12, w - 8, 4);
+		box('#4a3d6e', x + 9, y + 16, w - 18, 3);
+		box('#3d3160', x + 14, y + 19, w - 28, 2);
+		box('#f2c94c', x + Math.floor(w * 0.3), y + 7, 1, 8);
+		box('#f2c94c', x + Math.floor(w * 0.7), y + 7, 1, 10);
+	}
+
+	function hero(x, y, flap) {
+		box('#2b2238', x + 1, y - 7, 4, 4);
+		box('#f3c9a0', x + 2, y - 6, 3, 2);
+		box('#d94a3d', x, y - 3, 5, 3);
+		box('#d94a3d', x - 7, y - 3 + flap, 8, 2);
+		box('#a93530', x - 10, y - 2 + flap, 4, 1);
+		box('#2b2238', x + 1, y, 3, 1);
+	}
+
+	function draw(now) {
+		if (!running) {
 			return;
 		}
-		if (mode === 'hidden') {
-			statusOverlay.remove();
-			initializing = false;
-			return;
+		const t = (now - start) / 1000;
+		// 还不知道总大小时，先慢慢往前走，停在九成
+		const goal = target === null ? 0.9 * (1 - Math.exp(-t / 12)) : target;
+		shown += (goal - shown) * 0.08;
+		const head = LEFT + (RIGHT - LEFT) * shown;
+
+		SKY.forEach((color, i) => box(color, 0, Math.floor(i * H / SKY.length), W, Math.ceil(H / SKY.length)));
+		CLOUDS.forEach(([x, y, speed]) => cloud(((x + t * speed) % (W + 40)) - 36, y));
+		island(14, LINE + Math.round(Math.sin(t * 1.4) * 1.5) - 2, 50);
+		island(258, LINE + Math.round(Math.sin(t * 1.4 + 2) * 1.5) - 2, 50);
+
+		for (let x = LEFT; x < RIGHT; x += 6) {
+			box(x < head ? '#f2c94c' : 'rgba(43, 34, 56, 0.25)', x, LINE - 1, 3, 2);
 		}
-		statusOverlay.style.visibility = 'visible';
-		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
-		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
-		statusMode = mode;
+		const glow = 0.6 + 0.4 * Math.sin(t * 8);
+		scene.globalAlpha = glow;
+		box('#fff8ea', head - 2, LINE - 3, 5, 5);
+		scene.globalAlpha = 1;
+		hero(head - 2, LINE - 9 + Math.round(Math.sin(t * 3)), Math.floor(t * 8) % 2);
+
+		if (target !== null) {
+			const percent = Math.min(99, Math.floor(shown * 100));
+			loading.textContent = shown > 0.985 ? words.almost : words.load + ' ' + percent + '%';
+		}
+		requestAnimationFrame(draw);
+	}
+	requestAnimationFrame(draw);
+
+	function fail(message) {
+		console.error(message);
+		running = false;
+		loading.textContent = '';
+		notice.textContent = message instanceof Error ? message.message : String(message);
+		notice.style.display = 'block';
 	}
 
-	function setStatusNotice(text) {
-		while (statusNotice.lastChild) {
-			statusNotice.removeChild(statusNotice.lastChild);
-		}
-		const lines = text.split('\n');
-		lines.forEach((line) => {
-			statusNotice.appendChild(document.createTextNode(line));
-			statusNotice.appendChild(document.createElement('br'));
-		});
-	}
-
-	function displayFailureNotice(err) {
-		console.error(err);
-		if (err instanceof Error) {
-			setStatusNotice(err.message);
-		} else if (typeof err === 'string') {
-			setStatusNotice(err);
-		} else {
-			setStatusNotice('An unknown error occurred.');
-		}
-		setStatusMode('notice');
-		initializing = false;
-	}
-
-	const missing = Engine.getMissingFeatures({
-		threads: GODOT_THREADS_ENABLED,
-	});
-
+	const missing = Engine.getMissingFeatures({threads: GODOT_THREADS_ENABLED});
 	if (missing.length !== 0) {
-		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
-			let serviceWorkerRegistrationPromise;
-			try {
-				serviceWorkerRegistrationPromise = navigator.serviceWorker.getRegistration();
-			} catch (err) {
-				serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
-			}
-			// There's a chance that installing the service worker would fix the issue
-			Promise.race([
-				serviceWorkerRegistrationPromise.then((registration) => {
-					if (registration != null) {
-						return Promise.reject(new Error('Service worker already exists.'));
-					}
-					return registration;
-				}).then(() => engine.installServiceWorker()),
-				// For some reason, `getRegistration()` can stall
-				new Promise((resolve) => {
-					setTimeout(() => resolve(), 2000);
-				}),
-			]).then(() => {
-				// Reload if there was no error.
-				window.location.reload();
-			}).catch((err) => {
-				console.error('Error while registering service worker:', err);
-			});
-		} else {
-			// Display the message as usual
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-			displayFailureNotice(missingMsg + missing.join('\n'));
-		}
-	} else {
-		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
+		fail('Your browser is missing: ' + missing.join(', '));
+		return;
 	}
+	engine.startGame({
+		onProgress: function (current, total) {
+			if (current > 0 && total > 0) {
+				target = current / total;
+			}
+		},
+	}).then(() => {
+		status.classList.add('done');
+		setTimeout(() => {
+			running = false;
+			status.remove();
+		}, 400);
+	}, fail);
 }());
-		</script>
-	</body>
+</script>
+</body>
 </html>
 

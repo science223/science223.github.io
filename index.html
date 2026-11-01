@@ -85,7 +85,7 @@
   .title-card p.pitch { font-size: 16px; line-height: 1.6; }
   .hero-side { display: flex; flex-direction: column; gap: 16px; }
   .trailer { margin: 0; border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; background: #000; }
-  .trailer video { display: block; width: 100%; height: auto; }
+  .trailer video { display: block; width: 100%; height: auto; image-rendering: pixelated; }
   .buttons { display: flex; gap: 12px 18px; flex-wrap: wrap; align-items: center; margin: 18px 0 4px; }
   .buttons .more { color: var(--paper); font-size: 15px; }
   .title-card .note { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
@@ -248,7 +248,7 @@
       </div>
       <div class="hero-side">
         <figure class="trailer">
-          <video controls preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer, captured in-engine from the current build">
+          <video controls preload="none" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer, captured in-engine from the current build">
             <source src="assets/trailer.mp4" type="video/mp4">
           </video>
         </figure>
@@ -303,7 +303,7 @@
       </a>
       <a class="card" href="#step-5">
         <img class="pixelated" src="assets/stitch-guide.png" alt="" width="1280" height="720" loading="lazy">
-        <div><h3>No tips</h3><p>The route is drawn into the world instead.</p></div>
+        <div><h3>Learn by doing</h3><p>Each new relic opens the next level with a safe place to try it.</p></div>
       </a>
     </div>
   </section>
@@ -381,10 +381,12 @@
 
     <article class="step" id="step-5">
       <div>
-        <h3>5. No tips: the map shows the way</h3>
+        <h3>5. Teaching through the map</h3>
         <p class="tag">DECISION</p>
-        <p>Key hints are off by default. Signs and stones only tell the story. The keys appear on the controls page and on
+        <p>Key hints are off by default, and signs and stones only tell the story. The keys appear on the controls page and on
           the card you get with a relic. Level 1 can be finished with only the arrow keys and jump.</p>
+        <p>A relic is no use if you never get to try it, so levels 2 to 6 now open with a short practice section for the
+          ability you just earned. A small key plaque floats by the path there, at the start of level 1, and nowhere else.</p>
         <p>The route is drawn into the world instead. Golden stitching, a dashed line with a light running along it, marks
           the path where a new ability first appears. A miss there costs little: you land on something below or go back to
           the platform you left.</p>
