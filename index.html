@@ -430,15 +430,13 @@
           Claude Code and Codex, measure that.</p>
         <ul>
           <li>The level checker from the last section, run on all six levels.</li>
-          <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it uses only
-            the arrow key and jump.</li>
+          <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it takes the sprint leap.</li>
           <li>A jitter test. It takes that same route and shifts the position and timing of its key presses at random, by up
             to 20 pixels or 0.08 seconds, 24 runs per level, and counts how many runs still finish. The route cannot adapt the
             way a person would, so the number is pessimistic.</li>
         </ul>
         <p class="tag">RESULT</p>
-        <p>The targets were a 0.4&nbsp;s window on every required step and 75% of jitter runs finishing. All six levels
-          reach the jitter target at that setting, between 79% and 100%. On the main routes of levels 1 to 4 every step reaches 0.4&nbsp;s, and the new practice sections were swept separately.
+        <p>The targets were a 0.4&nbsp;s window on every required step and 75% of jitter runs finishing. Levels 2 to 6 reach the jitter target at that setting, between 79% and 100%. The reworked level 1 reaches 38%, because a scripted route cannot turn around on the tower the way a person can, and a miss there only drops you one ledge. Every rightward step on the main routes of levels 1 to 4 reaches 0.4&nbsp;s, and the practice sections were swept separately.
           Levels 5 and 6 are built on doors, wall bounces and rope swings, which the checker does not try, so those rest on
           the jitter test alone. The stairs in level 6 are short at 0.35&nbsp;s, but you can stop on each step. The optional
           bracer ledges in levels 4 and 5 are tighter on purpose, about 0.36 to 0.38&nbsp;s in a separate sweep.</p>
@@ -447,7 +445,7 @@
       </div>
       <div class="side">
         <div class="stat">
-          <p class="stat-label">JITTER RUNS THAT FINISH, BY LEVEL</p>
+          <p class="stat-label">JITTER RUNS THAT FINISH, LEVELS 2 TO 6</p>
           <p class="stat-value pixel"><b>79% – 100%</b></p>
           <p class="stat-note">Target: 75%</p>
         </div>
