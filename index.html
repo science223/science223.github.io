@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shoupeng Gao · Game Design Portfolio</title>
+<meta name="description" content="Game design portfolio: Islands in the Sky: The Lost Kingdom, a pixel-art platformer about diving and pulling up on your own momentum.">
+<style>
+  @font-face {
+    font-family: "Pixel";
+    src: url("assets/pixel-ui.woff2") format("woff2");
+    font-display: swap;
+  }
+  :root {
+    --night: #1e1830;
+    --panel: #2b2238;
+    --panel-hi: #3a2f4e;
+    --edge: #120e1d;
+    --paper: #f7f3e8;
+    --muted: #bdb4d0;
+    --gold: #f2c94c;
+    --gold-deep: #c29a2e;
+    --link: #8fd3ff;
+    --sky-top: #5b9bdc;
+    --sky-mid: #a9cfe8;
+    --sand: #f3dfbd;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--paper);
+    font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  h1, h2, h3, .pixel {
+    font-family: "Pixel", system-ui, sans-serif;
+    font-weight: normal;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+    letter-spacing: 0.5px;
+  }
+  h1 { font-size: 36px; line-height: 1.1; margin: 0; color: var(--panel); }
+  h2 { font-size: 36px; line-height: 1.2; margin: 0 0 16px; color: var(--gold); }
+  h3 { font-size: 24px; line-height: 1.3; margin: 0 0 12px; color: var(--paper); }
+  p { margin: 0 0 14px; }
+  a { color: var(--link); }
+  img { max-width: 100%; height: auto; display: block; }
+  .pixelated { image-rendering: pixelated; }
+
+  /* 针脚：和游戏里的面板、金线同一个样子 */
+  .stitched {
+    position: relative;
+    background: var(--panel);
+    border: 3px solid var(--edge);
+    border-radius: 4px;
+    padding: 28px;
+  }
+  .stitched::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 2px dashed var(--gold);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .seam {
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--gold) 0 12px, transparent 12px 20px);
+  }
+
+  header.hero {
+    padding: 24px 0 40px;
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 52%, var(--sand) 100%);
+  }
+  .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 28px; }
+  .topbar p.lead { font-size: 18px; color: var(--panel); margin: 6px 0 0; max-width: 640px; }
+  nav { display: flex; gap: 20px; flex-wrap: wrap; padding-top: 8px; }
+  nav a { color: var(--panel); font-weight: 600; text-decoration: none; border-bottom: 3px solid var(--panel); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px; align-items: stretch; }
+  .title-card h2 { margin-bottom: 4px; line-height: 1.15; }
+  .title-card .subtitle { font-size: 24px; color: var(--paper); margin: 0 0 4px; }
+  .title-card .subtitle-zh { font-size: 24px; color: var(--muted); margin: 0 0 16px; }
+  .title-card p.pitch { font-size: 16px; line-height: 1.6; }
+  .hero-side { display: flex; flex-direction: column; gap: 16px; }
+  .trailer { margin: 0; border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; background: #000; }
+  .trailer video { display: block; width: 100%; height: auto; }
+  .buttons { display: flex; gap: 12px 18px; flex-wrap: wrap; align-items: center; margin: 18px 0 4px; }
+  .buttons .more { color: var(--paper); font-size: 15px; }
+  .title-card .note { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+  .button {
+    font-family: "Pixel", system-ui, sans-serif;
+    font-size: 24px;
+    -webkit-font-smoothing: none;
+    display: inline-block;
+    padding: 8px 18px 10px;
+    background: var(--gold);
+    color: var(--panel);
+    text-decoration: none;
+    border-radius: 4px;
+    border: 2px solid var(--edge);
+    box-shadow: 0 4px 0 var(--gold-deep);
+  }
+  .strip {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: center;
+    gap: 12px 20px;
+    margin: 0;
+    padding: 14px 20px;
+    background: var(--panel);
+    border: 3px solid var(--edge);
+    border-radius: 4px;
+  }
+  .strip dt { color: var(--gold); font-family: "Pixel", system-ui, sans-serif; font-size: 12px; letter-spacing: 1px; -webkit-font-smoothing: none; }
+  .strip dd { margin: 2px 0 0; font-size: 15px; line-height: 1.45; }
+
+  section { padding: 48px 0; }
+  .two-col { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px; align-items: start; }
+  .keys { display: grid; grid-template-columns: max-content 1fr; gap: 10px 16px; margin: 0 0 16px; align-items: center; }
+  .keys dt { display: flex; gap: 4px; flex-wrap: wrap; }
+  .keys dd { margin: 0; }
+  kbd {
+    font-family: "Pixel", system-ui, sans-serif;
+    font-size: 12px;
+    -webkit-font-smoothing: none;
+    min-width: 30px;
+    text-align: center;
+    padding: 5px 7px 6px;
+    color: var(--panel);
+    background: var(--paper);
+    border-radius: 3px;
+    box-shadow: 0 3px 0 #c9c1ad;
+  }
+  .facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 0; }
+  .facts dt { color: var(--muted); }
+  .facts dd { margin: 0; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 24px 0 8px; }
+  .card { display: block; color: var(--paper); text-decoration: none; background: var(--panel); border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; }
+  .card:hover { border-color: var(--gold-deep); }
+  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .card div { padding: 14px 16px 16px; }
+  .card h3 { margin-bottom: 6px; color: var(--gold); }
+  .card p { margin: 0; font-size: 15px; line-height: 1.5; }
+
+  .process-head { margin-bottom: 8px; }
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    gap: 16px 32px;
+    padding: 32px 0 32px 28px;
+    border-left: 3px dashed var(--gold-deep);
+    margin-left: 4px;
+  }
+  .step::before {
+    content: "";
+    position: absolute;
+    left: -9px;
+    top: 38px;
+    width: 15px;
+    height: 15px;
+    background: var(--gold);
+    border: 3px solid var(--edge);
+  }
+  .step.no-media { grid-template-columns: minmax(0, 8fr); }
+  .step .side { position: sticky; top: 20px; align-self: start; }
+  .tag {
+    font-family: "Pixel", system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: none;
+    color: var(--gold);
+    margin: 18px 0 2px;
+  }
+  .step h3 + .tag { margin-top: 0; }
+  .verbs { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 14px; font-size: 24px; }
+  .verbs span { padding: 3px 14px 6px; border: 2px solid var(--panel-hi); border-radius: 4px; color: var(--muted); }
+  .verbs span.picked { color: var(--panel); background: var(--gold); border-color: var(--edge); }
+  .media { margin: 0 0 8px; border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; background: #000; }
+  .caption { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+
+  .wide { grid-column: 1 / -1; }
+  .stat { padding: 20px; background: var(--panel); border: 3px solid var(--edge); border-radius: 4px; }
+  .stat-label { font-family: "Pixel", system-ui, sans-serif; font-size: 12px; letter-spacing: 1px; -webkit-font-smoothing: none; color: var(--muted); margin: 0 0 8px; }
+  .stat-value { font-size: 36px; line-height: 1.2; margin: 0; color: var(--muted); }
+  .stat-value b { font-weight: normal; color: var(--gold); }
+  .stat-note { color: var(--muted); font-size: 15px; margin: 6px 0 0; }
+  ul { padding-left: 22px; margin: 0 0 14px; }
+  li { margin-bottom: 6px; }
+  footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 860px) {
+    .hero-grid, .two-col, .step { grid-template-columns: minmax(0, 1fr); }
+    .hero-side { display: contents; }
+    .step .side { position: static; }
+    .cards { grid-template-columns: minmax(0, 1fr); }
+    .trailer { order: -1; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 24px; }
+    .stitched { padding: 22px 18px; }
+    .stat-value { font-size: 24px; }
+    .button { font-size: 24px; }
+    .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 14px 16px; }
+    .facts { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .facts dd { margin-bottom: 10px; }
+    .step { padding-left: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <h1>Shoupeng Gao</h1>
+        <p class="lead">Game designer and computer science student at Wenzhou-Kean University.</p>
+      </div>
+      <nav>
+        <a href="#the-game">How to play</a>
+        <a href="#process">Design process</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+
+    <div class="hero-grid">
+      <div class="title-card stitched">
+        <h2>Islands in the Sky</h2>
+        <p class="pixel subtitle">The Lost Kingdom</p>
+        <p class="pixel subtitle-zh">空中之岛 · 失落的王国</p>
+        <p class="pitch">A pixel-art platformer set in a lost kingdom that a runaway spell has split into islands in the sky.
+          You run and jump between the islands. Once you find the Glide Cloak, you can dive to build speed and
+          pull yourself back up on your own momentum. Each level ends at a link point, which pulls the island you started on
+          back into place beside the one you reached.</p>
+        <div class="buttons">
+          <a class="button" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
+          <a class="more" href="#process">How I designed it</a>
+        </div>
+        <p class="note">Needs a desktop browser and a keyboard. The first load can take a moment.</p>
+      </div>
+      <div class="hero-side">
+        <figure class="trailer">
+          <video controls preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer, captured in-engine from the current build">
+            <source src="assets/trailer.mp4" type="video/mp4">
+          </video>
+        </figure>
+        <dl class="strip">
+          <div><dt>ROLE</dt><dd>Game direction, story outline and design decisions</dd></div>
+          <div><dt>TEAM</dt><dd>Solo, with AI coding assistants</dd></div>
+          <div><dt>ENGINE</dt><dd>Godot 4.7</dd></div>
+          <div><dt>PLATFORMS</dt><dd>Web (plays in the browser), Windows</dd></div>
+          <div><dt>TIMELINE</dt><dd>September 2026 – present</dd></div>
+          <div><dt>STATUS</dt><dd>Playable draft: two chapters, six levels</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="seam"></div>
+
+<main class="wrap">
+
+  <section id="the-game">
+    <div class="two-col">
+      <div class="stitched">
+        <h3>How to play</h3>
+        <dl class="keys">
+          <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Move</dd>
+          <dt><kbd>Space</kbd></dt><dd>Jump</dd>
+          <dt><kbd>Shift</kbd></dt><dd>Hold on the ground to sprint</dd>
+          <dt><kbd>Shift</kbd></dt><dd>Hold in the air to glide, once you have the Glide Cloak</dd>
+          <dt><kbd>↓</kbd><kbd>↑</kbd></dt><dd>While gliding: dive, pull up</dd>
+        </dl>
+        <p>You can pick any level from the menu.</p>
+      </div>
+      <div>
+        <h3>Who made what</h3>
+        <dl class="facts">
+          <dt>My role</dt><dd>Game direction, story outline and design decisions. The level drafts and the story text were written with Claude.</dd>
+          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex for level tuning and video tools), directed by me. I playtested the physics test course; the six levels have not been playtested yet.</dd>
+          <dt>Status</dt><dd>Playable draft: two chapters, six levels. Level 6 ends on "Chapter Two · The End". The level layouts are still drafts.</dd>
+          <dt>This page</dt><dd>The text was drafted with Claude from my project notes.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="cards">
+      <a class="card" href="#step-1">
+        <img class="pixelated" src="assets/glide-under-wall.gif" alt="" width="1280" height="720" loading="lazy">
+        <div><h3>The pull-up</h3><p>You dive to build speed, then pull yourself back up into the sky.</p></div>
+      </a>
+      <a class="card" href="#step-4">
+        <img class="pixelated" src="assets/relics-rule.png" alt="" width="1280" height="720" loading="lazy">
+        <div><h3>One rule</h3><p>A relic can change the direction you are moving, but not your speed.</p></div>
+      </a>
+      <a class="card" href="#step-5">
+        <img class="pixelated" src="assets/stitch-guide.png" alt="" width="1280" height="720" loading="lazy">
+        <div><h3>No tips</h3><p>The route is drawn into the world instead.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <section id="process">
+    <h2 class="process-head">Design process</h2>
+
+    <article class="step no-media" id="step-1">
+      <div>
+        <h3>1. One pillar: the pull-up</h3>
+        <div class="verbs pixel"><span>drift</span><span>dive</span><span class="picked">pull up</span></div>
+        <p>I started from three verbs: drift, dive and pull up. I picked one of them to be the thrill. You dive to build
+          speed, then pull yourself back up into the sky.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-2">
+      <div>
+        <h3>2. Getting the physics to feel honest</h3>
+        <p class="tag">PROBLEM</p>
+        <p>My reference was a real wingsuit: no engine, fast, turning a fall into forward motion. The first prototypes
+          missed that in four ways, and each time I sent them back:</p>
+        <ul>
+          <li>Gliding is how you move, not a resource you trade.</li>
+          <li>No updrafts.</li>
+          <li>Nothing pushes you up. A pull-up spends the speed you built while diving.</li>
+          <li>Holding "up" must not let you fly level forever.</li>
+        </ul>
+        <p class="tag">RESULT</p>
+        <p>The final model is a simple glider. Lift and drag grow with the square of speed, and wings stall past a critical
+          angle. An automated test checks that no input glides flatter than holding glide and leaving the pitch alone.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/glide-under-wall.gif" alt="The player dives under a hanging rock wall and pulls up onto the next island" width="1280" height="720" loading="lazy"></div>
+        <p class="caption">Diving under a hanging wall and pulling up onto the next island (physics test course).</p>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-3">
+      <div>
+        <h3>3. A platformer first</h3>
+        <p class="tag">TURNING POINT</p>
+        <p>After flying the first prototype I changed direction. The core of the game is running and jumping, and
+          gliding is a move you hold in the air.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-4">
+      <div>
+        <h3>4. One rule behind every relic</h3>
+        <p class="tag">DECISION</p>
+        <p>When the game needed more abilities, the glide rule became a test for each one: a relic can change the direction
+          you are moving, but not your speed. If a relic handed out speed, nobody would need to dive.</p>
+        <p>The code tracks this as an energy ceiling, y − v²/(2g): the highest point you could reach if all your speed
+          became height. Drag only lowers it.</p>
+        <p class="tag">RESULT</p>
+        <p>The test decided what each relic looks like. The doors give back the speed you came in with, turned to match the
+          exit. The Mirror Shield is a bounce at the speed you hit the wall, because a wall jump would be a push. The rope
+          cannot be pumped, so you swing only as high as the energy you brought. The bracer flips a fall into a rise at the
+          same speed, once per jump.</p>
+        <p class="tag">EXCEPTION</p>
+        <p>The doors are the one exception to the ceiling: going in low and coming out high is free height. So I have to
+          check how high each pair can carry you, and a low island needs a door back.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>How the work split: the glide rule is mine, and the bracer and the doors were my ideas. Claude proposed the rope
+          and the shield, drafted how all four work and wrote the code. The bracer is still Claude's draft and may change.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/relics-rule.png" alt="Four panels, one per relic: the Twin Doors, the Mirror Shield, Roland's Rope and the Antigravity Bracer. In each panel the player's direction changes and the speed stays the same." width="1280" height="720" loading="lazy"></div>
+        <p class="caption">Four relics, one rule: the direction changes, the speed does not.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-5">
+      <div>
+        <h3>5. No tips: the map shows the way</h3>
+        <p class="tag">DECISION</p>
+        <p>Key hints are off by default. Signs and stones only tell the story. The keys appear on the controls page and on
+          the card you get with a relic. Level 1 can be finished with only the arrow keys and jump.</p>
+        <p>The route is drawn into the world instead. Golden stitching, a dashed line with a light running along it, marks
+          the path where a new ability first appears. A miss there costs little: you land on something below or go back to
+          the platform you left.</p>
+        <p class="tag">STILL OPEN</p>
+        <p>Claude Code built the stitching and placed it in the draft levels. Nobody has played with it yet, so I do not know
+          if it reads.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/stitch-guide.png" alt="A dashed line of golden stitching runs across the gap to the next part of the route, with a brighter point of light moving along it" width="1280" height="720" loading="lazy"></div>
+        <p class="caption">Golden stitching marks the route where a new ability first appears.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-6">
+      <div>
+        <h3>6. Measuring difficulty instead of guessing</h3>
+        <p class="tag">PROBLEM</p>
+        <p>Every session writes a playtest log. In one session on the physics test course, all five falls happened at the
+          same gap: I opened the glide too early.</p>
+        <p class="tag">METHOD</p>
+        <p>To put a number on it I use an automated level checker. An autopilot tries
+          eight input strategies at more than 30 different timings from each island, heading right, and reports the timing window: how much earlier
+          or later you can press and still make it.</p>
+        <p class="tag">RESULT</p>
+        <p>That gap had a 0.20&nbsp;s window. A test layout with the wall shortened
+          and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
+      </div>
+      <div class="side">
+        <div class="stat">
+          <p class="stat-label">TIMING WINDOW AT THAT GAP</p>
+          <p class="stat-value pixel">0.20 s → <b>0.60 s</b></p>
+        </div>
+      </div>
+    </article>
+
+    <article class="step" id="step-7">
+      <div>
+        <h3>7. Leaving room, and measuring it</h3>
+        <p class="tag">DECISION</p>
+        <p>I asked for room on every step: no jump that only works if you hit it exactly. Three scripts, written by
+          Claude Code and Codex, measure that.</p>
+        <ul>
+          <li>The level checker from the last section, run on all six levels.</li>
+          <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it uses only
+            the arrow key and jump.</li>
+          <li>A jitter test. It takes that same route and shifts the position and timing of its key presses at random, by up
+            to 20 pixels or 0.08 seconds, 24 runs per level, and counts how many runs still finish. The route cannot adapt the
+            way a person would, so the number is pessimistic.</li>
+        </ul>
+        <p class="tag">RESULT</p>
+        <p>The targets were a 0.4&nbsp;s window on every required step and 75% of jitter runs finishing. All six levels
+          reach the jitter target at that setting, between 79% and 100%. In levels 1 to 4 every step reaches 0.4&nbsp;s.
+          Levels 5 and 6 are built on doors, wall bounces and rope swings, which the checker does not try, so those rest on
+          the jitter test alone. The stairs in level 6 are short at 0.35&nbsp;s, but you can stop on each step. The optional
+          bracer ledges in levels 4 and 5 are tighter on purpose, about 0.36 to 0.38&nbsp;s in a separate sweep.</p>
+        <p class="tag">STILL OPEN</p>
+        <p>These results come from scripts. No real person has played these six levels yet.</p>
+      </div>
+      <div class="side">
+        <div class="stat">
+          <p class="stat-label">JITTER RUNS THAT FINISH, BY LEVEL</p>
+          <p class="stat-value pixel"><b>79% – 100%</b></p>
+          <p class="stat-note">Target: 75%</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="step" id="step-8">
+      <div>
+        <h3>8. Story told through the mechanics</h3>
+        <p>A runaway spell split the kingdom into islands. The hero is a new adventurer who does not know he is the old
+          king's son. Each level ends at a link point, and touching it pulls the island you came from back into place.
+          Finishing a level gives you a relic.</p>
+        <p>Relic text stays short, the way <em>Slay the Spire</em> does it. The Antigravity Bracer reads: "Engraved inside:
+          Whoever strikes first loses. Corvin says it isn't his."</p>
+        <p class="tag">CHAPTER ONE</p>
+        <p>Chapter one has three castles. Gatekeep's gate stays open. Thornhold has walled itself in behind rows of stakes.
+          The Archive keeps adding crooked floors. Until you link them, the castle and its lord are drained of colour. You
+          start with an old golden spool in your hand, and nobody says what it means.</p>
+        <p class="tag">CHAPTER TWO</p>
+        <p>Chapter two adds three more lords. Lady Viola's Mirrorhold is all mirrors. The Empty Keep breaks the pattern:
+          nobody is home, and Sir Roland's notes count the islands he searched. You find him alone on a rock at the far end
+          of the level. Brother Tomas stopped the Clock Tower at ten to five, the moment the kingdom broke. When he finishes
+          speaking, the hands move and the stones fall. These three lords and their lines are drafts from Claude that I have
+          not settled yet. Levels 4 and 5 also hide a ledge off the main route that only the bracer can reach, with one more
+          fragment on top.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>The outline is mine. The names and backstory details were proposed by Claude and approved by me. The text (lines,
+          signs, relic descriptions) was drafted with Claude.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/castles-and-lords.png" alt="Four screenshots: Sir Gawen speaks at Gatekeep, Baron Corvin at Thornhold, Countess Elinor at the Archive, and the Glide Cloak relic panel with its story fragment" width="2568" height="1448" loading="lazy"></div>
+        <p class="caption">Chapter one: the three castles and their lords, and the relic you get at Gatekeep.</p>
+        <div class="media"><img class="pixelated" src="assets/link-sequence.png" alt="Four steps: the player reaches the link point, a golden thread reaches back, the start island docks, and a relic rises from the crystal" width="2568" height="1448" loading="lazy"></div>
+        <p class="caption">Reaching a link point: the thread, the island docking, and the relic.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-9">
+      <div>
+        <h3>9. Tapestry and kintsugi</h3>
+        <p class="tag">DECISION</p>
+        <p>I asked for art that is comfortable to look at and has its own character. The direction is tapestry and kintsugi:
+          the rock on each island is drawn as layers of weave, with gold in the cracks. When you finish a link, the gold
+          lights up.</p>
+        <p class="tag">RESULT</p>
+        <p>Each of the six levels has its own sky. Claude Code generated all of it in code, like the rest of the game's
+          art.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/art-before-after.png" alt="Before and after the art pass, side by side: flat grey stone and a plain blue sky on the left, woven banded stone with gold thread in the cracks and a warmer sky on the right" width="1292" height="1104" loading="lazy"></div>
+        <p class="caption">The same scenes before and after the art pass.</p>
+      </div>
+      <div class="wide">
+        <div class="media"><img class="pixelated" src="assets/six-skies.png" alt="Six views, one per level: dawn at Gatekeep, overcast at Thornhold, dusk at the Archive, silver at Mirrorhold, a pale wasteland at the Empty Keep, and a late dusk with stars at the Clock Tower" width="1920" height="720" loading="lazy"></div>
+        <p class="caption">Six levels, six skies.</p>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-10">
+      <div>
+        <h3>10. Tools so I could build my own levels</h3>
+        <p>To design levels myself, I had tools built into the editor. Selecting an island draws its jump arc and glide
+          line. A double-click runs the level checker. A five-minute narrated tutorial walks through the whole workflow.</p>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-11">
+      <div>
+        <h3>11. What comes next</h3>
+        <p>Chapter three is still an outline. It leads to the Throne Isle, the castle you can see in the sky from level 1.
+          Brother Tomas gives you a clockmaker's key at the end of level 6 that does nothing yet. The ending is not
+          decided.</p>
+        <p>The other job is real playtests. The game already writes a log of each session for that.</p>
+      </div>
+    </article>
+  </section>
+
+  <div class="seam"></div>
+
+  <section id="about">
+    <div class="stitched">
+      <h2>About</h2>
+      <p>I am a computer science student at Wenzhou-Kean University. I started playing <em>Assassin's Creed: Brotherhood</em>
+        in third grade, and the recruits you train and call into battle stayed with me. My older sister made dialogue-based
+        games of her own, which got me thinking about how games are built.</p>
+      <p>For an independent study I replicated Voyager, an AI agent that plays Minecraft. I want to build NPCs whose
+        abilities grow out of what they have done in play. <em>Islands in the Sky</em> is the game I am building now.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Headings use Ark Pixel Font (SIL Open Font License 1.1, <a href="assets/OFL-ark-pixel-font.txt">license</a>).
+    All game art, sound and music were generated in code for this project.</p>
+</footer>
+
+</body>
+</html>
