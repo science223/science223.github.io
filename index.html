@@ -189,6 +189,10 @@
   .stat-value { font-size: 36px; line-height: 1.2; margin: 0; color: var(--muted); }
   .stat-value b { font-weight: normal; color: var(--gold); }
   .stat-note { color: var(--muted); font-size: 15px; margin: 6px 0 0; }
+  .ideas { border-collapse: collapse; width: 100%; margin: 10px 0 4px; font-size: 16px; line-height: 1.5; }
+  .ideas th { text-align: left; vertical-align: top; color: var(--gold); font-weight: normal; white-space: nowrap; padding: 8px 16px 8px 0; }
+  .ideas td { padding: 8px 0; }
+  .ideas tr + tr th, .ideas tr + tr td { border-top: 1px solid var(--panel-hi); }
   ul { padding-left: 22px; margin: 0 0 14px; }
   li { margin-bottom: 6px; }
   footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; }
@@ -212,6 +216,10 @@
     .facts { grid-template-columns: minmax(0, 1fr); gap: 0; }
     .facts dd { margin-bottom: 10px; }
     .step { padding-left: 18px; }
+    .ideas, .ideas tbody, .ideas tr, .ideas th, .ideas td { display: block; }
+    .ideas th { padding: 10px 0 0; white-space: normal; }
+    .ideas td { padding: 0 0 8px; }
+    .ideas tr + tr td { border-top: 0; }
   }
 </style>
 </head>
@@ -429,51 +437,92 @@
         <p>I asked for room on every step: no jump that only works if you hit it exactly. Three scripts, written by
           Claude Code and Codex, measure that.</p>
         <ul>
-          <li>The level checker from the last section, run on all six levels.</li>
+          <li>The level checker from the last section. It only tries jumps to the right, so after the rework every required
+            step was also swept on its own, including the ones that go left, up, through doors or on the rope.</li>
           <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it takes the sprint leap.</li>
+          <li>An exit check for each level: from every place you can land there is a way back to the route, and the
+            shortcuts that would skip the level's idea do not work.</li>
           <li>A jitter test. It takes that same route and shifts the position and timing of its key presses at random, by up
             to 20 pixels or 0.08 seconds, 24 runs per level, and counts how many runs still finish. The route cannot adapt the
             way a person would, so the number is pessimistic.</li>
         </ul>
         <p class="tag">RESULT</p>
-        <p>The targets were a 0.4&nbsp;s window on every required step and 75% of jitter runs finishing. Levels 2 to 6 reach the jitter target at that setting, between 79% and 100%. The reworked level 1 reaches 38%, because a scripted route cannot turn around on the tower the way a person can, and a miss there only drops you one ledge. Every rightward step on the main routes of levels 1 to 4 reaches 0.4&nbsp;s, and the practice sections were swept separately.
-          Levels 5 and 6 are built on doors, wall bounces and rope swings, which the checker does not try, so those rest on
-          the jitter test alone. The stairs in level 6 are short at 0.35&nbsp;s, but you can stop on each step. The optional
-          bracer ledges in levels 4 and 5 are tighter on purpose, about 0.36 to 0.38&nbsp;s in a separate sweep.</p>
+        <p>The targets were a 0.4&nbsp;s window on every required step and 75% of jitter runs finishing. The narrowest
+          required step is 0.43&nbsp;s in levels 2, 3, 4 and 6, and 0.45&nbsp;s in level 5. In level 1 the rightward
+          steps reach 0.40&nbsp;s; climbing the bridge tower is closer to 0.32&nbsp;s, but a miss only drops you one
+          ledge. On the jitter test, levels 2 to 5 finish 88% to 100% of runs. Level 1 reaches 38%, because a scripted
+          route cannot turn around on the tower the way a person can.</p>
         <p class="tag">STILL OPEN</p>
-        <p>These results come from scripts. No real person has played these six levels yet.</p>
+        <p>Level 6 reaches 63%. When the jitter makes the autopilot grab the rope too early, the swing carries less speed and
+          the window to let go shrinks to about 0.36&nbsp;s. That is the next thing to fix. All of these results come from
+          scripts. No real person has played the reworked levels yet.</p>
       </div>
       <div class="side">
         <div class="stat">
-          <p class="stat-label">JITTER RUNS THAT FINISH, LEVELS 2 TO 6</p>
-          <p class="stat-value pixel"><b>79% – 100%</b></p>
-          <p class="stat-note">Target: 75%</p>
+          <p class="stat-label">JITTER RUNS THAT FINISH, LEVELS 2 TO 5</p>
+          <p class="stat-value pixel"><b>88% – 100%</b></p>
+          <p class="stat-note">Target: 75%. Level 6: 63%.</p>
         </div>
       </div>
     </article>
 
-    <article class="step" id="step-8">
+    <article class="step no-media" id="step-8">
       <div>
-        <h3>8. Story told through the mechanics</h3>
+        <h3>8. One idea per level</h3>
+        <p class="tag">PROBLEM</p>
+        <p>The first six levels were short, about 15 seconds each for the autopilot, and every one was a row of jumps that
+          could have sat in any castle. I asked for longer levels with a reason behind the layout.</p>
+        <p class="tag">METHOD</p>
+        <p>Each level now starts from one sentence: the player has to do something before they understand why, and it only
+          makes sense in that castle. Claude Code weighed at least three ideas per level and wrote down why the others were
+          dropped. Each idea comes in three steps: you run into it, you use it on purpose, then you trust it at a spot where
+          you cannot see the next step. That spot is the only place golden stitching appears after the practice section.
+          At least once per level the route stops going right.</p>
+        <table class="ideas">
+          <tr><th>Gatekeep</th><td>You see the far bank and cannot jump it, so you climb back up the bridge tower to get the height.</td></tr>
+          <tr><th>Thornhold</th><td>You run into a wall, slide down it, and find that the bottom of the wall hangs in the air. The way in is underneath.</td></tr>
+          <tr><th>The Archive</th><td>Ledges you cannot reach need a fall first, so the bracer can flip it. The deepest fall in the tower is the gap left by two pages the historian tore out.</td></tr>
+          <tr><th>Mirrorhold</th><td>Every mirror takes you back to the hall where Lady Viola stands. The way on is the one mirror she never looks into.</td></tr>
+          <tr><th>The Empty Keep</th><td>The same wall as in Thornhold, but now the shield bounces you back through the empty hall. Here the walls are the road.</td></tr>
+          <tr><th>The Clock Tower</th><td>You climb a tower frozen in mid-explosion, then jump down the weight shaft yourself. The tower stopped in the middle of a fall.</td></tr>
+        </table>
+        <p class="tag">RESULT</p>
+        <p>The autopilot route through all six levels went from about 103 seconds to 208. Each level has a design note with
+          the ideas it rejected and what the tests taught.</p>
+        <p class="tag">STILL OPEN</p>
+        <p>Nobody has played the new levels. The open question in each one is whether a player gets the idea without being
+          told.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-9">
+      <div>
+        <h3>9. A story you piece together</h3>
         <p>A runaway spell split the kingdom into islands. The hero is a new adventurer who does not know he is the old
           king's son. Each level ends at a link point, and touching it pulls the island you came from back into place.
           Finishing a level gives you a relic.</p>
-        <p>Relic text stays short, the way <em>Slay the Spire</em> does it. The Antigravity Bracer reads: "Engraved inside:
-          Whoever strikes first loses. Corvin says it isn't his."</p>
-        <p class="tag">CHAPTER ONE</p>
-        <p>Chapter one has three castles. Gatekeep's gate stays open. Thornhold has walled itself in behind rows of stakes.
-          The Archive keeps adding crooked floors. Until you link them, the castle and its lord are drained of colour. You
-          start with an old golden spool in your hand, and nobody says what it means.</p>
-        <p class="tag">CHAPTER TWO</p>
-        <p>Chapter two adds three more lords. Lady Viola's Mirrorhold is all mirrors. The Empty Keep breaks the pattern:
-          nobody is home, and Sir Roland's notes count the islands he searched. You find him alone on a rock at the far end
-          of the level. Brother Tomas stopped the Clock Tower at ten to five, the moment the kingdom broke. When he finishes
-          speaking, the hands move and the stones fall. These three lords and their lines are drafts from Claude that I have
-          not settled yet. Levels 4 and 5 also hide a ledge off the main route that only the bracer can reach, with one more
-          fragment on top.</p>
+        <p class="tag">PROBLEM</p>
+        <p>The first story text was a handful of one-line signs. I said it was too thin, and that fragmented storytelling
+          does not mean short. My references were the item text in <em>Dark Souls</em> and the events in
+          <em>Slay the Spire</em>.</p>
+        <p class="tag">METHOD</p>
+        <p>Before writing more text, we built a world book in the style of SillyTavern lorebooks: who lives on each
+          island, what they want, what they fear, what they hide, and who owes whom. Every fragment in the game is now a
+          document someone wrote for a reason: a toll keeper's ledger, a mason's twelfth repair request, a guest book, a
+          bell-ringer's log. Some of them lie. The night the kingdom broke is never told directly. Each level has twelve
+          fragments, eight on the main route and four you find by missing a jump or going the long way.</p>
+        <p>One thread as an example: in level 1 the toll keeper lets a woman with a child cross for free because she has no
+          coins. In level 2 a baron's poster says she had none. In level 4 a wardrobe slip shows who took twelve coins out
+          of her cloak pocket before handing it over.</p>
+        <p class="tag">CHAPTERS</p>
+        <p>Chapter one has three castles. Gatekeep's gate stays open. Thornhold has walled itself in behind stakes that
+          point inward. The Archive's records are two days short. Chapter two adds three more. Lady Viola's Mirrorhold is
+          all mirrors. Nobody is home at the Empty Keep, and Sir Roland's notes count the islands he searched. The Clock
+          Tower has said ten to five ever since, and when Brother Tomas finishes speaking, the hands move and the stones
+          fall.</p>
         <p class="tag">WHO DID WHAT</p>
-        <p>The outline is mine. The names and backstory details were proposed by Claude and approved by me. The text (lines,
-          signs, relic descriptions) was drafted with Claude.</p>
+        <p>The outline is mine. The names and backstory details were proposed by Claude and approved by me. The world book
+          and the fragments were drafted by Claude, and I have not signed off on the new ones yet.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/castles-and-lords.png" alt="Four screenshots: Sir Gawen speaks at Gatekeep, Baron Corvin at Thornhold, Countess Elinor at the Archive, and the Glide Cloak relic panel with its story fragment" width="2568" height="1448" loading="lazy"></div>
@@ -483,9 +532,9 @@
       </div>
     </article>
 
-    <article class="step" id="step-9">
+    <article class="step" id="step-10">
       <div>
-        <h3>9. Tapestry and kintsugi</h3>
+        <h3>10. Tapestry and kintsugi</h3>
         <p class="tag">DECISION</p>
         <p>I asked for art that is comfortable to look at and has its own character. The direction is tapestry and kintsugi:
           the rock on each island is drawn as layers of weave, with gold in the cracks. When you finish a link, the gold
@@ -504,17 +553,17 @@
       </div>
     </article>
 
-    <article class="step no-media" id="step-10">
+    <article class="step no-media" id="step-11">
       <div>
-        <h3>10. Tools so I could build my own levels</h3>
+        <h3>11. Tools so I could build my own levels</h3>
         <p>To design levels myself, I had tools built into the editor. Selecting an island draws its jump arc and glide
           line. A double-click runs the level checker. A five-minute narrated tutorial walks through the whole workflow.</p>
       </div>
     </article>
 
-    <article class="step no-media" id="step-11">
+    <article class="step no-media" id="step-12">
       <div>
-        <h3>11. What comes next</h3>
+        <h3>12. What comes next</h3>
         <p>Chapter three is still an outline. It leads to the Throne Isle, the castle you can see in the sky from level 1.
           Brother Tomas gives you a clockmaker's key at the end of level 6 that does nothing yet. The ending is not
           decided.</p>
