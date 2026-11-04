@@ -106,6 +106,41 @@ body {
 		transform: translateY(-10px);
 	}
 }
+/* 手机竖着拿：游戏是横屏的，先请人横过来（下面照常在加载） */
+#turn {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 10;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 28px;
+	background: #2b2238;
+	color: #f7f3e8;
+	font: 24px "Pixel", system-ui, sans-serif;
+	-webkit-font-smoothing: none;
+}
+#turn i {
+	width: 26px;
+	height: 44px;
+	border: 4px solid #f2c94c;
+	border-radius: 4px;
+	animation: turn 2.4s steps(1) infinite;
+}
+@keyframes turn {
+	0%, 40% {
+		transform: rotate(0deg);
+	}
+	50%, 90% {
+		transform: rotate(90deg);
+	}
+}
+@media (orientation: portrait) and (pointer: coarse) {
+	#turn {
+		display: flex;
+	}
+}
 #status-notice {
 	display: none;
 	position: absolute;
@@ -136,9 +171,11 @@ body {
 	<div id="status-notice"></div>
 </div>
 
+<div id="turn"><i></i><span id="turn-words">Turn your phone sideways</span></div>
+
 <script src="index.js"></script>
 <script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":940248,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":947468,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
@@ -148,11 +185,12 @@ const engine = new Engine(GODOT_CONFIG);
 	const loading = document.getElementById('loading');
 	const chinese = (navigator.language || '').toLowerCase().startsWith('zh');
 	const words = chinese
-		? {name: '空中之岛', sub: '失落的王国', load: '加载中', almost: '马上就好'}
-		: {name: 'Islands in the Sky', sub: 'The Lost Kingdom', load: 'Loading', almost: 'Almost there'};
+		? {name: '空中之岛', sub: '失落的王国', load: '加载中', almost: '马上就好', turn: '把手机横过来'}
+		: {name: 'Islands in the Sky', sub: 'The Lost Kingdom', load: 'Loading', almost: 'Almost there', turn: 'Turn your phone sideways'};
 	document.getElementById('name').textContent = words.name;
 	document.getElementById('sub').textContent = words.sub;
 	loading.textContent = words.load;
+	document.getElementById('turn-words').textContent = words.turn;
 
 	// 加载动画：金线顺着进度缝过去，红斗篷的小人跟着滑。
 	const scene = document.getElementById('scene').getContext('2d');
@@ -225,7 +263,8 @@ const engine = new Engine(GODOT_CONFIG);
 		hero(head - 2, LINE - 9 + Math.round(Math.sin(t * 3)), Math.floor(t * 8) % 2);
 
 		if (target !== null) {
-			const percent = Math.min(99, Math.floor(shown * 100));
+			// 网慢的时候前几个百分点要很久，带一位小数，看得出还在动
+			const percent = shown < 0.1 ? (Math.floor(shown * 1000) / 10).toFixed(1) : Math.min(99, Math.floor(shown * 100));
 			loading.textContent = shown > 0.985 ? words.almost : words.load + ' ' + percent + '%';
 		}
 		requestAnimationFrame(draw);
