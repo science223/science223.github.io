@@ -244,10 +244,10 @@
         <h2>Islands in the Sky</h2>
         <p class="pixel subtitle">The Lost Kingdom</p>
         <p class="pixel subtitle-zh">空中之岛 · 失落的王国</p>
-        <p class="pitch">A pixel-art platformer set in a lost kingdom that a runaway spell has split into islands in the sky.
-          You run and jump between the islands. Once you find the Glide Cloak, you can dive to build speed and
-          pull yourself back up on your own momentum. Each level ends at a link point, which pulls the island you started on
-          back into place beside the one you reached.</p>
+        <p class="pitch">A pixel-art platformer about a boy raised on a small farm island, who climbs a broken kingdom to find the
+          woman calling him in a dream. A spell meant to make the old king live forever tore the kingdom into islands in the
+          sky and stopped every clock at ten to five. You run, jump and glide between the islands. At the end of each level
+          you tie a broken golden knot, that island's time starts again, and its lord recognises something about you.</p>
         <div class="buttons">
           <a class="button" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
           <a class="more" href="#process">How I designed it</a>
@@ -266,7 +266,7 @@
           <div><dt>ENGINE</dt><dd>Godot 4.7</dd></div>
           <div><dt>PLATFORMS</dt><dd>Web (plays in the browser), Windows</dd></div>
           <div><dt>TIMELINE</dt><dd>September 2026 – present</dd></div>
-          <div><dt>STATUS</dt><dd>Playable draft: two chapters, six levels</dd></div>
+          <div><dt>STATUS</dt><dd>Playable draft: seven levels and an ending</dd></div>
         </dl>
       </div>
     </div>
@@ -281,11 +281,10 @@
       <div class="stitched">
         <h3>How to play</h3>
         <dl class="keys">
-          <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Move</dd>
-          <dt><kbd>Space</kbd></dt><dd>Jump</dd>
-          <dt><kbd>Shift</kbd></dt><dd>Hold on the ground to sprint</dd>
-          <dt><kbd>Shift</kbd></dt><dd>Hold in the air to glide, once you have the Glide Cloak</dd>
-          <dt><kbd>↓</kbd><kbd>↑</kbd></dt><dd>While gliding: dive, pull up</dd>
+          <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Move. Keep running one way and you pick up speed.</dd>
+          <dt><kbd>Space</kbd></dt><dd>Jump. Hold it to jump higher. In the air, hold it to catch a rope, once you have one.</dd>
+          <dt><kbd>Shift</kbd></dt><dd>Hold in the air to glide, once you have the Glide Cloak. Let go to drop.</dd>
+          <dt><kbd>↑</kbd></dt><dd>While falling: flip upward, once you have the bracer</dd>
         </dl>
         <p>You can pick any level from the menu.</p>
       </div>
@@ -293,17 +292,17 @@
         <h3>Who made what</h3>
         <dl class="facts">
           <dt>My role</dt><dd>Game direction, story outline and design decisions. The level drafts and the story text were written with Claude.</dd>
-          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex for level tuning and video tools), directed by me. I playtested the physics test course; the six levels have not been playtested yet.</dd>
-          <dt>Status</dt><dd>Playable draft: two chapters, six levels. Level 6 ends on "Chapter Two · The End". The level layouts are still drafts.</dd>
+          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex for level tuning and video tools), directed by me. I playtested the physics test course; the seven levels have not been playtested yet.</dd>
+          <dt>Status</dt><dd>Playable draft: seven levels and an ending. The level layouts, the lines and the signs are still drafts.</dd>
           <dt>This page</dt><dd>The text was drafted with Claude from my project notes.</dd>
         </dl>
       </div>
     </div>
 
     <div class="cards">
-      <a class="card" href="#step-1">
-        <img class="pixelated" src="assets/glide-under-wall.gif" alt="" width="1280" height="720" loading="lazy">
-        <div><h3>The pull-up</h3><p>You dive to build speed, then pull yourself back up into the sky.</p></div>
+      <a class="card" href="#step-12">
+        <img class="pixelated" src="assets/glide-hold.gif" alt="" width="1280" height="720" loading="lazy">
+        <div><h3>Fewer moves</h3><p>Run and jump to start. Each relic adds one thing, and the last level asks for all of them.</p></div>
       </a>
       <a class="card" href="#step-4">
         <img class="pixelated" src="assets/relics-rule.png" alt="" width="1280" height="720" loading="lazy">
@@ -327,6 +326,8 @@
         <div class="verbs pixel"><span>drift</span><span>dive</span><span class="picked">pull up</span></div>
         <p>I started from three verbs: drift, dive and pull up. I picked one of them to be the thrill. You dive to build
           speed, then pull yourself back up into the sky.</p>
+        <p class="tag">LATER</p>
+        <p>I cut the pull-up in the end. See step 12.</p>
       </div>
     </article>
 
@@ -345,10 +346,12 @@
         <p class="tag">RESULT</p>
         <p>The final model is a simple glider. Lift and drag grow with the square of speed, and wings stall past a critical
           angle. An automated test checks that no input glides flatter than holding glide and leaving the pitch alone.</p>
+        <p class="tag">LATER</p>
+        <p>Pitch is no longer a control: hold glide to drift, let go to drop. See step 12.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/glide-under-wall.gif" alt="The player dives under a hanging rock wall and pulls up onto the next island" width="1280" height="720" loading="lazy"></div>
-        <p class="caption">Diving under a hanging wall and pulling up onto the next island (physics test course).</p>
+        <p class="caption">The old dive and pull-up, on the physics test course. The game no longer has this move.</p>
       </div>
     </article>
 
@@ -380,6 +383,9 @@
         <p class="tag">WHO DID WHAT</p>
         <p>How the work split: the glide rule is mine, and the bracer and the doors were my ideas. Claude proposed the rope
           and the shield, drafted how all four work and wrote the code. The bracer is still Claude's draft and may change.</p>
+        <p class="tag">LATER</p>
+        <p>The dive is gone, so the reason above is out of date. The rule stays: the doors, the shield, the rope and the
+          bracer still change only your direction. See step 12.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/relics-rule.png" alt="Four panels, one per relic: the Twin Doors, the Mirror Shield, Roland's Rope and the Antigravity Bracer. In each panel the player's direction changes and the speed stays the same." width="1280" height="720" loading="lazy"></div>
@@ -452,6 +458,8 @@
           of the rope on the second floor of level 6. In levels 2, 3 and 4 the narrowest is 0.43&nbsp;s, in level 5 it is
           0.45&nbsp;s. The bridge tower in level 1 went from 0.33&nbsp;s to 0.44&nbsp;s once each ledge had more headroom.
           On the jitter test all six levels finish 88% to 100% of runs.</p>
+        <p class="tag">LATER</p>
+        <p>Meeting the target everywhere became its own problem: almost every step sat right at 0.4&nbsp;s. See step 12.</p>
         <p class="tag">STILL OPEN</p>
         <p>All of these results come from scripts. No real person has played the reworked levels yet. At the largest jitter
           setting, up to 0.14&nbsp;s off, only level 5 stays above 40%; that setting is there to show the weakest step in
@@ -492,6 +500,8 @@
         <p class="tag">STILL OPEN</p>
         <p>Nobody has played the new levels. The open question in each one is whether a player gets the idea without being
           told.</p>
+        <p class="tag">LATER</p>
+        <p>The new story in step 13 dropped the torn pages. The gap in the tower is still there.</p>
       </div>
     </article>
 
@@ -523,6 +533,8 @@
         <p class="tag">WHO DID WHAT</p>
         <p>The outline is mine. The names and backstory details were proposed by Claude and approved by me. The world book
           and the fragments were drafted by Claude, and I have not signed off on the new ones yet.</p>
+        <p class="tag">LATER</p>
+        <p>I replaced this story with a simpler one. See step 13.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/castles-and-lords.png" alt="Four screenshots: Sir Gawen speaks at Gatekeep, Baron Corvin at Thornhold, Countess Elinor at the Archive, and the Glide Cloak relic panel with its story fragment" width="2568" height="1448" loading="lazy"></div>
@@ -563,11 +575,95 @@
 
     <article class="step no-media" id="step-12">
       <div>
-        <h3>12. What comes next</h3>
-        <p>Chapter three is still an outline. It leads to the Throne Isle, the castle you can see in the sky from level 1.
-          Brother Tomas gives you a clockmaker's key at the end of level 6 that does nothing yet. The ending is not
-          decided.</p>
-        <p>The other job is real playtests. The game already writes a log of each session for that.</p>
+        <h3>12. Cutting back</h3>
+        <p class="tag">PROBLEM</p>
+        <p>Looking at the finished levels, I said the difficulty felt designed by a machine. Every required jump sat right at
+          0.4&nbsp;s, with no rise and fall, and there were too many moves to keep in your head. The data agreed: the
+          autopilot routes used the pull-up from step 1 five times, all of them in level 2.</p>
+        <p class="tag">DECISION</p>
+        <p>I asked for fewer moves that are easy to master, and for a player who can feel themselves getting better. Gliding
+          is now one button: hold it to drift forward, let go to drop. There is no pitch control. Shift used to sprint on
+          the ground as well; now you pick up speed by yourself after running one way for about a third of a second, so
+          Shift only glides. Each relic adds exactly one thing to do.</p>
+        <p class="tag">METHOD</p>
+        <p>I asked Claude to look up how other platformers handle difficulty. Three ideas came back. Teach a move where a
+          miss costs nothing, test it, then twist it. Shape the curve like a saw, with places to rest, instead of a straight
+          ramp. Forgive the player in ways they never see, like Celeste's jump just after leaving a ledge. The game already
+          had that forgiveness. So each level now opens loose, has a place to rest in the middle, and ends with a few steps
+          in a row that use the new move together with older ones. The rule for levels 1 to 6 is still that no step is
+          tighter than 0.4&nbsp;s. Only the last level goes below that.</p>
+        <p class="tag">RESULT</p>
+        <p>I measured every step again with the new controls, using a checker that follows each level's route. The old
+          layouts had steps as tight as 0.30&nbsp;s under the new controls. Level 1 now opens with windows of 0.62 and
+          1.23&nbsp;s, and its tightest step went from 0.30 to 0.40&nbsp;s. In level 2 the tightest went from 0.35 to
+          0.45&nbsp;s. The last stretch of a level now mixes moves. In level 2 you glide low under a wall instead of jumping
+          it. Level 3 ends with a flip straight into a glide. Level 5 ends at a slot behind a stone: glide at it and the
+          shield bounces you back, so you drop into the slot and flip up out of it.</p>
+        <p class="tag">STILL OPEN</p>
+        <p>Two steps are still under 0.4&nbsp;s. One is a jump to a mirror wall in level 4 (0.30&nbsp;s running, but you can
+          also stop and jump from standing). The other is a rope step in level 6 (0.33&nbsp;s), which the checker probably
+          underrates because the route catches the rope twice. The doors and the shield do not come back in levels 5 and 6
+          yet, only in the last level. The flip cannot get much looser than 0.45&nbsp;s because of how fast you fall, so
+          level 3 opens tighter than the others. Nobody has played any of this.</p>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-13">
+      <div>
+        <h3>13. A story I outlined myself</h3>
+        <p class="tag">PROBLEM</p>
+        <p>The story from step 9 had grown to six lords who each hid a secret about the night the kingdom broke, and twelve
+          fragments per level. I said it was too complicated, and that the way it was told did not hang together.</p>
+        <p class="tag">METHOD</p>
+        <p>I threw out the details and set a new outline myself. Claude asked me questions in twelve rounds, each with a
+          recommended answer, and I picked one or wrote my own.</p>
+        <p class="tag">THE STORY</p>
+        <p>The Weaver King wanted to live forever. His court mage, Mirelle, poured magic into him until it broke loose. The
+          magic blew him apart, ran into the golden thread that tied the kingdom together, and tore the kingdom into islands.
+          Every clock stopped at ten to five. The queen fled with their newborn son. The child fell, a magic cloak caught him,
+          and a farmer who never knew who he was raised him on a small island. Years later Mirelle, trapped in the storm,
+          reached him in a dream: a hand letting go, a cloak catching a baby, and a woman's voice calling him up to an
+          island with a gold roof. He leaves to find out who she is.</p>
+        <p>Each lord you wake says two lines. Gawen sees the half crown on your cloak, Corvin the thread that never runs
+          out, Elinor your face, Viola your mother's eyes. Roland saw the child fall, and Tomas saw the queen alive on the
+          Throne Isle. The second line points you on. Each level keeps
+          one or two signs, and in every level one of them shows the king trying to live forever.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>The outline is mine, including its turns: the queen losing the child, the farmer, the king who wanted to live
+          forever, the dream from the mage, and the lords frozen by the same spell. Claude wrote the lines and the
+          signs as drafts, and I have not gone through them yet.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-14">
+      <div>
+        <h3>14. The Throne Isle</h3>
+        <p class="tag">DECISION</p>
+        <p>The last level is the storm that broke the kingdom, with the old king still inside it. You do not fight the storm.
+          Five golden knots hold the storm together, and each one sits behind a harder version of an obstacle you passed to
+          earn a relic: a stepped wall to slip under for the cloak, a flip up into a bell of books for the bracer, a door at
+          the bottom of a pit, a mirror well for the shield, and three hanging rocks to swing across for the rope. Gold lightning marks the ground for
+          0.8&nbsp;s before it strikes. Each knot you tie shrinks the storm and saves your place. The sixth knot sits at the
+          centre, at the end of a run that uses every move in a row with no save in between.</p>
+        <p class="tag">RESULT</p>
+        <p>When the last knot is tied, the storm comes apart and Mirelle falls out of it. She says she poured the spell
+          into him and could not stop it. The islands sink back to the ground, the key from level 6 opens the last door, and
+          the queen says one word, his name: Aurin. The autopilot gets from
+          the start of the level to her in about 52 seconds.</p>
+        <p class="tag">STILL OPEN</p>
+        <p>This is the one level allowed to go below 0.4&nbsp;s. Its tightest steps leave about 0.3&nbsp;s. Nobody has played it.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/throne-isle.png" alt="Four screenshots: the player ties a golden knot under the storm, gold lightning strikes an island, Mirelle speaks once the storm is gone, and in the morning light the queen says Aurin" width="1280" height="720" loading="lazy"></div>
+        <p class="caption">The Throne Isle: a knot, the lightning, Mirelle, and the queen.</p>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-15">
+      <div>
+        <h3>15. What comes next</h3>
+        <p>Real playtests. The game already writes a log of each session for that. The lines and signs are drafts I still
+          need to go through.</p>
       </div>
     </article>
   </section>
