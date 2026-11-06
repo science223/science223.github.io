@@ -136,6 +136,25 @@ body {
 		transform: rotate(90deg);
 	}
 }
+#turn button {
+	padding: 12px 22px;
+	border: 3px solid #f2c94c;
+	border-radius: 4px;
+	background: #3a2e4c;
+	color: #f7f3e8;
+	font: 20px "Pixel", system-ui, sans-serif;
+	-webkit-font-smoothing: none;
+}
+#turn p {
+	max-width: 320px;
+	margin: 0 24px;
+	color: #c9bfd8;
+	font: 15px/1.6 system-ui, sans-serif;
+	text-align: center;
+}
+#turn p.loud {
+	color: #f7f3e8;
+}
 @media (orientation: portrait) and (pointer: coarse) {
 	#turn {
 		display: flex;
@@ -171,7 +190,7 @@ body {
 	<div id="status-notice"></div>
 </div>
 
-<div id="turn"><i></i><span id="turn-words">Turn your phone sideways</span></div>
+<div id="turn"><i></i><span id="turn-words">Turn your phone sideways</span><button id="turn-go" type="button">Play sideways</button><p id="turn-help"></p></div>
 
 <script src="index.js"></script>
 <script>
@@ -185,12 +204,46 @@ const engine = new Engine(GODOT_CONFIG);
 	const loading = document.getElementById('loading');
 	const chinese = (navigator.language || '').toLowerCase().startsWith('zh');
 	const words = chinese
-		? {name: '空中之岛', sub: '失落的王国', load: '加载中', almost: '马上就好', turn: '把手机横过来'}
-		: {name: 'Islands in the Sky', sub: 'The Lost Kingdom', load: 'Loading', almost: 'Almost there', turn: 'Turn your phone sideways'};
+		? {name: '空中之岛', sub: '失落的王国', load: '加载中', almost: '马上就好', turn: '把手机横过来',
+			go: '点这里横屏开始',
+			ios: '横过来画面不转的话：从屏幕右上角往下滑出控制中心，关掉「竖排方向锁定」（带锁的圆圈），再把手机横过来。',
+			android: '横过来画面不转的话：点上面的按钮；还不行就下拉通知栏，打开「自动旋转」。'}
+		: {name: 'Islands in the Sky', sub: 'The Lost Kingdom', load: 'Loading', almost: 'Almost there', turn: 'Turn your phone sideways',
+			go: 'Tap to play sideways',
+			ios: 'If the picture does not turn: swipe down from the top-right corner to open Control Center, switch off Portrait Orientation Lock (the circle with a lock), then turn your phone.',
+			android: 'If the picture does not turn: tap the button above. If that does not work, pull down the notification shade and switch on Auto-rotate.'};
 	document.getElementById('name').textContent = words.name;
 	document.getElementById('sub').textContent = words.sub;
 	loading.textContent = words.load;
 	document.getElementById('turn-words').textContent = words.turn;
+
+	// 手机竖着、系统又锁了方向时，浏览器一直是竖的，「把手机横过来」不会自己消失（网页读不到陀螺仪去转画面）。
+	// 安卓：点按钮进全屏再锁成横屏，锁了方向也能横过来。苹果手机的浏览器不让网页全屏、也不让网页锁方向，只能请人关掉竖排方向锁定。
+	const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+	const go = document.getElementById('turn-go');
+	const help = document.getElementById('turn-help');
+	const canLock = !ios && !!document.documentElement.requestFullscreen && !!(screen.orientation && screen.orientation.lock);
+	go.textContent = words.go;
+	help.textContent = ios ? words.ios : words.android;
+	if (!canLock) {
+		go.style.display = 'none';
+		help.classList.add('loud');
+	}
+	go.addEventListener('click', function () {
+		const lock = function () {
+			return screen.orientation.lock('landscape');
+		};
+		const ask = document.fullscreenElement ? Promise.resolve() : document.documentElement.requestFullscreen({navigationUI: 'hide'});
+		ask.then(lock).catch(function () {
+			help.classList.add('loud');
+		});
+		// 有的浏览器既不答应也不报错：一秒半以后还是竖的，就把说明亮出来
+		setTimeout(function () {
+			if (window.matchMedia('(orientation: portrait)').matches) {
+				help.classList.add('loud');
+			}
+		}, 1500);
+	});
 
 	// 加载动画：金线顺着进度缝过去，红斗篷的小人跟着滑。
 	const scene = document.getElementById('scene').getContext('2d');
