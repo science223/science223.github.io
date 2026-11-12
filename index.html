@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shoupeng Gao · Game Design Portfolio</title>
-<meta name="description" content="Game design portfolio: Islands in the Sky: The Lost Kingdom, a pixel-art platformer about diving and pulling up on your own momentum.">
+<meta name="description" content="Game design portfolio: Islands in the Sky: The Lost Kingdom, a pixel-art platformer about running, jumping and gliding between islands.">
 <style>
   @font-face {
     font-family: "Pixel";
@@ -252,11 +252,12 @@
           <a class="button" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
           <a class="more" href="#process">How I designed it</a>
         </div>
-        <p class="note">Needs a desktop browser and a keyboard. The first load can take a moment.</p>
+        <p class="note">Plays with a keyboard, or with touch buttons on a phone held sideways.
+          From China, the Tokyo mirror loads faster: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.</p>
       </div>
       <div class="hero-side">
         <figure class="trailer">
-          <video controls playsinline webkit-playsinline preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer, captured in-engine from the current build">
+          <video controls playsinline webkit-playsinline preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer recorded 11 November 2026 in-engine from the current build, with levels 1 and 2 as they are now">
             <source src="assets/trailer.mp4" type="video/mp4">
           </video>
         </figure>
@@ -284,15 +285,16 @@
           <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Move. Keep running one way and you pick up speed.</dd>
           <dt><kbd>Space</kbd></dt><dd>Jump. Hold it to jump higher. In the air, hold it to catch a rope, once you have one.</dd>
           <dt><kbd>Shift</kbd></dt><dd>Hold in the air to glide, once you have the Glide Cloak. Let go to drop.</dd>
-          <dt><kbd>Space</kbd> again</dt><dd>In the air: jump once more, once you have the Leaping Bracers</dd>
+          <dt><kbd>Space</kbd> again</dt><dd>In the air: jump once more, once you have the Leaping Bracers. In the same jump, the cloak and the double jump cannot both be used.</dd>
         </dl>
+        <p>On a phone held sideways there are touch buttons. They have not been tried on a real phone yet.</p>
         <p>You can pick any level from the menu.</p>
       </div>
       <div>
         <h3>Who made what</h3>
         <dl class="facts">
           <dt>My role</dt><dd>Game direction, story outline and design decisions. The level drafts and the story text were written with Claude.</dd>
-          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex for level tuning and video tools), directed by me. I playtested the physics test course; the seven levels have not been playtested yet.</dd>
+          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex for level tuning and video tools), directed by me. I playtested the physics test course, the old level 1 (cleared, 11-05) and level 1's second version (11-10). No other level, and neither of the current levels 1 and 2, has a recorded playtest yet.</dd>
           <dt>Status</dt><dd>Playable draft: seven levels and an ending. The level layouts, the lines and the signs are still drafts.</dd>
           <dt>Music</dt><dd>Nine pieces by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. I tried music synthesized in code first and it sounded harsh, so I replaced it. The sound effects are still synthesized in code.</dd>
           <dt>This page</dt><dd>The text was drafted with Claude from my project notes.</dd>
@@ -301,15 +303,15 @@
     </div>
 
     <div class="cards">
-      <a class="card" href="#step-12">
+      <a class="card" href="#step-1">
         <img class="pixelated" src="assets/glide-hold.gif" alt="" width="1280" height="720" loading="lazy">
         <div><h3>Fewer moves</h3><p>Run and jump to start. Each relic adds one thing, and the last level asks for all of them.</p></div>
       </a>
-      <a class="card" href="#step-4">
+      <a class="card" href="#step-2">
         <img class="pixelated" src="assets/relics-rule.png" alt="" width="1280" height="720" loading="lazy">
-        <div><h3>One rule</h3><p>A relic can change the direction you are moving, but not your speed.</p></div>
+        <div><h3>One rule</h3><p>The doors, the shield and the rope change direction, not speed. The bracer is a double jump; it and the cloak cannot both be used in one jump.</p></div>
       </a>
-      <a class="card" href="#step-5">
+      <a class="card" href="#step-3">
         <img class="pixelated" src="assets/stitch-guide.png" alt="" width="1280" height="720" loading="lazy">
         <div><h3>Learn by doing</h3><p>Each new relic opens the next level with a safe place to try it.</p></div>
       </a>
@@ -321,227 +323,214 @@
   <section id="process">
     <h2 class="process-head">Design process</h2>
 
-    <article class="step no-media" id="step-1">
+    <article class="step" id="step-1">
       <div>
-        <h3>1. One pillar: the pull-up</h3>
+        <h3>1. From flying to platforming</h3>
         <div class="verbs pixel"><span>drift</span><span>dive</span><span class="picked">pull up</span></div>
-        <p>I started from three verbs: drift, dive and pull up. I picked one of them to be the thrill. You dive to build
-          speed, then pull yourself back up into the sky.</p>
-        <p class="tag">LATER</p>
-        <p>I cut the pull-up in the end. See step 12.</p>
-      </div>
-    </article>
-
-    <article class="step" id="step-2">
-      <div>
-        <h3>2. Getting the physics to feel honest</h3>
-        <p class="tag">PROBLEM</p>
-        <p>My reference was a real wingsuit: no engine, fast, turning a fall into forward motion. The first prototypes
-          missed that in four ways, and each time I sent them back:</p>
+        <p class="tag">START</p>
+        <p>I started from three verbs, drift, dive and pull up, and picked the pull-up as the thrill: dive to build speed,
+          then pull yourself back up into the sky. My reference was a real wingsuit: no engine, fast, turning a fall into
+          forward motion. The first prototypes missed that in four ways, and each time I sent them back:</p>
         <ul>
           <li>Gliding is how you move, not a resource you trade.</li>
           <li>No updrafts.</li>
           <li>Nothing pushes you up. A pull-up spends the speed you built while diving.</li>
           <li>Holding "up" must not let you fly level forever.</li>
         </ul>
-        <p class="tag">RESULT</p>
-        <p>The final model is a simple glider. Lift and drag grow with the square of speed, and wings stall past a critical
-          angle. An automated test checks that no input glides flatter than holding glide and leaving the pitch alone.</p>
-        <p class="tag">LATER</p>
-        <p>Pitch is no longer a control: hold glide to drift, let go to drop. See step 12.</p>
+        <p>The result was a simple glider. Lift and drag grow with the square of speed, and wings stall past a critical
+          angle. An automated test checked that no input glided flatter than holding glide and leaving the pitch alone.</p>
+        <p class="tag">TURNING POINT</p>
+        <p>After flying the first prototype I said it was not working: I wanted platforming, and gliding was not meant to be
+          the core mechanic. The core of the game became running and jumping, and gliding a move you hold in the air.</p>
+        <p class="tag">CUT</p>
+        <p>Looking at the finished levels, I said there were too many moves to keep in your head. The data agreed: the autopilot routes
+          used the pull-up five times, all of them in level 2. I asked for fewer moves that are easy to master. Gliding is
+          now one button: hold it to drift forward, let go to drop. There is no pitch control and no pull-up. Shift used to
+          sprint on the ground as well; now you pick up speed by yourself after running one way for about a third of a
+          second, so Shift only glides. Each relic adds exactly one thing to do.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/glide-under-wall.gif" alt="The player dives under a hanging rock wall and pulls up onto the next island" width="1280" height="720" loading="lazy"></div>
-        <p class="caption">The old dive and pull-up, on the physics test course. The game no longer has this move.</p>
+        <p class="caption">The dive and pull-up on the physics test course. Cut from the game.</p>
       </div>
     </article>
 
-    <article class="step no-media" id="step-3">
+    <article class="step" id="step-2">
       <div>
-        <h3>3. A platformer first</h3>
-        <p class="tag">TURNING POINT</p>
-        <p>After flying the first prototype I changed direction. The core of the game is running and jumping, and
-          gliding is a move you hold in the air.</p>
+        <h3>2. One rule behind every relic</h3>
+        <p class="tag">RULE</p>
+        <p>A relic can change the direction you are moving, but not your speed. The code tracks this as an energy ceiling,
+          y − v²/(2g): the highest point you could reach if all your speed became height. Drag only lowers it.</p>
+        <p>The rule decided what each relic looks like. The doors give back the speed you came in with, turned to match the
+          exit. The Mirror Shield is a bounce at the speed you hit the wall, because a wall jump would be a push. The rope
+          cannot be pumped, so you swing only as high as the energy you brought.</p>
+        <p class="tag">TWO EXCEPTIONS</p>
+        <p>The doors break the ceiling: going in low and coming out high is free height. So I check how high each pair can
+          carry you, and a low island needs a door back.</p>
+        <p>The Leaping Bracers have left the rule. The bracer started as a flip that turned a fall into a rise at the same
+          speed. After playing, I said it felt more like a double jump than a flip, so now it is one: press jump in the air
+          and you jump again, the same height every time, once per jump. Claude measured that the extra height, glided out,
+          carries you 300 to 500&nbsp;px further, enough to skip the ropes in level 6, so for now the bracer and the cloak
+          cannot both be used in one jump. The old flip is kept behind a switch while I compare the two.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>The glide rule is mine, and the bracer and the doors were my ideas. Claude proposed the rope and the shield,
+          drafted how all four work and wrote the code.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/relics-rule.png" alt="Four panels, one per relic: the Twin Doors, the Mirror Shield, Roland's Rope and the Leaping Bracers. The doors, the shield and the rope change your direction; the last panel shows the double jump from the top of a book column." width="1280" height="720" loading="lazy"></div>
+        <p class="caption">The doors, the shield and the rope change direction, not speed. The bracer is a double jump; it and the cloak cannot both be used in one jump.</p>
+      </div>
+    </article>
+
+    <article class="step" id="step-3">
+      <div>
+        <h3>3. Teaching through the map</h3>
+        <p class="tag">DECISION</p>
+        <p>Key hints are off by default, and signs and stones only tell the story. The keys appear on the controls page and on
+          the card you get with a relic. Level 1 can be finished with only the arrow keys and jump.</p>
+        <p>A relic is no use if you never get to try it, so levels 2 to 6 open with a short practice section for the
+          ability you just earned. A small key plaque floats by the path there, at the start of level 1, and nowhere else.</p>
+        <p>The route is drawn into the world instead. Golden stitching, a dashed line with a light running along it, marks a
+          step that is easy to miss: where a new ability first appears, or, in the rebuilt levels 1 and 2, the drop into the
+          bridge keeper's hut, the gap from the drawbridge to Gatekeep, the glide across the yard and the low glide from the
+          basket. A miss there costs little: you land on something below or go back to the platform you left. Claude Code
+          built the stitching and placed it in the levels.</p>
+        <p class="tag">READ AS A ROUTE</p>
+        <p>In a blind test on screenshots, by a model that had not seen any design notes, a chain with gold links was read
+          as stitching that pointed upward, where a glide cannot take you. The chains are now iron, and dashed gold is kept
+          for the route.</p>
+        <p class="tag">OPEN QUESTION</p>
+        <p>Whether the stitching reads for someone new to the game. I have played two versions of level 1 with it; nobody
+          new to the game has yet.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img class="pixelated" src="assets/stitch-guide.png" alt="A dashed line of golden stitching runs across the gap to the next part of the route, with a brighter point of light moving along it" width="1280" height="720" loading="lazy"></div>
+        <p class="caption">Golden stitching marks a step that is easy to miss.</p>
       </div>
     </article>
 
     <article class="step" id="step-4">
       <div>
-        <h3>4. One rule behind every relic</h3>
-        <p class="tag">DECISION</p>
-        <p>When the game needed more abilities, the glide rule became a test for each one: a relic can change the direction
-          you are moving, but not your speed. If a relic handed out speed, nobody would need to dive.</p>
-        <p>The code tracks this as an energy ceiling, y − v²/(2g): the highest point you could reach if all your speed
-          became height. Drag only lowers it.</p>
-        <p class="tag">RESULT</p>
-        <p>The test decided what each relic looks like. The doors give back the speed you came in with, turned to match the
-          exit. The Mirror Shield is a bounce at the speed you hit the wall, because a wall jump would be a push. The rope
-          cannot be pumped, so you swing only as high as the energy you brought. The bracer flips a fall into a rise at the
-          same speed, once per jump.</p>
-        <p class="tag">EXCEPTION</p>
-        <p>The doors are the one exception to the ceiling: going in low and coming out high is free height. So I have to
-          check how high each pair can carry you, and a low island needs a door back.</p>
-        <p class="tag">WHO DID WHAT</p>
-        <p>How the work split: the glide rule is mine, and the bracer and the doors were my ideas. Claude proposed the rope
-          and the shield, drafted how all four work and wrote the code. The bracer is still Claude's draft and may change.</p>
-        <p class="tag">LATER</p>
-        <p>The dive is gone, so the reason above is out of date. The rule stays: the doors, the shield, the rope and the
-          bracer still change only your direction. See step 12.</p>
-        <p class="tag">LATER</p>
-        <p>The bracer has since left the rule. After playing, I said it felt more like a double jump than a flip, so now it
-          is one: press jump in the air and you jump again, the same height every time, once per jump. It is the only relic
-          that adds height. Claude measured that the extra height, glided out, carries you 300 to 500&nbsp;px further, enough
-          to skip the ropes in level 6, so for now the bracer and the cloak cannot both be used in one jump. The old flip is
-          kept behind a switch while I compare the two.</p>
-      </div>
-      <div class="side">
-        <div class="media"><img class="pixelated" src="assets/relics-rule.png" alt="Four panels, one per relic: the Twin Doors, the Mirror Shield, Roland's Rope and the Antigravity Bracer. In each panel the player's direction changes and the speed stays the same." width="1280" height="720" loading="lazy"></div>
-        <p class="caption">Four relics, one rule: the direction changes, the speed does not.</p>
-      </div>
-    </article>
-
-    <article class="step" id="step-5">
-      <div>
-        <h3>5. Teaching through the map</h3>
-        <p class="tag">DECISION</p>
-        <p>Key hints are off by default, and signs and stones only tell the story. The keys appear on the controls page and on
-          the card you get with a relic. Level 1 can be finished with only the arrow keys and jump.</p>
-        <p>A relic is no use if you never get to try it, so levels 2 to 6 now open with a short practice section for the
-          ability you just earned. A small key plaque floats by the path there, at the start of level 1, and nowhere else.</p>
-        <p>The route is drawn into the world instead. Golden stitching, a dashed line with a light running along it, marks
-          the path where a new ability first appears. A miss there costs little: you land on something below or go back to
-          the platform you left.</p>
-        <p class="tag">STILL OPEN</p>
-        <p>Claude Code built the stitching and placed it in the draft levels. Nobody has played with it yet, so I do not know
-          if it reads.</p>
-      </div>
-      <div class="side">
-        <div class="media"><img class="pixelated" src="assets/stitch-guide.png" alt="A dashed line of golden stitching runs across the gap to the next part of the route, with a brighter point of light moving along it" width="1280" height="720" loading="lazy"></div>
-        <p class="caption">Golden stitching marks the route where a new ability first appears.</p>
-      </div>
-    </article>
-
-    <article class="step" id="step-6">
-      <div>
-        <h3>6. Measuring difficulty instead of guessing</h3>
+        <h3>4. Measuring room instead of guessing</h3>
         <p class="tag">PROBLEM</p>
         <p>Every session writes a playtest log. In one session on the physics test course, all five falls happened at the
-          same gap: I opened the glide too early.</p>
-        <p class="tag">METHOD</p>
-        <p>To put a number on it I use an automated level checker. An autopilot tries
-          eight input strategies at more than 30 different timings from each island, heading right, and reports the timing window: how much earlier
-          or later you can press and still make it.</p>
-        <p class="tag">RESULT</p>
-        <p>That gap had a 0.20&nbsp;s window. A test layout with the wall shortened
-          and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
+          same gap: I opened the glide too early. An automated level checker put a number on it: that gap had a
+          0.20&nbsp;s timing window, meaning you could press only that much earlier or later and still make it. A test
+          layout with the wall shortened and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
+        <p class="tag">DECISION</p>
+        <p>I asked for room on every step: no jump that only works if you hit it exactly. The targets are a 0.4&nbsp;s window
+          on every required step, which only the last level may go below, and 75% of jitter runs finishing. Scripts written
+          by Claude Code and Codex check them:</p>
+        <ul>
+          <li>The level checker: an autopilot tries eight input strategies at more than 30 timings from each island and
+            reports the window. Every required step is also swept on its own, including the ones that go left, up, through
+            doors or on the rope.</li>
+          <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it follows the
+            plates: the lift, the ferry, the winch, then the drawbridge.</li>
+          <li>An exit check for each level: from every place you can land there is a way back to the route, and the
+            shortcuts that would skip the level's idea do not work.</li>
+          <li>A jitter test. It takes that same route and shifts the position and timing of its key presses at random, by up
+            to 20 pixels or 0.08 seconds, 24 runs per level, and counts how many runs still finish. The route cannot adapt
+            the way a person would, so the number is pessimistic.</li>
+        </ul>
+        <p>To design levels myself, I had the checks built into the editor: selecting an island draws its jump arc and glide
+          line, and a double-click runs the level checker. A five-minute narrated tutorial walks through the workflow.</p>
+        <p class="tag">NOW</p>
+        <p>Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
+          about 1.6&nbsp;s from the left of the bridge tail. Level 2: the glide across the yard lands from anywhere on the
+          inner ledge, and the last low glide has 0.7&nbsp;s. At the largest jitter setting level 1 finishes 13 of 24 runs
+          and level 2 12 of 24; that setting is there to show the weakest step. In levels 3 to 6 the checker rates every required step at
+          0.40&nbsp;s or looser except one rope step in level 6, which it rates at 0.33&nbsp;s; timed the way the route takes
+          it, catching the rope twice, that step leaves 0.50&nbsp;s.</p>
+        <p>All of these numbers come from scripts, not from players.</p>
       </div>
       <div class="side">
         <div class="stat">
-          <p class="stat-label">TIMING WINDOW AT THAT GAP</p>
-          <p class="stat-value pixel">0.20 s → <b>0.60 s</b></p>
+          <p class="stat-label">JITTER RUNS THAT FINISH (SMALL / MEDIUM)</p>
+          <p class="stat-value pixel">L1 <b>24 / 22</b></p>
+          <p class="stat-value pixel">L2 <b>24 / 24</b></p>
+          <p class="stat-note">Of 24 runs each. Target: 75%.</p>
         </div>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-5">
+      <div>
+        <h3>5. Difficulty that rises and falls</h3>
+        <p class="tag">PROBLEM</p>
+        <p>Meeting the target everywhere became its own problem. I also said the difficulty felt designed by a
+          machine: every required jump sat right at 0.4&nbsp;s, with no rise and fall.</p>
+        <p class="tag">METHOD</p>
+        <p>I asked Claude to look up how other platformers handle difficulty. Three ideas came back. Teach a move where a
+          miss costs nothing, test it, then twist it. Shape the curve like a saw, with places to rest, instead of a straight
+          ramp. Forgive the player in ways they never see, like Celeste's jump just after leaving a ledge; the game already
+          had that. So each level now opens loose, has a place to rest in the middle, and ends with a few steps in a row
+          that use the new move together with older ones.</p>
+        <p class="tag">RESULT</p>
+        <p>In level 2 you spend the height the basket gave you on a low glide under a hanging wall. Level 3 ends with a
+          double jump onto a narrow ledge, then a new jump and a glide. In level 5 a broken wall bounces you back into a
+          door, and the level ends at a slot behind a stone: glide at it and the shield bounces you back, so you drop into
+          the slot and double jump out of it.</p>
+        <p>My first playtest log of the old level 1 showed two falls on the small steps outside the first castle, both right
+          after landing. A quick tap of jump only lifted you 11&nbsp;px, so a tap now counts as at least 0.12&nbsp;s of
+          holding (about 39&nbsp;px). Those steps are not in the current level 1.</p>
+      </div>
+    </article>
+
+    <article class="step no-media" id="step-6">
+      <div>
+        <h3>6. One idea per level</h3>
+        <p class="tag">PROBLEM</p>
+        <p>The first six levels were short, about 15 seconds each for the autopilot, and every one was a row of jumps that
+          could have sat in any castle. I asked for longer levels with a reason behind each layout.</p>
+        <p class="tag">METHOD</p>
+        <p>Each level starts from one sentence: the player has to do something before they understand why, and it only
+          makes sense in that castle. Claude Code weighed at least three ideas per level, and each level has a design note
+          with the ideas it rejected and what the tests taught. Each idea comes in three steps: you run into it, you use it
+          on purpose, then you trust it at a spot where you cannot see the next step.</p>
+        <table class="ideas">
+          <tr><th>Gatekeep</th><td>The king's bridge is broken and Gatekeep's drawbridge is up. You work the bridge's machines in order: a lift, a ferry plank, the bridge keeper's winch, and a plate that lowers the drawbridge for a few seconds.</td></tr>
+          <tr><th>Thornhold</th><td>You run into a wall and slide down it. A lift takes you up inside it. Inside the second wall the baron's basket only comes down while you stand on a plate. From the top, a low glide gets you under a wall that hangs in the air.</td></tr>
+          <tr><th>The Archive</th><td>Each ledge is too high for one jump. You drop onto the books under a hanging scroll, jump at the column and jump again at the top.</td></tr>
+          <tr><th>Mirrorhold</th><td>Every mirror takes you back to the hall where Lady Viola stands. The way on is the one mirror she never looks into.</td></tr>
+          <tr><th>The Empty Keep</th><td>A wall like Thornhold's, but now the shield bounces you back through the empty hall. Here the walls are the road.</td></tr>
+          <tr><th>The Clock Tower</th><td>You climb a tower frozen in mid-explosion, then jump down the weight shaft yourself. The tower stopped in the middle of a fall.</td></tr>
+        </table>
       </div>
     </article>
 
     <article class="step" id="step-7">
       <div>
-        <h3>7. Leaving room, and measuring it</h3>
-        <p class="tag">DECISION</p>
-        <p>I asked for room on every step: no jump that only works if you hit it exactly. Three scripts, written by
-          Claude Code and Codex, measure that.</p>
-        <ul>
-          <li>The level checker from the last section. It only tries jumps to the right, so after the rework every required
-            step was also swept on its own, including the ones that go left, up, through doors or on the rope.</li>
-          <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it takes the sprint leap.</li>
-          <li>An exit check for each level: from every place you can land there is a way back to the route, and the
-            shortcuts that would skip the level's idea do not work.</li>
-          <li>A jitter test. It takes that same route and shifts the position and timing of its key presses at random, by up
-            to 20 pixels or 0.08 seconds, 24 runs per level, and counts how many runs still finish. The route cannot adapt the
-            way a person would, so the number is pessimistic.</li>
-        </ul>
-        <p class="tag">RESULT</p>
-        <p>The targets were a 0.4&nbsp;s window on every required step and 75% of jitter runs finishing. Every required
-          step now meets the first target. The narrowest are 0.40&nbsp;s, in the practice section of level 1 and when letting go
-          of the rope on the second floor of level 6. In levels 2, 3 and 4 the narrowest is 0.43&nbsp;s, in level 5 it is
-          0.45&nbsp;s. The bridge tower in level 1 went from 0.33&nbsp;s to 0.44&nbsp;s once each ledge had more headroom.
-          On the jitter test all six levels finish 88% to 100% of runs.</p>
-        <p class="tag">LATER</p>
-        <p>Meeting the target everywhere became its own problem: almost every step sat right at 0.4&nbsp;s. See step 12.</p>
-        <p class="tag">STILL OPEN</p>
-        <p>All of these results come from scripts. No real person has played the reworked levels yet. At the largest jitter
-          setting, up to 0.14&nbsp;s off, only level 5 stays above 40%; that setting is there to show the weakest step in
-          each level.</p>
-      </div>
-      <div class="side">
-        <div class="stat">
-          <p class="stat-label">JITTER RUNS THAT FINISH, ALL SIX LEVELS</p>
-          <p class="stat-value pixel"><b>88% – 100%</b></p>
-          <p class="stat-note">Target: 75%.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="step no-media" id="step-8">
-      <div>
-        <h3>8. One idea per level</h3>
-        <p class="tag">PROBLEM</p>
-        <p>The first six levels were short, about 15 seconds each for the autopilot, and every one was a row of jumps that
-          could have sat in any castle. I asked for longer levels with a reason behind the layout.</p>
-        <p class="tag">METHOD</p>
-        <p>Each level now starts from one sentence: the player has to do something before they understand why, and it only
-          makes sense in that castle. Claude Code weighed at least three ideas per level and wrote down why the others were
-          dropped. Each idea comes in three steps: you run into it, you use it on purpose, then you trust it at a spot where
-          you cannot see the next step. That spot is the only place golden stitching appears after the practice section.
-          At least once per level the route stops going right.</p>
-        <table class="ideas">
-          <tr><th>Gatekeep</th><td>You see the far bank and cannot jump it, so you climb back up the bridge tower to get the height.</td></tr>
-          <tr><th>Thornhold</th><td>You run into a wall, slide down it, and find that the bottom of the wall hangs in the air. The way in is underneath.</td></tr>
-          <tr><th>The Archive</th><td>Each ledge is too high for one jump. You drop onto the books under a hanging scroll, jump at the column and jump again at the top. The deepest fall in the tower is the gap left by two pages the historian tore out.</td></tr>
-          <tr><th>Mirrorhold</th><td>Every mirror takes you back to the hall where Lady Viola stands. The way on is the one mirror she never looks into.</td></tr>
-          <tr><th>The Empty Keep</th><td>The same wall as in Thornhold, but now the shield bounces you back through the empty hall. Here the walls are the road.</td></tr>
-          <tr><th>The Clock Tower</th><td>You climb a tower frozen in mid-explosion, then jump down the weight shaft yourself. The tower stopped in the middle of a fall.</td></tr>
-        </table>
-        <p class="tag">RESULT</p>
-        <p>The autopilot route through all six levels went from about 103 seconds to 208. Each level has a design note with
-          the ideas it rejected and what the tests taught.</p>
-        <p class="tag">STILL OPEN</p>
-        <p>Nobody has played the new levels. The open question in each one is whether a player gets the idea without being
-          told.</p>
-        <p class="tag">LATER</p>
-        <p>The new story in step 13 dropped the torn pages. The gap in the tower is still there.</p>
-      </div>
-    </article>
-
-    <article class="step" id="step-9">
-      <div>
-        <h3>9. A story you piece together</h3>
-        <p>A runaway spell split the kingdom into islands. The hero is a new adventurer who does not know he is the old
-          king's son. Each level ends at a link point, and touching it pulls the island you came from back into place.
-          Finishing a level gives you a relic.</p>
-        <p class="tag">PROBLEM</p>
+        <h3>7. A story I outlined myself</h3>
+        <p class="tag">FIRST VERSION</p>
         <p>The first story text was a handful of one-line signs. I said it was too thin, and that fragmented storytelling
-          does not mean short. My references were the item text in <em>Dark Souls</em> and the events in
-          <em>Slay the Spire</em>.</p>
-        <p class="tag">METHOD</p>
-        <p>Before writing more text, we built a world book in the style of SillyTavern lorebooks: who lives on each
-          island, what they want, what they fear, what they hide, and who owes whom. Every fragment in the game is now a
-          document someone wrote for a reason: a toll keeper's ledger, a mason's twelfth repair request, a guest book, a
-          bell-ringer's log. Some of them lie. The night the kingdom broke is never told directly. Each level has twelve
-          fragments, eight on the main route and four you find by missing a jump or going the long way.</p>
-        <p>One thread as an example: in level 1 the toll keeper lets a woman with a child cross for free because she has no
-          coins. In level 2 a baron's poster says she had none. In level 4 a wardrobe slip shows who took twelve coins out
-          of her cloak pocket before handing it over.</p>
-        <p class="tag">CHAPTERS</p>
-        <p>Chapter one has three castles. Gatekeep's gate stays open. Thornhold has walled itself in behind stakes that
-          point inward. The Archive's records are two days short. Chapter two adds three more. Lady Viola's Mirrorhold is
-          all mirrors. Nobody is home at the Empty Keep, and Sir Roland's notes count the islands he searched. The Clock
-          Tower has said ten to five ever since, and when Brother Tomas finishes speaking, the hands move and the stones
-          fall.</p>
+          does not mean short; my references were the item text in <em>Dark Souls</em> and the events in <em>Slay the
+          Spire</em>. It grew into a world book: six lords who each hid a secret about the night the kingdom broke, and
+          twelve fragments per level written as documents, a toll keeper's ledger or a bell-ringer's log, some of them lying.
+          I said it was too complicated, and that the way it was told did not hang together, so I threw out the details
+          and set a new outline myself.</p>
+        <p class="tag">THE STORY</p>
+        <p>The Weaver King wanted to live forever. His court mage, Mirelle, poured magic into him until it broke loose. The
+          magic blew him apart, ran into the golden thread that tied the kingdom together, and tore the kingdom into islands.
+          Every clock stopped at ten to five. The queen fled with their newborn son. The child fell, a magic cloak caught him,
+          and a farmer who never knew who he was raised him on a small island. Years later Mirelle, trapped in the storm,
+          reached him in a dream: a hand letting go, a cloak catching a baby, and a woman's voice calling him up to an
+          island with a gold roof. He leaves to find out who she is.</p>
+        <p>Each lord you wake gives their name, recognises one thing about him, and says why he should go on to the next
+          castle. Gawen sees the half crown on your cloak, Corvin the thread that never runs out, Elinor your face, Viola your
+          mother's eyes. Roland saw the child fall, and Tomas saw the queen alive on the Throne Isle. Each level keeps one or
+          two signs, and in every level one of them shows the king trying to live forever. A narrator adds one sentence at
+          the end of each level, and Mirelle tells what happened that afternoon only at the end.</p>
+        <p>Each level ends at a link point, the golden knot its lord tied long ago. Touching it ties the knot again: the
+          island's time starts, the lord wakes, a golden thread reaches back, the island you came from docks, and a relic
+          rises from the crystal.</p>
         <p class="tag">WHO DID WHAT</p>
-        <p>The outline is mine. The names and backstory details were proposed by Claude and approved by me. The world book
-          and the fragments were drafted by Claude, and I have not signed off on the new ones yet.</p>
-        <p class="tag">LATER</p>
-        <p>I replaced this story with a simpler one. See step 13.</p>
+        <p>The outline is mine, including its turns: the queen losing the child, the farmer, the king who wanted to live
+          forever, the dream from the mage, and the lords frozen by the same spell. Claude asked me questions in twelve
+          rounds, each with a recommended answer, and I picked one or wrote my own. The lords' names were proposed by Claude
+          and approved by me. After playing the opening I said the text was bad and asked for the voice of a medieval novel
+          and a story you can follow. Claude wrote the lines and the signs; I approved the voice on the opening and the
+          first level and had the rest written the same way. I have not gone through those yet.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/castles-and-lords.png" alt="Four screenshots: Sir Gawen speaks at Gatekeep, Baron Corvin at Thornhold, Countess Elinor at the Archive, and the Glide Cloak relic panel with its story fragment" width="2568" height="1448" loading="lazy"></div>
@@ -551,9 +540,9 @@
       </div>
     </article>
 
-    <article class="step" id="step-10">
+    <article class="step" id="step-8">
       <div>
-        <h3>10. Tapestry and kintsugi</h3>
+        <h3>8. Tapestry and kintsugi</h3>
         <p class="tag">DECISION</p>
         <p>I asked for art that is comfortable to look at and has its own character. The direction is tapestry and kintsugi:
           the rock on each island is drawn as layers of weave, with gold in the cracks. When you finish a link, the gold
@@ -572,108 +561,23 @@
       </div>
     </article>
 
-    <article class="step no-media" id="step-11">
+    <article class="step" id="step-9">
       <div>
-        <h3>11. Tools so I could build my own levels</h3>
-        <p>To design levels myself, I had tools built into the editor. Selecting an island draws its jump arc and glide
-          line. A double-click runs the level checker. A five-minute narrated tutorial walks through the whole workflow.</p>
-      </div>
-    </article>
-
-    <article class="step no-media" id="step-12">
-      <div>
-        <h3>12. Cutting back</h3>
-        <p class="tag">PROBLEM</p>
-        <p>Looking at the finished levels, I said the difficulty felt designed by a machine. Every required jump sat right at
-          0.4&nbsp;s, with no rise and fall, and there were too many moves to keep in your head. The data agreed: the
-          autopilot routes used the pull-up from step 1 five times, all of them in level 2.</p>
-        <p class="tag">DECISION</p>
-        <p>I asked for fewer moves that are easy to master, and for a player who can feel themselves getting better. Gliding
-          is now one button: hold it to drift forward, let go to drop. There is no pitch control. Shift used to sprint on
-          the ground as well; now you pick up speed by yourself after running one way for about a third of a second, so
-          Shift only glides. Each relic adds exactly one thing to do.</p>
-        <p class="tag">METHOD</p>
-        <p>I asked Claude to look up how other platformers handle difficulty. Three ideas came back. Teach a move where a
-          miss costs nothing, test it, then twist it. Shape the curve like a saw, with places to rest, instead of a straight
-          ramp. Forgive the player in ways they never see, like Celeste's jump just after leaving a ledge. The game already
-          had that forgiveness. So each level now opens loose, has a place to rest in the middle, and ends with a few steps
-          in a row that use the new move together with older ones. The rule for levels 1 to 6 is still that no step is
-          tighter than 0.4&nbsp;s. Only the last level goes below that.</p>
-        <p class="tag">RESULT</p>
-        <p>I measured every step again with the new controls, using a checker that follows each level's route. The old
-          layouts had steps as tight as 0.30&nbsp;s under the new controls. Level 1 now opens with windows of 0.62 and
-          1.23&nbsp;s, and its tightest step went from 0.30 to 0.40&nbsp;s. In level 2 the tightest went from 0.35 to
-          0.45&nbsp;s. The last stretch of a level now mixes moves. In level 2 you glide low under a wall instead of jumping
-          it. Level 3 ends with a flip straight into a glide. In level 5 a broken wall bounces you back into a door, and the
-          level ends at a slot behind a stone: glide at it and the shield bounces you back, so you drop into the slot and
-          flip up out of it.</p>
-        <p class="tag">STILL OPEN</p>
-        <p>Two steps are still under 0.4&nbsp;s. One is a jump to a mirror wall in level 4 (0.30&nbsp;s running, but you can
-          also stop and jump from standing). The other is a rope step in level 6 (0.33&nbsp;s), which the checker probably
-          underrates because the route catches the rope twice. The shield does not come back in level 6 yet, only in the
-          last level: level 6 is a climb, and every bounce I tried there blocked the way up. The flip cannot get much looser than 0.45&nbsp;s because of how fast you fall, so
-          level 3 opens tighter than the others. Nobody has played any of this.</p>
-        <p class="tag">LATER</p>
-        <p>Both open steps are now 0.40&nbsp;s or looser. The stool under the mirror wall in level 4 is wider, and a rope you
-          have just let go of cannot catch you again for 0.35&nbsp;s, which takes the level 6 step to 0.50&nbsp;s. Level 3 was
-          rebuilt around the double jump (step 4) and its tightest step went from 0.40 to 0.48&nbsp;s. My first playtest log
-          showed two falls on the small steps outside the first castle, both right after landing. A quick tap of jump only
-          lifted you 11&nbsp;px there, so a tap now counts as at least 0.12&nbsp;s of holding (about 39&nbsp;px), and the
-          gaps between those steps are closed.</p>
-      </div>
-    </article>
-
-    <article class="step no-media" id="step-13">
-      <div>
-        <h3>13. A story I outlined myself</h3>
-        <p class="tag">PROBLEM</p>
-        <p>The story from step 9 had grown to six lords who each hid a secret about the night the kingdom broke, and twelve
-          fragments per level. I said it was too complicated, and that the way it was told did not hang together.</p>
-        <p class="tag">METHOD</p>
-        <p>I threw out the details and set a new outline myself. Claude asked me questions in twelve rounds, each with a
-          recommended answer, and I picked one or wrote my own.</p>
-        <p class="tag">THE STORY</p>
-        <p>The Weaver King wanted to live forever. His court mage, Mirelle, poured magic into him until it broke loose. The
-          magic blew him apart, ran into the golden thread that tied the kingdom together, and tore the kingdom into islands.
-          Every clock stopped at ten to five. The queen fled with their newborn son. The child fell, a magic cloak caught him,
-          and a farmer who never knew who he was raised him on a small island. Years later Mirelle, trapped in the storm,
-          reached him in a dream: a hand letting go, a cloak catching a baby, and a woman's voice calling him up to an
-          island with a gold roof. He leaves to find out who she is.</p>
-        <p>Each lord you wake says two lines. Gawen sees the half crown on your cloak, Corvin the thread that never runs
-          out, Elinor your face, Viola your mother's eyes. Roland saw the child fall, and Tomas saw the queen alive on the
-          Throne Isle. The second line points you on. Each level keeps
-          one or two signs, and in every level one of them shows the king trying to live forever.</p>
-        <p class="tag">WHO DID WHAT</p>
-        <p>The outline is mine, including its turns: the queen losing the child, the farmer, the king who wanted to live
-          forever, the dream from the mage, and the lords frozen by the same spell. Claude wrote the lines and the
-          signs as drafts, and I have not gone through them yet.</p>
-        <p class="tag">LATER</p>
-        <p>After playing the opening I said the text was bad, and asked for the voice of a medieval novel and a story you can
-          follow. The opening dream is now a short conversation with a voice that knows the boy and calls him up, without
-          saying who she is. Each lord gives their name, recognizes one thing about him, and says why he should go on to the
-          next castle. A narrator adds one sentence at the end of each level, and Mirelle tells what happened that afternoon
-          only at the end. I approved the voice on the opening and the first level, then had the rest written the same way
-          and put into the game.</p>
-      </div>
-    </article>
-
-    <article class="step" id="step-14">
-      <div>
-        <h3>14. The Throne Isle</h3>
+        <h3>9. The Throne Isle</h3>
         <p class="tag">DECISION</p>
         <p>The last level is the storm that broke the kingdom, with the old king still inside it. You do not fight the storm.
           Five golden knots hold the storm together, and each one sits behind a harder version of an obstacle you passed to
-          earn a relic: a stepped wall to slip under for the cloak, a double jump up into a bell of books for the bracer, a door at
-          the bottom of a pit, a mirror well for the shield, and three hanging rocks to swing across for the rope. Gold lightning marks the ground for
-          0.8&nbsp;s before it strikes. Each knot you tie shrinks the storm and saves your place. The sixth knot sits at the
-          centre, at the end of a run that uses every move in a row with no save in between.</p>
+          earn a relic: a stepped wall to slip under for the cloak, a double jump up into a bell of books for the bracer, a
+          door at the bottom of a pit, a mirror well for the shield, and three hanging rocks to swing across for the rope.
+          Gold lightning marks the ground for 0.8&nbsp;s before it strikes. Each knot you tie shrinks the storm and saves
+          your place. The sixth knot sits at the centre, at the end of a run that uses every move in a row with no save in
+          between. This is the one level allowed below 0.4&nbsp;s. The checker rates the first knot at 0.30&nbsp;s, but only
+          for a jump, which hits the first wall. Walked off with a glide that you let go of for a moment, it leaves more
+          than half a second: the hard part there is knowing not to jump.</p>
         <p class="tag">RESULT</p>
         <p>When the last knot is tied, the storm comes apart and Mirelle falls out of it. She says she poured the spell
           into him and could not stop it. The islands sink back to the ground, the key from level 6 opens the last door, and
-          the queen says one word, his name: Aurin. The autopilot gets from
-          the start of the level to her in about 52 seconds.</p>
-        <p class="tag">STILL OPEN</p>
-        <p>This is the one level allowed to go below 0.4&nbsp;s. Its tightest steps leave about 0.3&nbsp;s. Nobody has played it.</p>
+          the queen says one word, his name: Aurin.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/throne-isle.png" alt="Four screenshots: the player ties a golden knot under the storm, gold lightning strikes an island under the old king's face, Mirelle speaks once the storm is gone, and in the morning light the queen says Aurin" width="1280" height="720" loading="lazy"></div>
@@ -681,11 +585,65 @@
       </div>
     </article>
 
-    <article class="step no-media" id="step-15">
+    <article class="step" id="step-10">
       <div>
-        <h3>15. What comes next</h3>
-        <p>Real playtests. The game already writes a log of each session for that. The lines and signs are drafts I still
-          need to go through.</p>
+        <h3>10. Longer, then smaller</h3>
+        <p class="tag">PROBLEM</p>
+        <p>I said the levels were too short. I had finished level 1 in 32.8&nbsp;s. I wanted about half an hour per level,
+          with some story along the way.</p>
+        <p class="tag">DECISION</p>
+        <p>Claude first estimated the length from the autopilot route, times how much slower a person might be. I did not
+          accept that: the autopilot never dies or stops, and nobody knows the multiplier. We aimed at 45 minutes of route
+          instead, half an hour plus 50% headroom, and built level 1 first as a sample.</p>
+        <p class="tag">RESULT</p>
+        <p>Claude wrote a generator that placed about 3,000 islands in eight sections and checked every jump in a physics
+          simulation calibrated against the game. The autopilot finished it in 44 minutes without falling. The length also
+          made the problem easy to see: one section was 385 nearly identical bridge spans, and no jump in the whole level
+          needed timing. I read the notes and called it off. What I wanted was one small level that is well designed, not a
+          long one.</p>
+        <p class="tag">DECISION</p>
+        <p>Levels 1 and 2 became <em>hakoniwa</em>, the Japanese word for a box garden: a small, closed world you learn by
+          moving around in it, with more than one way through and no way to fall out of it. In level 1 your home and
+          Gatekeep face each other across a deep valley. The king's bridge crosses the valley and breaks off in the
+          middle, 230&nbsp;px, further than any running jump. Fall anywhere and you land on the valley floor, where
+          Gatekeep's wall is too high to climb, so you look up and see the bridge.</p>
+        <p class="tag">PROBLEM</p>
+        <p>I played the new level 1 and said it was too easy, that it was full of ledges I never stepped on, and that
+          nothing in it reacted to me. I asked for the switches and moving platforms every platformer has.</p>
+        <p class="tag">DECISION</p>
+        <p>The broken bridge became a machine. You step on a plate; you do not press a new button, so it works the same on a
+          phone. Moving stone is grey and grass is ground, and a plate that moves something out of reach trails a chain to
+          it. A lift takes you from the grave up to the bridgehead. A plate on the bridgehead calls a ferry plank across the
+          gap. The far span hangs high above the break, and its chain runs down into the bridge keeper's hut: you have to
+          drop into the hut and work his winch before you can go on. Last, the bridge tail lowers Gatekeep's drawbridge for a
+          few seconds. Level 1 went from 29 islands to 12, and the valley floor went with them: a fall now puts you back on the last solid ground you stood on. In level 2 a lift replaces the stairs inside the first wall, and
+          the baron's basket replaces the six steps inside the second. The basket only comes down while you stand on a
+          plate, so you wait for it there and jump in. It carries you to the top of the wall, where the low glide under the
+          hanging wall spends that height.</p>
+        <p class="tag">RESULT</p>
+        <p>Going through the design principles found real problems, among them: the jump onto the drawbridge started from a
+          spot where you could not see where you would land, the plates were three pixels tall, and a third of the level
+          was spent waiting for platforms. An independent review by a second model found more, among them: the drawbridge
+          timer started while the drawbridge was still off screen; the ferry plank did not catch a full-speed jump (in the
+          game the jump landed on its last pixel and slid off); and in level 2 the basket left half a second after you
+          stepped off the plate, so trying it taught the opposite of what you had to do. Everything listed here was changed
+          and checked again by the autopilot, the exit check on every island, and the jitter test.</p>
+        <p>Levels 3 to 7 keep their layouts: their relics already give you something to do, and the clock tower is meant to
+          stand still.</p>
+        <p class=tag>OPEN QUESTION</p>
+        <p>On paper level 2 is now easier on the hands: its last glide window went from 0.6 to 0.7&nbsp;s, and the hard part
+          is working out the basket. The second review flagged that; it is left for a playtest to decide. The game
+          already writes a log of each session for that.</p>
+      </div>
+      <div class="side" style="position: static">
+        <div class="media"><img class="pixelated" src="assets/machines.png" alt="Four screenshots. Level 1: a plate on the bridgehead with a chain to a grey stone ferry plank, and the bridge keeper's hut with the winch plate and a chain up to the raised far span. Level 2: the player jumps from the plate into the lowered basket, then glides low under the hanging wall to the keep." width="2568" height="1448" loading="lazy"></div>
+        <p class="caption">Plates and chains. Level 1: the ferry plank, and the winch in the hut. Level 2: the basket, then the low glide.</p>
+        <div class="media"><img class="pixelated" src="assets/ferry-plate.gif" alt="The player steps on the plate at the bridgehead, the grey ferry plank slides over along its chain, and the player jumps on and rides it across the break" width="640" height="360" loading="lazy"></div>
+        <p class="caption">Step on the plate and the ferry plank comes over.</p>
+      </div>
+      <div class="wide">
+        <div class="media"><img src="assets/level1-map.png" alt="The whole of level 1, the plate version, from the farm on the left to Gatekeep on the right, with the four machines numbered in order: the lift, the bridgehead plate and its ferry plank, the winch in the bridge keeper's hut and the raised far span, and the plate on the bridge tail with the raised drawbridge" width="2700" height="720" loading="lazy"></div>
+        <p class="caption">Level 1, the plate version: four machines, in the order you use them.</p>
       </div>
     </article>
   </section>
