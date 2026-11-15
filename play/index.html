@@ -337,9 +337,257 @@ const engine = new Engine(GODOT_CONFIG);
 		fail('Your browser is missing: ' + missing.join(', '));
 		return;
 	}
+
+	// 分块下载（11-15）：国内手机连服务器有时只有每秒十来 KB，整份下载一断就从头来，手机切出去也会断。
+	// 所以把引擎和游戏包切成 1MB 一块（清单在 pieces.json，由 tools/make_pieces.py 生成），
+	// 每下完一块就存进这台手机的浏览器里；断了回来接着下，第二次打开直接用存好的。
+	// 没有清单、浏览器存不了、或者块文件不在，就照原来的办法整份下载。
+	let byPieces = false;
+	const pieceDone = {};
+	let pieceTotal = 0;
+	const realFetch = window.fetch.bind(window);
+	const manifest = realFetch('pieces.json', {cache: 'no-cache'}).then(function (r) {
+		return r.ok ? r.json() : null;
+	}).catch(function () {
+		return null;
+	});
+	const store = new Promise(function (resolve) {
+		try {
+			const req = indexedDB.open('glider-pieces', 1);
+			req.onupgradeneeded = function () {
+				req.result.createObjectStore('p');
+			};
+			req.onsuccess = function () {
+				resolve(req.result);
+			};
+			req.onerror = req.onblocked = function () {
+				resolve(null);
+			};
+		} catch (e) {
+			resolve(null);
+		}
+	});
+
+	function ask(db, mode, act) {
+		return new Promise(function (resolve) {
+			if (!db) {
+				resolve(undefined);
+				return;
+			}
+			try {
+				const req = act(db.transaction('p', mode).objectStore('p'));
+				req.onsuccess = function () {
+					resolve(req.result);
+				};
+				req.onerror = function () {
+					resolve(undefined);
+				};
+			} catch (e) {
+				resolve(undefined);
+			}
+		});
+	}
+
+	function hex(buffer) {
+		return Array.from(new Uint8Array(buffer), function (b) {
+			return b.toString(16).padStart(2, '0');
+		}).join('');
+	}
+
+	function sameHash(buffer, want) {
+		if (!(window.crypto && crypto.subtle)) {
+			return Promise.resolve(true);
+		}
+		return crypto.subtle.digest('SHA-256', buffer).then(function (d) {
+			return hex(d).slice(0, want.length) === want;
+		}, function () {
+			return true;
+		});
+	}
+
+	function showPieces() {
+		let done = 0;
+		Object.keys(pieceDone).forEach(function (k) {
+			done += pieceDone[k];
+		});
+		if (byPieces && pieceTotal > 0) {
+			target = Math.max(0.001, done / pieceTotal);
+		}
+	}
+
+	function sleep(ms) {
+		// 手机切回来时不用等满，马上接着下
+		return new Promise(function (resolve) {
+			const wake = function () {
+				if (document.visibilityState === 'visible') {
+					finish();
+				}
+			};
+			const finish = function () {
+				clearTimeout(timer);
+				document.removeEventListener('visibilitychange', wake);
+				resolve();
+			};
+			const timer = setTimeout(finish, ms);
+			document.addEventListener('visibilitychange', wake);
+		});
+	}
+
+	function getPiece(db, part, key) {
+		return ask(db, 'readonly', function (s) {
+			return s.get(part.url);
+		}).then(function (saved) {
+			if (saved && saved.byteLength === part.size) {
+				return sameHash(saved, part.sha).then(function (ok) {
+					return ok ? saved : null;
+				});
+			}
+			return null;
+		}).then(function (saved) {
+			if (saved) {
+				pieceDone[key] = part.size;
+				showPieces();
+				return saved;
+			}
+			let wait = 1000;
+			const attempt = function () {
+				return realFetch(part.url).then(function (r) {
+					if (r.status === 404) {
+						const gone = new Error('piece missing: ' + part.url);
+						gone.fatal = true;
+						throw gone;
+					}
+					if (!r.ok) {
+						throw new Error('HTTP ' + r.status);
+					}
+					const reader = r.body.getReader();
+					const chunks = [];
+					let n = 0;
+					const pump = function () {
+						return reader.read().then(function (step) {
+							if (step.done) {
+								return;
+							}
+							chunks.push(step.value);
+							n += step.value.length;
+							pieceDone[key] = Math.min(n, part.size);
+							showPieces();
+							return pump();
+						});
+					};
+					return pump().then(function () {
+						const all = new Uint8Array(n);
+						let at = 0;
+						chunks.forEach(function (c) {
+							all.set(c, at);
+							at += c.length;
+						});
+						if (n !== part.size) {
+							throw new Error('short piece');
+						}
+						return sameHash(all.buffer, part.sha).then(function (ok) {
+							if (!ok) {
+								throw new Error('bad piece');
+							}
+							ask(db, 'readwrite', function (s) {
+								return s.put(all.buffer, part.url);
+							});
+							return all.buffer;
+						});
+					});
+				}).catch(function (err) {
+					if (err.fatal) {
+						throw err;
+					}
+					pieceDone[key] = 0;
+					showPieces();
+					const ms = wait;
+					wait = Math.min(wait * 2, 15000);
+					return sleep(ms).then(attempt);
+				});
+			};
+			return attempt();
+		});
+	}
+
+	function loadByPieces(name, info, db) {
+		const buffers = new Array(info.parts.length);
+		let next = 0;
+		const worker = function () {
+			if (next >= info.parts.length) {
+				return Promise.resolve();
+			}
+			const i = next++;
+			return getPiece(db, info.parts[i], name + i).then(function (b) {
+				buffers[i] = b;
+				return worker();
+			});
+		};
+		return Promise.all([worker(), worker(), worker()]).then(function () {
+			const type = name.endsWith('.wasm') ? 'application/wasm' : 'application/octet-stream';
+			return new Response(new Blob(buffers, {type: type}), {headers: {'Content-Type': type, 'Content-Length': String(info.size)}});
+		});
+	}
+
+	function tidy(info, db) {
+		// 游戏更新以后，旧版本存下的块删掉，不占手机地方
+		const keep = {};
+		Object.keys(info.files).forEach(function (name) {
+			info.files[name].parts.forEach(function (p) {
+				keep[p.url] = true;
+			});
+		});
+		ask(db, 'readonly', function (s) {
+			return s.getAllKeys();
+		}).then(function (keys) {
+			(keys || []).forEach(function (k) {
+				if (!keep[k]) {
+					ask(db, 'readwrite', function (s) {
+						return s.delete(k);
+					});
+				}
+			});
+		});
+	}
+
+	let tidied = false;
+	window.fetch = function (input, init) {
+		const url = typeof input === 'string' ? input : (input && input.url) || '';
+		const name = url.split('?')[0].split('/').pop();
+		if (name !== 'index.wasm' && name !== 'index.pck') {
+			return realFetch(input, init);
+		}
+		return Promise.all([manifest, store]).then(function (got) {
+			const info = got[0];
+			const db = got[1];
+			if (!info || !info.files || !info.files[name] || !window.ReadableStream) {
+				byPieces = false;
+				return realFetch(input, init);
+			}
+			if (!byPieces) {
+				byPieces = true;
+				pieceTotal = 0;
+				Object.keys(info.files).forEach(function (n) {
+					pieceTotal += info.files[n].size;
+				});
+			}
+			return loadByPieces(name, info.files[name], db).then(function (response) {
+				if (!tidied && db) {
+					tidied = true;
+					tidy(info, db);
+				}
+				return response;
+			}, function (err) {
+				console.warn('分块下载不行，改成整份下载：', err);
+				byPieces = false;
+				return realFetch(input, init);
+			});
+		});
+	};
+
 	engine.startGame({
 		onProgress: function (current, total) {
-			if (current > 0 && total > 0) {
+			if (!byPieces && current > 0 && total > 0) {
 				target = current / total;
 			}
 		},
