@@ -331,8 +331,8 @@
         <h3>Who made what</h3>
         <dl class="facts">
           <dt>My role</dt><dd>Game direction, story outline and design decisions. The level drafts and the story text were written with Claude.</dd>
-          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex and Cursor for parts of the code, the level tuning and the video tools), directed by me. My saved playtest logs cover the physics test course, the old level 1 (finished in 32.8&nbsp;s on 5 November) and the old level 2. I also played level 1's second version and the current levels 1 and 2, without a log. Two browser sessions of the current level 1 on 16 November logged six falls and no finish; I do not know who played them. No logged playtest is confirmed to be from someone new to the game.</dd>
-          <dt>Working with AI</dt><dd>I set the goal, play the build and send drafts back. Three times that changed the game: the cut dive and pull-up (<a href="#step-1">step 1</a>), the world book I threw out (<a href="#step-7">step 7</a>), and the 44-minute level I called off (<a href="#step-10">step 10</a>).</dd>
+          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex and Cursor for parts of the code, the level tuning and the video tools), directed by me. My saved playtest logs cover the physics test course, the old level 1 (finished in 32.8&nbsp;s on 5 November) and the old level 2. I also played level 1's second version and the current levels 1 and 2, without a log. Two browser sessions of the current level 1 on 16 November logged six falls and no finish; I do not know who played them. I cannot confirm that any logged playtest came from someone new to the game.</dd>
+          <dt>Working with AI</dt><dd>I set the goal, play the build and send drafts back. Three of those calls changed the game: cutting the dive and pull-up (<a href="#step-1">step 1</a>), throwing out the world book (<a href="#step-7">step 7</a>), and calling off the 44-minute level (<a href="#step-10">step 10</a>).</dd>
           <dt>Status</dt><dd>Playable draft: seven levels and an ending. The level layouts, the lines and the signs are still drafts.</dd>
           <dt>Music</dt><dd>Nine pieces by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. I tried music synthesized in code first and it sounded harsh, so I replaced it. The sound effects are still synthesized in code.</dd>
           <dt>This page</dt><dd>The text was drafted with Claude from my project notes.</dd>
@@ -347,7 +347,7 @@
       </a>
       <a class="card" href="#step-2">
         <img class="pixelated" src="assets/relics-rule.png" alt="" width="1280" height="720" loading="lazy">
-        <div><h3>One rule</h3><p>The doors, the shield and the rope change direction, not speed. The bracer is a double jump; it and the cloak cannot both be used in one jump.</p></div>
+        <div><h3>One rule</h3><p>The doors, the shield and the rope change direction, not speed. The bracers are a double jump; they and the cloak cannot both be used in one jump.</p></div>
       </a>
       <a class="card" href="#step-3">
         <img class="pixelated" src="assets/stitch-guide.png" alt="" width="1280" height="720" loading="lazy">
@@ -368,12 +368,12 @@
           a pull-up. After flying it I said it was not working: running and jumping became the core, and gliding one
           button.</li>
         <li><a href="#step-2"><b>One rule for every relic.</b></a> A relic can change your direction, not your speed. The
-          doors break the rule on purpose, and the bracer became a double jump after I played it.</li>
+          doors break the rule on purpose, and the bracers became a double jump after I played them.</li>
         <li><a href="#step-4"><b>Room is measured, not guessed.</b></a> I asked for no jump that only works if you hit it
           exactly. Scripts measure the timing window of every required step against a 0.4&nbsp;s target and run each level
           with random jitter.</li>
         <li><a href="#step-10"><b>Longer, then smaller.</b></a> I asked for half-hour levels, saw the 44-minute result and
-          called it off. Level 1 was rebuilt three times and now turns on four machines.</li>
+          called it off. Level 1 was rebuilt three times and is now built around four machines.</li>
         <li><a href="#step-11"><b>Can a new player read it?</b></a> A second model, shown screenshots and no design notes,
           named four things a newcomer might miss. After four drawing changes it picked out more of the knots; no player
           has confirmed any of it yet.</li>
@@ -443,18 +443,18 @@
         <p class="tag">TWO EXCEPTIONS</p>
         <p>The doors break the ceiling: going in low and coming out high is free height. So I check how high each pair can
           carry you, and a low island needs a door back.</p>
-        <p>The Leaping Bracers have left the rule. The bracer started as a flip that turned a fall into a rise at the same
-          speed. After playing, I said it felt more like a double jump than a flip, so now it is one: press jump in the air
-          and you jump again, the same height every time, once per jump. Claude measured that the extra height, glided out,
-          carries you 300 to 500&nbsp;px further, enough to skip the ropes in level 6, so for now the bracer and the cloak
-          cannot both be used in one jump. The old flip is kept behind a switch while I compare the two.</p>
+        <p>The Leaping Bracers are the other exception. They started as a flip that turned a fall into a rise at the same
+          speed. After playing, I said they felt more like a double jump than a flip, so now they are one: press jump in the
+          air and you jump again, the same height every time, once per jump. Claude measured that gliding from the extra
+          height carries you 300 to 500&nbsp;px further, enough to skip the ropes in level 6, so for now the bracers and the
+          cloak cannot both be used in one jump. The old flip is kept behind a switch while I compare the two.</p>
         <p class="tag">WHO DID WHAT</p>
-        <p>The glide rule is mine, and the bracer and the doors were my ideas. Claude proposed the rope and the shield,
+        <p>The glide rule is mine, and the bracers and the doors were my ideas. Claude proposed the rope and the shield,
           drafted how all four work and wrote the code.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/relics-rule.png" alt="Four panels, one per relic: the Twin Doors, the Mirror Shield, Roland's Rope and the Leaping Bracers. The doors, the shield and the rope change your direction; the last panel shows the double jump from the top of a book column." width="1280" height="720" loading="lazy"></div>
-        <p class="caption">The doors, the shield and the rope change direction, not speed. The bracer is a double jump; it and the cloak cannot both be used in one jump.</p>
+        <p class="caption">The doors, the shield and the rope change direction, not speed. The bracers are a double jump; they and the cloak cannot both be used in one jump.</p>
       </div>
     </article>
 
@@ -472,8 +472,8 @@
           basket. A miss there costs little: you land on something below or go back to the platform you left. Claude Code
           built the stitching and placed it in the levels.</p>
         <p class="tag">READ AS A ROUTE</p>
-        <p>In a blind test on screenshots, by a model that had not seen any design notes, a chain with gold links was read
-          as stitching that pointed upward, where a glide cannot take you. The chains are now iron, and dashed gold is kept
+        <p>In a blind test on screenshots, a model that had not seen any design notes read a chain with gold links as
+          stitching that pointed upward, where a glide cannot take you. The chains are now iron, and dashed gold is kept
           for the route.</p>
         <p class="tag">OPEN QUESTION</p>
         <p>Whether the stitching reads for someone new to the game. I have played two versions of level 1 with it; nobody
@@ -493,17 +493,18 @@
         <p class="tag">PROBLEM</p>
         <p>Every session I played on my computer wrote a playtest log. In one session on the physics test course, all five falls happened at the
           same gap: I opened the glide too early. An automated level checker put a number on it: that gap had a
-          0.20&nbsp;s timing window, meaning you could press only that much earlier or later and still make it. A test
+          0.20&nbsp;s timing window: a press had to land inside that span to make it. A test
           layout with the wall shortened and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
         <p class="tag">DECISION</p>
-        <p>I asked for room on every step: no jump that only works if you hit it exactly. The targets are a 0.4&nbsp;s window
-          on every required step, which only the last level may go below, and 75% of jitter runs finishing. Scripts written
+        <p>I asked for room on every step: no jump that only works if you hit it exactly. The targets are a timing window of at
+          least 0.4&nbsp;s on every required step, which only the last level may go below, and 75% of jitter runs reaching
+          the end. Scripts written
           by Claude Code and Codex check them:</p>
         <ul>
           <li>The level checker: an autopilot tries eight input strategies at more than 30 timings from each island and
             reports the window. Every required step is also swept on its own, including the ones that go left, up, through
             doors or on the rope.</li>
-          <li>An autopilot that runs each level from the spawn point to the link point in one go. In level 1 it follows the
+          <li>An autopilot that runs each level from the spawn point to the link point, the golden knot at its end, in one go. In level 1 it follows the
             plates: the lift, the ferry, the winch, then the drawbridge.</li>
           <li>An exit check for each level: from every place you can land there is a way back to the route, and the
             shortcuts that would skip the level's idea do not work.</li>
@@ -602,7 +603,7 @@
           and a farmer who never knew who he was raised him on a small island. Years later Mirelle, trapped in the storm,
           reached him in a dream: a hand letting go, a cloak catching a baby, and a woman's voice calling him up to an
           island with a gold roof. He leaves to find out who she is.</p>
-        <p>Each lord you wake gives their name, recognises one thing about him, and says why he should go on to the next
+        <p>Each lord you wake gives their name, recognises one thing about you, and says why you should go on to the next
           castle. Gawen sees the half crown on your cloak, Corvin the thread that never runs out, Elinor the king she once painted in your face, Viola your
           mother's eyes. Roland saw the child fall, and Tomas saw the queen alive on the Throne Isle. Each level keeps one or
           two signs, and in every level one of them shows the king trying to live forever. A narrator adds one sentence at
@@ -614,7 +615,7 @@
         <p>The outline is mine, including its turns: the queen losing the child, the farmer, the king who wanted to live
           forever, the dream from the mage, and the lords frozen by the same spell. Claude asked me questions in twelve
           rounds, each with a recommended answer, and I picked one or wrote my own. The lords' names were proposed by Claude
-          and approved by me. After playing the opening I said the text was bad and asked for the voice of a medieval novel
+          and approved by me. After playing the opening I said the text was not working and asked for the voice of a medieval novel
           and a story you can follow. Claude wrote the lines and the signs; I approved the voice on the opening and the
           first level and had the rest written the same way. I have not gone through those yet.</p>
       </div>
@@ -655,7 +656,7 @@
         <p class="tag">DECISION</p>
         <p>The last level is the storm that broke the kingdom, with the old king still inside it. You do not fight the storm.
           Five golden knots hold the storm together, and each one sits behind a harder version of an obstacle you passed to
-          earn a relic: a stepped wall to slip under for the cloak, a double jump up into a bell of books for the bracer, a
+          earn a relic: a stepped wall to slip under for the cloak, a double jump up into a bell of books for the bracers, a
           door at the bottom of a pit, a mirror well for the shield, and three hanging rocks to swing across for the rope.
           Gold lightning marks the ground for 0.8&nbsp;s before it strikes. Each knot you tie shrinks the storm and saves
           your place. The sixth knot sits at the centre, at the end of a run that uses every move in a row with no save in
@@ -711,7 +712,7 @@
           plate, so you wait for it there and jump in. It carries you to the top of the wall, where the low glide under the
           hanging wall spends that height.</p>
         <p class="tag">RESULT</p>
-        <p>Going through the design principles found real problems, among them: the jump onto the drawbridge started from a
+        <p>Checking the levels against the design principles found real problems, among them: the jump onto the drawbridge started from a
           spot where you could not see where you would land, the plates were three pixels tall, and a third of the level
           was spent waiting for platforms. An independent review by a second model found more, among them: the drawbridge
           timer started while the drawbridge was still off screen; the ferry plank did not catch a full-speed jump (in the
@@ -746,8 +747,8 @@
         <p class="tag">PROBLEM</p>
         <p>Nobody new to the game had played the rebuilt levels. To guess what a first-time player would miss, Claude ran
           blind tests: a second model got screenshots from the game, no design notes, and was asked what each thing was and
-          where it would go next. Four problems stood out. The eleven optional knots added on 13 November
-          were mostly not seen: three of eleven. The plates were not read as something to step on. After a double jump the cloak
+          where it would go next. Four problems stood out. Only three of the eleven optional knots added on
+          13 November were noticed. The plates were not read as something to step on. After a double jump the cloak
           would not open, and nothing on screen said why; in four places that drops you into the clouds. In level 5 the goal
           crystal at your feet was not read as the goal. A fifth, gold standing for too many things, is still open.</p>
         <p class="tag">DECISION</p>
@@ -757,7 +758,7 @@
           land.</p>
         <p class="tag">RESULT</p>
         <p>Screenshots from the same camera positions, with the same questions, before and after. Of the eight knots in frame, the model pointed out
-          four before and seven and six in two runs after. A first try with a dark outline made it worse: two. The plates were
+          four before the changes, then seven and six in two runs afterwards. A first try with a dark outline made it worse: two. The plates were
           now called something to step on, but not linked to the basket they call. The grey cloak was not noticed in either
           run; a small character changing colour does not show in a still frame, so this test cannot say whether it works
           for a person. The crystal in level 5 was no longer marked as a place to get stuck, but it was still not named as
@@ -791,7 +792,7 @@
             was one small level that is well designed.</li>
           <li>Scripts show where a step is tight, not whether a player understands it. The numbers on this page come from
             an autopilot; the open questions are about reading the screen.</li>
-          <li>The AI assistants did most of the building. My part was the calls: fewer moves, stopping the 44-minute
+          <li>The AI assistants did most of the building. My part was the design decisions: fewer moves, stopping the 44-minute
             level, and asking for machines in level 1 after I played it.</li>
         </ul>
       </div>
@@ -824,7 +825,7 @@
 </main>
 
 <footer class="wrap">
-  <p>Headings use Ark Pixel Font (SIL Open Font License 1.1, <a href="assets/OFL-ark-pixel-font.txt">license</a>).
+  <p>Headings use Ark Pixel Font (SIL Open Font License 1.1, <a href="assets/OFL-ark-pixel-font.txt">licence text</a>).
     Game art and sound effects were generated in code for this project. Music: "Morning", "Skye Cuillin", "Ascending the Vale",
     "Midnight Tale", "Frozen Star", "Lord of the Land", "Teller of the Tales", "Heroic Age" and "Enchanted Journey" by Kevin MacLeod
     (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.</p>
