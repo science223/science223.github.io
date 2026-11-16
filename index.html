@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://science223.github.io/">
 <meta property="og:title" content="Islands in the Sky · Shoupeng Gao, game design portfolio">
 <meta property="og:description" content="A seven-level pixel-art platformer you can play in the browser, and how it was designed.">
-<meta property="og:image" content="https://science223.github.io/assets/trailer-poster.png">
+<meta property="og:image" content="https://science223.github.io/assets/share.png">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="720">
 <meta name="twitter:card" content="summary_large_image">
@@ -274,18 +274,19 @@
         <h2>Islands in the Sky</h2>
         <p class="pixel subtitle">The Lost Kingdom</p>
         <p class="pixel subtitle-zh">空中之岛 · 失落的王国</p>
-        <p class="pitch lead-pitch">A short pixel-art platformer in seven levels. Five relics each add one move; the
-          level after each one opens with a safe place to try it, and the last level asks for all of them.</p>
+        <p class="pitch lead-pitch">A short pixel-art platformer in seven levels. Five relics each add a new way to
+          move; the level after each one opens with a safe place to try it, and the last level asks for all of them.</p>
         <p class="pitch">A boy raised on a farm island climbs a kingdom torn into islands in the sky, to find the woman calling
-          him in a dream. At the end of each level you tie a broken golden knot: that island's time starts again, and its
-          lord recognises something about you.</p>
+          him in a dream. At the end of each castle's level you tie a broken golden knot: that island's time starts again,
+          and its lord recognises something about you.</p>
         <div class="buttons">
           <a class="button" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
           <a class="more" href="#process">How I designed it</a>
           <a class="more" href="game.html">Game page</a>
         </div>
         <p class="note">Plays with a keyboard, or with touch buttons on a phone held sideways.
-          From China, use the mirror in Tokyo: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.</p>
+          From China, use the mirror in Tokyo: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.
+          The first load is about 41&nbsp;MB; after that the game opens from your browser's storage.</p>
       </div>
       <div class="hero-side">
         <figure class="trailer">
@@ -373,8 +374,9 @@
           with random jitter.</li>
         <li><a href="#step-10"><b>Longer, then smaller.</b></a> I asked for half-hour levels, saw the 44-minute result and
           called it off. Level 1 was rebuilt three times and now turns on four machines.</li>
-        <li><a href="#step-11"><b>Can a new player read it?</b></a> Blind tests on screenshots found four things a newcomer
-          might miss. Some read better after the changes; the rest wait for real players.</li>
+        <li><a href="#step-11"><b>Can a new player read it?</b></a> A second model, shown screenshots and no design notes,
+          named four things a newcomer might miss. After four drawing changes it picked out more of the knots; no player
+          has confirmed any of it yet.</li>
       </ol>
       <div class="media"><img src="assets/level1-map.png" alt="The whole of level 1 from the farm on the left to Gatekeep on the right, with the four machines numbered in the order you use them" width="2700" height="720" loading="lazy"></div>
       <p class="caption">Level 1 today: four machines, in the order you use them (<a href="#step-10">step 10</a>).</p>
@@ -528,7 +530,8 @@
           <p class="stat-label">JITTER RUNS THAT FINISH (SMALL / MEDIUM)</p>
           <p class="stat-value pixel">L1 <b>24 / 22</b></p>
           <p class="stat-value pixel">L2 <b>24 / 24</b></p>
-          <p class="stat-note">Of 24 runs each, measured 11 November. Target: 75%.</p>
+          <p class="stat-note">Scripted routes, not players: 24 runs each, measured 11 November. Target: 75%. At the largest
+            jitter, level 1 finishes 13 and level 2 finishes 12.</p>
         </div>
       </div>
     </article>
@@ -788,8 +791,8 @@
             was one small level that is well designed.</li>
           <li>Scripts show where a step is tight, not whether a player understands it. The numbers on this page come from
             an autopilot; the open questions are about reading the screen.</li>
-          <li>With AI doing most of the building, my part is to set the goal, play the build and send drafts back. Many
-            steps in this log start with a draft I turned down.</li>
+          <li>The AI assistants did most of the building. My part was the calls: fewer moves, stopping the 44-minute
+            level, and asking for machines in level 1 after I played it.</li>
         </ul>
       </div>
       <div class="stitched">
