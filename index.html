@@ -418,10 +418,10 @@
           the core mechanic. The core of the game became running and jumping, and gliding a move you hold in the air.</p>
         <p class="tag">CUT</p>
         <p>Looking at the finished levels, I said there were too many moves to keep in your head. The data agreed: the autopilot routes
-          used the pull-up five times, all of them in level 2. I asked for fewer moves that are easy to master. Gliding is
+          used the dive and the pull-up five times between them, all in level 2. I asked for fewer moves that are easy to master. Gliding is
           now one button: hold it to drift forward, let go to drop. There is no pitch control and no pull-up. Shift used to
-          sprint on the ground as well; now you pick up speed by yourself after running one way for about a third of a
-          second, so Shift only glides. Each relic adds exactly one thing to do.</p>
+          sprint on the ground as well; now you pick up speed by yourself after running one way for 0.35&nbsp;s, so
+          Shift only glides. Each relic adds exactly one thing to do.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>I chose the pull-up as the thrill, set the four rules and sent the prototypes back until they met them. After flying it I moved the game to platforming, and later asked for fewer moves. The glider physics and the test were written with AI coding assistants.</p>
       </div>
@@ -446,7 +446,7 @@
         <p>The Leaping Bracers are the other exception. They started as a flip that turned a fall into a rise at the same
           speed. After playing, I said they felt more like a double jump than a flip, so now they are one: press jump in the
           air and you jump again, the same height every time, once per jump. Claude measured that gliding from the extra
-          height carries you 300 to 500&nbsp;px further, enough to skip the ropes in level 6, so for now the bracers and the
+          height carries you 300 to 500&nbsp;px further, enough to fly past two of the rope swings in level 6, so for now the bracers and the
           cloak cannot both be used in one jump. The old flip is kept behind a switch while I compare the two.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>The glide rule is mine, and the bracers and the doors were my ideas. Claude proposed the rope and the shield,
@@ -492,7 +492,7 @@
         <h3>4. Measuring room instead of guessing</h3>
         <p class="tag">PROBLEM</p>
         <p>Every session I played on my computer wrote a playtest log. In one session on the physics test course, all five falls happened at the
-          same gap: I opened the glide too early. An automated level checker put a number on it: that gap had a
+          same gap, each with the glide opened at a different moment. An automated level checker put a number on it: that gap had a
           0.20&nbsp;s timing window: a press had to land inside that span to make it. A test
           layout with the wall shortened and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
         <p class="tag">DECISION</p>
@@ -501,7 +501,7 @@
           the end. Scripts written
           by Claude Code and Codex check them:</p>
         <ul>
-          <li>The level checker: an autopilot tries eight input strategies at more than 30 timings from each island and
+          <li>The level checker: an autopilot tries twelve input strategies, most of them at more than 30 timings, from each island and
             reports the window. Every required step is also swept on its own, including the ones that go left, up, through
             doors or on the rope.</li>
           <li>An autopilot that runs each level from the spawn point to the link point, the golden knot at its end, in one go. In level 1 it follows the
@@ -566,12 +566,12 @@
       <div>
         <h3>6. One idea per level</h3>
         <p class="tag">PROBLEM</p>
-        <p>The first six levels were short, about 15 seconds each for the autopilot, and every one was a row of jumps that
+        <p>The first six levels were short, 11 to 20 seconds each for the autopilot, and every one was a row of jumps that
           could have sat in any castle. I asked for longer levels with a reason behind each layout.</p>
         <p class="tag">METHOD</p>
         <p>Each level starts from one sentence: the player has to do something before they understand why, and it only
-          makes sense in that castle. Claude Code weighed at least three ideas per level, and each level has a design note
-          with the ideas it rejected and what the tests taught. Each idea comes in three steps: you run into it, you use it
+          makes sense in that castle. For levels 3 to 6 Claude Code weighed four or five ideas each, and every level has a design
+          note with what the tests taught. Each idea comes in three steps: you run into it, you use it
           on purpose, then you trust it at a spot where you cannot see the next step.</p>
         <table class="ideas">
           <tr><th>Gatekeep</th><td>The king's bridge is broken and Gatekeep's drawbridge is up. You work the bridge's machines in order: a lift, a ferry plank, the bridge keeper's winch, and a plate that lowers the drawbridge for a few seconds.</td></tr>
@@ -689,7 +689,7 @@
         <p class="tag">RESULT</p>
         <p>Claude wrote a generator that placed about 3,000 islands in eight sections and checked every jump in a physics
           simulation calibrated against the game. The autopilot finished it in 44 minutes without falling. The length also
-          made the problem easy to see: one section was 385 nearly identical bridge spans, and no jump in the whole level
+          made the problem easy to see: one section was 385 jumps across nearly identical bridge spans, and no jump in the whole level
           needed timing. I read the notes and called it off. What I wanted was one small level that is well designed, not a
           long one.</p>
         <p class="tag">DECISION</p>
