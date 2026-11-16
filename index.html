@@ -4,7 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shoupeng Gao · Game Design Portfolio</title>
-<meta name="description" content="Game design portfolio: Islands in the Sky: The Lost Kingdom, a pixel-art platformer about running, jumping and gliding between islands.">
+<meta name="description" content="Game design portfolio: Islands in the Sky: The Lost Kingdom, a short pixel-art platformer in seven levels that plays in the browser, and how it was designed.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="theme-color" content="#1e1830">
+<link rel="canonical" href="https://science223.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://science223.github.io/">
+<meta property="og:title" content="Islands in the Sky · Shoupeng Gao, game design portfolio">
+<meta property="og:description" content="A seven-level pixel-art platformer you can play in the browser, and how it was designed.">
+<meta property="og:image" content="https://science223.github.io/assets/trailer-poster.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   @font-face {
     font-family: "Pixel";
@@ -83,6 +95,7 @@
   .title-card .subtitle { font-size: 24px; color: var(--paper); margin: 0 0 4px; }
   .title-card .subtitle-zh { font-size: 24px; color: var(--muted); margin: 0 0 16px; }
   .title-card p.pitch { font-size: 16px; line-height: 1.6; }
+  .title-card p.lead-pitch { font-size: 17px; color: var(--gold); }
   .hero-side { display: flex; flex-direction: column; gap: 16px; }
   .trailer { margin: 0; border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; background: #000; }
   .trailer video { display: block; width: 100%; height: auto; image-rendering: pixelated; }
@@ -141,12 +154,26 @@
   .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 24px 0 8px; }
   .card { display: block; color: var(--paper); text-decoration: none; background: var(--panel); border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; }
   .card:hover { border-color: var(--gold-deep); }
-  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .card img, .card video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
+  video.loop { display: block; width: 100%; height: auto; image-rendering: pixelated; }
   .card div { padding: 14px 16px 16px; }
   .card h3 { margin-bottom: 6px; color: var(--gold); }
   .card p { margin: 0; font-size: 15px; line-height: 1.5; }
 
   .process-head { margin-bottom: 8px; }
+  .short { margin: 8px 0 24px; }
+  .short .tag { margin-top: 0; }
+  .short-list { margin: 6px 0 18px; padding-left: 26px; }
+  .short-list li { margin-bottom: 10px; }
+  .short-list b { color: var(--gold); font-weight: 600; }
+  .short-list a { text-decoration: none; }
+  .short-list a:hover b { text-decoration: underline; }
+  .toc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 24px; margin: 0 0 8px; font-size: 15px; }
+  .toc a { color: var(--muted); text-decoration: none; }
+  .toc a:hover { color: var(--paper); text-decoration: underline; }
+  .after { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; margin-top: 32px; }
+  .after ul { margin-bottom: 0; }
+  code { font-size: 0.9em; color: var(--sand); }
   .step {
     position: relative;
     display: grid;
@@ -202,6 +229,7 @@
     .hero-side { display: contents; }
     .step .side { position: static; }
     .cards { grid-template-columns: minmax(0, 1fr); }
+    .after { grid-template-columns: minmax(0, 1fr); }
     .trailer { order: -1; }
   }
   @media (max-width: 600px) {
@@ -220,6 +248,8 @@
     .ideas th { padding: 10px 0 0; white-space: normal; }
     .ideas td { padding: 0 0 8px; }
     .ideas tr + tr td { border-top: 0; }
+    .toc { grid-template-columns: minmax(0, 1fr); }
+    .short-list { padding-left: 22px; }
   }
 </style>
 </head>
@@ -244,20 +274,22 @@
         <h2>Islands in the Sky</h2>
         <p class="pixel subtitle">The Lost Kingdom</p>
         <p class="pixel subtitle-zh">空中之岛 · 失落的王国</p>
-        <p class="pitch">A pixel-art platformer about a boy raised on a small farm island, who climbs a broken kingdom to find the
-          woman calling him in a dream. A spell meant to make the old king live forever tore the kingdom into islands in the
-          sky and stopped every clock at ten to five. You run, jump and glide between the islands. At the end of each level
-          you tie a broken golden knot, that island's time starts again, and its lord recognises something about you.</p>
+        <p class="pitch lead-pitch">A short pixel-art platformer in seven levels. Five relics each add one move; the
+          level after each one opens with a safe place to try it, and the last level asks for all of them.</p>
+        <p class="pitch">A boy raised on a farm island climbs a kingdom torn into islands in the sky, to find the woman calling
+          him in a dream. At the end of each level you tie a broken golden knot: that island's time starts again, and its
+          lord recognises something about you.</p>
         <div class="buttons">
           <a class="button" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
           <a class="more" href="#process">How I designed it</a>
+          <a class="more" href="game.html">Game page</a>
         </div>
         <p class="note">Plays with a keyboard, or with touch buttons on a phone held sideways.
-          From China, the Tokyo mirror loads faster: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.</p>
+          From China, use the mirror in Tokyo: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.</p>
       </div>
       <div class="hero-side">
         <figure class="trailer">
-          <video controls playsinline webkit-playsinline preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer recorded 11 November 2026 in-engine from the current build, with levels 1 and 2 as they are now">
+          <video controls playsinline webkit-playsinline preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer, 85 seconds, recorded in-engine on 17 November 2026 from the build that is online">
             <source src="assets/trailer.mp4" type="video/mp4">
           </video>
         </figure>
@@ -265,7 +297,7 @@
           <div><dt>ROLE</dt><dd>Game direction, story outline and design decisions</dd></div>
           <div><dt>TEAM</dt><dd>Solo, with AI coding assistants</dd></div>
           <div><dt>ENGINE</dt><dd>Godot 4.7</dd></div>
-          <div><dt>PLATFORMS</dt><dd>Web (plays in the browser), Windows</dd></div>
+          <div><dt>PLATFORMS</dt><dd>Web (computer and phone browsers); a Windows build for playtests</dd></div>
           <div><dt>TIMELINE</dt><dd>September 2026 – present</dd></div>
           <div><dt>STATUS</dt><dd>Playable draft: seven levels and an ending</dd></div>
         </dl>
@@ -286,15 +318,20 @@
           <dt><kbd>Space</kbd></dt><dd>Jump. Hold it to jump higher. In the air, hold it to catch a rope, once you have one.</dd>
           <dt><kbd>Shift</kbd></dt><dd>Hold in the air to glide, once you have the Glide Cloak. Let go to drop.</dd>
           <dt><kbd>Space</kbd> again</dt><dd>In the air: jump once more, once you have the Leaping Bracers. In the same jump, the cloak and the double jump cannot both be used.</dd>
+          <dt><kbd>R</kbd></dt><dd>Back to the last solid ground you stood on.</dd>
+          <dt><kbd>Esc</kbd></dt><dd>Pause. The pause menu also has the controls, your relics and the story fragments you have found.</dd>
         </dl>
-        <p>On a phone held sideways there are touch buttons. They have not been tried on a real phone yet.</p>
-        <p>You can pick any level from the menu.</p>
+        <p>While gliding, press the other way to turn around. A gamepad works too: stick to move, A to jump, X to glide.
+          On a phone held sideways there are touch buttons, with restart and pause in the top right corner.</p>
+        <p>You can pick any level from the menu. Off the main route there are eleven small optional knots; find all of a
+          level's knots and a gold thread joins them on the level select.</p>
       </div>
       <div>
         <h3>Who made what</h3>
         <dl class="facts">
           <dt>My role</dt><dd>Game direction, story outline and design decisions. The level drafts and the story text were written with Claude.</dd>
-          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex for level tuning and video tools), directed by me. I playtested the physics test course, the old level 1 (cleared, 11-05) and level 1's second version (11-10). No other level, and neither of the current levels 1 and 2, has a recorded playtest yet.</dd>
+          <dt>Programming</dt><dd>Implemented with AI coding assistants (Claude Code, plus OpenAI Codex and Cursor for parts of the code, the level tuning and the video tools), directed by me. My saved playtest logs cover the physics test course, the old level 1 (finished in 32.8&nbsp;s on 5 November) and the old level 2. I also played level 1's second version and the current levels 1 and 2, without a log. Two browser sessions of the current level 1 on 16 November logged six falls and no finish; I do not know who played them. No logged playtest is confirmed to be from someone new to the game.</dd>
+          <dt>Working with AI</dt><dd>I set the goal, play the build and send drafts back. Three times that changed the game: the cut dive and pull-up (<a href="#step-1">step 1</a>), the world book I threw out (<a href="#step-7">step 7</a>), and the 44-minute level I called off (<a href="#step-10">step 10</a>).</dd>
           <dt>Status</dt><dd>Playable draft: seven levels and an ending. The level layouts, the lines and the signs are still drafts.</dd>
           <dt>Music</dt><dd>Nine pieces by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. I tried music synthesized in code first and it sounded harsh, so I replaced it. The sound effects are still synthesized in code.</dd>
           <dt>This page</dt><dd>The text was drafted with Claude from my project notes.</dd>
@@ -304,7 +341,7 @@
 
     <div class="cards">
       <a class="card" href="#step-1">
-        <img class="pixelated" src="assets/glide-hold.gif" alt="" width="1280" height="720" loading="lazy">
+        <video class="loop" src="assets/glide-hold.mp4" poster="assets/glide-hold-poster.png" muted loop playsinline webkit-playsinline preload="none" width="1280" height="720" aria-hidden="true"></video>
         <div><h3>Fewer moves</h3><p>Run and jump to start. Each relic adds one thing, and the last level asks for all of them.</p></div>
       </a>
       <a class="card" href="#step-2">
@@ -322,6 +359,41 @@
 
   <section id="process">
     <h2 class="process-head">Design process</h2>
+
+    <div class="short stitched" id="short">
+      <p class="tag">THE SHORT VERSION</p>
+      <ol class="short-list">
+        <li><a href="#step-1"><b>I cut the move I started from.</b></a> The game began as a glider built around a dive and
+          a pull-up. After flying it I said it was not working: running and jumping became the core, and gliding one
+          button.</li>
+        <li><a href="#step-2"><b>One rule for every relic.</b></a> A relic can change your direction, not your speed. The
+          doors break the rule on purpose, and the bracer became a double jump after I played it.</li>
+        <li><a href="#step-4"><b>Room is measured, not guessed.</b></a> I asked for no jump that only works if you hit it
+          exactly. Scripts measure the timing window of every required step against a 0.4&nbsp;s target and run each level
+          with random jitter.</li>
+        <li><a href="#step-10"><b>Longer, then smaller.</b></a> I asked for half-hour levels, saw the 44-minute result and
+          called it off. Level 1 was rebuilt three times and now turns on four machines.</li>
+        <li><a href="#step-11"><b>Can a new player read it?</b></a> Blind tests on screenshots found four things a newcomer
+          might miss. Some read better after the changes; the rest wait for real players.</li>
+      </ol>
+      <div class="media"><img src="assets/level1-map.png" alt="The whole of level 1 from the farm on the left to Gatekeep on the right, with the four machines numbered in the order you use them" width="2700" height="720" loading="lazy"></div>
+      <p class="caption">Level 1 today: four machines, in the order you use them (<a href="#step-10">step 10</a>).</p>
+      <p class="tag">ALL STEPS</p>
+      <nav class="toc" aria-label="Design process steps">
+        <a href="#step-1">1. From flying to platforming</a>
+        <a href="#step-2">2. One rule behind every relic</a>
+        <a href="#step-3">3. Teaching through the map</a>
+        <a href="#step-4">4. Measuring room instead of guessing</a>
+        <a href="#step-5">5. Difficulty that rises and falls</a>
+        <a href="#step-6">6. One idea per level</a>
+        <a href="#step-7">7. A story I outlined myself</a>
+        <a href="#step-8">8. Tapestry and kintsugi</a>
+        <a href="#step-9">9. The Throne Isle</a>
+        <a href="#step-10">10. Longer, then smaller</a>
+        <a href="#step-11">11. Can a new player read it?</a>
+        <a href="#learned">What I learned, and what is next</a>
+      </nav>
+    </div>
 
     <article class="step" id="step-1">
       <div>
@@ -348,9 +420,11 @@
           now one button: hold it to drift forward, let go to drop. There is no pitch control and no pull-up. Shift used to
           sprint on the ground as well; now you pick up speed by yourself after running one way for about a third of a
           second, so Shift only glides. Each relic adds exactly one thing to do.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>I chose the pull-up as the thrill, set the four rules and sent the prototypes back until they met them. After flying it I moved the game to platforming, and later asked for fewer moves. The glider physics and the test were written with AI coding assistants.</p>
       </div>
       <div class="side">
-        <div class="media"><img class="pixelated" src="assets/glide-under-wall.gif" alt="The player dives under a hanging rock wall and pulls up onto the next island" width="1280" height="720" loading="lazy"></div>
+        <div class="media"><video class="loop" src="assets/glide-under-wall.mp4" poster="assets/glide-under-wall-poster.png" muted loop playsinline webkit-playsinline preload="none" width="1280" height="720" aria-label="The player dives under a hanging rock wall and pulls up onto the next island"></video></div>
         <p class="caption">The dive and pull-up on the physics test course. Cut from the game.</p>
       </div>
     </article>
@@ -402,6 +476,8 @@
         <p class="tag">OPEN QUESTION</p>
         <p>Whether the stitching reads for someone new to the game. I have played two versions of level 1 with it; nobody
           new to the game has yet.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>Teaching through the map instead of on-screen hints is my rule. Claude Code built the stitching and placed it; a second model ran the blind test.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/stitch-guide.png" alt="A dashed line of golden stitching runs across the gap to the next part of the route, with a brighter point of light moving along it" width="1280" height="720" loading="lazy"></div>
@@ -413,7 +489,7 @@
       <div>
         <h3>4. Measuring room instead of guessing</h3>
         <p class="tag">PROBLEM</p>
-        <p>Every session writes a playtest log. In one session on the physics test course, all five falls happened at the
+        <p>Every session I played on my computer wrote a playtest log. In one session on the physics test course, all five falls happened at the
           same gap: I opened the glide too early. An automated level checker put a number on it: that gap had a
           0.20&nbsp;s timing window, meaning you could press only that much earlier or later and still make it. A test
           layout with the wall shortened and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
@@ -434,22 +510,25 @@
             the way a person would, so the number is pessimistic.</li>
         </ul>
         <p>To design levels myself, I had the checks built into the editor: selecting an island draws its jump arc and glide
-          line, and a double-click runs the level checker. A five-minute narrated tutorial walks through the workflow.</p>
+          line, and a double-click runs the level checker. Claude also recorded a five-minute narrated tutorial of this workflow for me.</p>
         <p class="tag">NOW</p>
-        <p>Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
+        <p>Measured on 11 November, after levels 1 and 2 were rebuilt around plates; later changes only added optional
+          knots off the route and redrew a few things. Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
           about 1.6&nbsp;s from the left of the bridge tail. Level 2: the glide across the yard lands from anywhere on the
           inner ledge, and the last low glide has 0.7&nbsp;s. At the largest jitter setting level 1 finishes 13 of 24 runs
           and level 2 12 of 24; that setting is there to show the weakest step. In levels 3 to 6 the checker rates every required step at
           0.40&nbsp;s or looser except one rope step in level 6, which it rates at 0.33&nbsp;s; timed the way the route takes
           it, catching the rope twice, that step leaves 0.50&nbsp;s.</p>
         <p>All of these numbers come from scripts, not from players.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>The rule, no step that only works if you hit it exactly, is mine. The checker, the autopilot, the exit check and the jitter test were written by Claude Code and Codex.</p>
       </div>
       <div class="side">
         <div class="stat">
           <p class="stat-label">JITTER RUNS THAT FINISH (SMALL / MEDIUM)</p>
           <p class="stat-value pixel">L1 <b>24 / 22</b></p>
           <p class="stat-value pixel">L2 <b>24 / 24</b></p>
-          <p class="stat-note">Of 24 runs each. Target: 75%.</p>
+          <p class="stat-note">Of 24 runs each, measured 11 November. Target: 75%.</p>
         </div>
       </div>
     </article>
@@ -474,6 +553,8 @@
         <p>My first playtest log of the old level 1 showed two falls on the small steps outside the first castle, both right
           after landing. A quick tap of jump only lifted you 11&nbsp;px, so a tap now counts as at least 0.12&nbsp;s of
           holding (about 39&nbsp;px). Those steps are not in the current level 1.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>I named the problem and asked for the research. Claude reshaped the levels around what came back.</p>
       </div>
     </article>
 
@@ -496,6 +577,8 @@
           <tr><th>The Empty Keep</th><td>A wall like Thornhold's, but now the shield bounces you back through the empty hall. Here the walls are the road.</td></tr>
           <tr><th>The Clock Tower</th><td>You climb a tower frozen in mid-explosion, then jump down the weight shaft yourself. The tower stopped in the middle of a fall.</td></tr>
         </table>
+        <p class="tag">WHO DID WHAT</p>
+        <p>I asked for longer levels with a reason behind each layout. Claude Code weighed the ideas, built the levels and wrote a design note for each.</p>
       </div>
     </article>
 
@@ -517,7 +600,7 @@
           reached him in a dream: a hand letting go, a cloak catching a baby, and a woman's voice calling him up to an
           island with a gold roof. He leaves to find out who she is.</p>
         <p>Each lord you wake gives their name, recognises one thing about him, and says why he should go on to the next
-          castle. Gawen sees the half crown on your cloak, Corvin the thread that never runs out, Elinor your face, Viola your
+          castle. Gawen sees the half crown on your cloak, Corvin the thread that never runs out, Elinor the king she once painted in your face, Viola your
           mother's eyes. Roland saw the child fall, and Tomas saw the queen alive on the Throne Isle. Each level keeps one or
           two signs, and in every level one of them shows the king trying to live forever. A narrator adds one sentence at
           the end of each level, and Mirelle tells what happened that afternoon only at the end.</p>
@@ -550,6 +633,8 @@
         <p class="tag">RESULT</p>
         <p>Each of the six levels has its own sky. Claude Code generated all of it in code, like the rest of the game's
           art.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>I asked for art that is comfortable to look at and has its own character, then for each level to look different, then for more polish. Claude proposed tapestry and kintsugi and drew all of it in code.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/art-before-after.png" alt="Before and after the art pass, side by side: flat grey stone and a plain blue sky on the left, woven banded stone with gold thread in the cracks and a warmer sky on the right" width="1292" height="1104" loading="lazy"></div>
@@ -571,13 +656,15 @@
           door at the bottom of a pit, a mirror well for the shield, and three hanging rocks to swing across for the rope.
           Gold lightning marks the ground for 0.8&nbsp;s before it strikes. Each knot you tie shrinks the storm and saves
           your place. The sixth knot sits at the centre, at the end of a run that uses every move in a row with no save in
-          between. This is the one level allowed below 0.4&nbsp;s. The checker rates the first knot at 0.30&nbsp;s, but only
-          for a jump, which hits the first wall. Walked off with a glide that you let go of for a moment, it leaves more
-          than half a second: the hard part there is knowing not to jump.</p>
+          between. This is the one level allowed below 0.4&nbsp;s. The checker first rated the first knot at 0.30&nbsp;s,
+          because it only tried a jump, which hits the first wall. Once it also tried walking off with a glide that you let
+          go of for a moment, the same step came out at 1.03&nbsp;s: the hard part there is knowing not to jump.</p>
         <p class="tag">RESULT</p>
         <p>When the last knot is tied, the storm comes apart and Mirelle falls out of it. She says she poured the spell
           into him and could not stop it. The islands sink back to the ground, the key from level 6 opens the last door, and
           the queen says one word, his name: Aurin.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>I asked that only the last level be hard. Claude designed the five knots and the storm, and built the level.</p>
       </div>
       <div class="side">
         <div class="media"><img class="pixelated" src="assets/throne-isle.png" alt="Four screenshots: the player ties a golden knot under the storm, gold lightning strikes an island under the old king's face, Mirelle speaks once the storm is gone, and in the morning light the queen says Aurin" width="1280" height="720" loading="lazy"></div>
@@ -633,12 +720,15 @@
         <p class=tag>OPEN QUESTION</p>
         <p>On paper level 2 is now easier on the hands: its last glide window went from 0.6 to 0.7&nbsp;s, and the hard part
           is working out the basket. The second review flagged that; it is left for a playtest to decide. The game
-          already writes a log of each session for that.</p>
+          can log each session for that: the editor and the Windows build always write a log, and the browser version sends one
+          only when the link ends in <code>?playtest</code>.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>The length goal, calling it off and asking for machines were mine. Claude wrote the generator and rebuilt both levels; a second model reviewed them.</p>
       </div>
       <div class="side" style="position: static">
         <div class="media"><img class="pixelated" src="assets/machines.png" alt="Four screenshots. Level 1: a plate on the bridgehead with a chain to a grey stone ferry plank, and the bridge keeper's hut with the winch plate and a chain up to the raised far span. Level 2: the player jumps from the plate into the lowered basket, then glides low under the hanging wall to the keep." width="2568" height="1448" loading="lazy"></div>
         <p class="caption">Plates and chains. Level 1: the ferry plank, and the winch in the hut. Level 2: the basket, then the low glide.</p>
-        <div class="media"><img class="pixelated" src="assets/ferry-plate.gif" alt="The player steps on the plate at the bridgehead, the grey ferry plank slides over along its chain, and the player jumps on and rides it across the break" width="640" height="360" loading="lazy"></div>
+        <div class="media"><video class="loop" src="assets/ferry-plate.mp4" poster="assets/ferry-plate-poster.png" muted loop playsinline webkit-playsinline preload="none" width="1280" height="720" aria-label="The player steps on the plate at the bridgehead, the grey ferry plank slides over along its chain, and the player jumps on and rides it across the break"></video></div>
         <p class="caption">Step on the plate and the ferry plank comes over.</p>
       </div>
       <div class="wide">
@@ -646,6 +736,73 @@
         <p class="caption">Level 1, the plate version: four machines, in the order you use them.</p>
       </div>
     </article>
+
+    <article class="step" id="step-11">
+      <div>
+        <h3>11. Can a new player read it?</h3>
+        <p class="tag">PROBLEM</p>
+        <p>Nobody new to the game had played the rebuilt levels. To guess what a first-time player would miss, Claude ran
+          blind tests: a second model got screenshots from the game, no design notes, and was asked what each thing was and
+          where it would go next. Four problems stood out. The eleven optional knots added on 13 November
+          were mostly not seen: three of eleven. The plates were not read as something to step on. After a double jump the cloak
+          would not open, and nothing on screen said why; in four places that drops you into the clouds. In level 5 the goal
+          crystal at your feet was not read as the goal. A fifth, gold standing for too many things, is still open.</p>
+        <p class="tag">DECISION</p>
+        <p>Change how things are drawn, not the levels. A narrow plate now stands on short legs and sinks when you step on
+          it. An optional knot is a bright four-point star. A goal crystal you have not touched glows, with motes of light
+          rising from it. A double jump leaves a puff of air under you, and the spent cloak turns grey and short until you
+          land.</p>
+        <p class="tag">RESULT</p>
+        <p>Screenshots from the same camera positions, with the same questions, before and after. Of the eight knots in frame, the model pointed out
+          four before and seven and six in two runs after. A first try with a dark outline made it worse: two. The plates were
+          now called something to step on, but not linked to the basket they call. The grey cloak was not noticed in either
+          run; a small character changing colour does not show in a still frame, so this test cannot say whether it works
+          for a person. The crystal in level 5 was no longer marked as a place to get stuck, but it was still not named as
+          the goal.</p>
+        <p class="tag">LIMIT</p>
+        <p>A model reading screenshots can say where a player might be confused, not how badly. Of the twelve spots it rated
+          as places a player would get stuck, two kept that rating when they were checked again. No player has confirmed
+          either.</p>
+        <p class="tag">OPEN QUESTION</p>
+        <p>The game now sends a log of falls when it is opened with <code>?playtest</code>. The first logged sessions of the
+          current levels came on 16 November: two runs of level 1 on a device that reports a touch screen, six falls, three
+          of them from the bridge keeper's ledge. Neither run logged reaching the end, and I do not know who played. That is too little to change anything yet; it is what the
+          next playtests should look at.</p>
+        <p class="tag">WHO DID WHAT</p>
+        <p>Claude set up the blind tests and planned the four changes overnight; Grok, a second model, read the screenshots,
+          and Cursor wrote most of the drawing code. I decided to put them live.</p>
+      </div>
+      <div class="side">
+        <div class="media"><img src="assets/readability.png" alt="Four before-and-after pairs from the game. Optional knot: a faint pale knot, a dark ring that tested worse, and the bright four-point star used now. Plate: flat on the ground before, standing on short legs now. Goal crystal: plain before, with a soft glow and rising motes now. Cloak: red before the double jump, faded and short after it." width="964" height="1176" loading="lazy"></div>
+        <p class="caption">What changed, from the game. The knot is the one under the bridge in level 1; the outline in the middle tested worse and was dropped.</p>
+      </div>
+    </article>
+
+    <div class="after" id="learned">
+      <div class="stitched">
+        <h3>What I learned</h3>
+        <ul>
+          <li>Play it before keeping it. I cut the dive and pull-up after flying it, threw out the world book after reading
+            it, and called off the 44-minute level after seeing it.</li>
+          <li>Small and well designed beats long. I asked for half-hour levels, then said I had been wrong: what I wanted
+            was one small level that is well designed.</li>
+          <li>Scripts show where a step is tight, not whether a player understands it. The numbers on this page come from
+            an autopilot; the open questions are about reading the screen.</li>
+          <li>With AI doing most of the building, my part is to set the goal, play the build and send drafts back. Many
+            steps in this log start with a draft I turned down.</li>
+        </ul>
+      </div>
+      <div class="stitched">
+        <h3>Next</h3>
+        <p>First-time players. The fall log and an observation sheet for all seven levels are ready. What to watch:</p>
+        <ul>
+          <li>whether the golden stitching reads as a route;</li>
+          <li>how long people stand at the baron's basket before they work it out;</li>
+          <li>whether anyone goes after the optional knots;</li>
+          <li>whether the falls from the bridge keeper's ledge in the first logs happen again.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <div class="seam"></div>
@@ -668,7 +825,32 @@
     Game art and sound effects were generated in code for this project. Music: "Morning", "Skye Cuillin", "Ascending the Vale",
     "Midnight Tale", "Frozen Star", "Lord of the Land", "Teller of the Tales", "Heroic Age" and "Enchanted Journey" by Kevin MacLeod
     (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.</p>
+  <p>Last updated 17 November 2026.</p>
 </footer>
+
+<script>
+  // Short gameplay loops play only while on screen and stay still for people who ask for less motion.
+  (function () {
+    var vids = [].slice.call(document.querySelectorAll("video.loop"));
+    var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (still || !("IntersectionObserver" in window)) {
+      vids.forEach(function (v) { v.controls = true; });
+      return;
+    }
+    var seen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          var p = v.play();
+          if (p && p.catch) p.catch(function () { v.controls = true; });
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.3 });
+    vids.forEach(function (v) { seen.observe(v); });
+  })();
+</script>
 
 </body>
 </html>

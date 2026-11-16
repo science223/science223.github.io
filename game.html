@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Islands in the Sky: The Lost Kingdom</title>
+<meta name="description" content="Stitch a broken sky kingdom back together, one island at a time. A short pixel-art platformer in seven levels that plays in the browser.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="theme-color" content="#1e1830">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://science223.github.io/game.html">
+<meta property="og:title" content="Islands in the Sky: The Lost Kingdom">
+<meta property="og:description" content="Stitch a broken sky kingdom back together, one island at a time. Plays in the browser.">
+<meta property="og:image" content="https://science223.github.io/assets/trailer-poster.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  @font-face {
+    font-family: "Pixel";
+    src: url("assets/pixel-ui.woff2") format("woff2");
+    font-display: swap;
+  }
+  :root {
+    --night: #1e1830;
+    --panel: #2b2238;
+    --panel-hi: #3a2f4e;
+    --edge: #120e1d;
+    --paper: #f7f3e8;
+    --muted: #bdb4d0;
+    --gold: #f2c94c;
+    --gold-deep: #c29a2e;
+    --link: #8fd3ff;
+    --sky-top: #5b9bdc;
+    --sky-mid: #a9cfe8;
+    --sand: #f3dfbd;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--paper);
+    font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  h1, h2, h3, .pixel {
+    font-family: "Pixel", system-ui, sans-serif;
+    font-weight: normal;
+    -webkit-font-smoothing: none;
+    letter-spacing: 0.5px;
+  }
+  h1 { font-size: 36px; line-height: 1.15; margin: 0 0 4px; color: var(--gold); }
+  h2 { font-size: 24px; line-height: 1.3; margin: 0 0 14px; color: var(--gold); }
+  p { margin: 0 0 14px; }
+  a { color: var(--link); }
+  img { max-width: 100%; height: auto; display: block; }
+  .pixelated { image-rendering: pixelated; }
+  .stitched { position: relative; background: var(--panel); border: 3px solid var(--edge); border-radius: 4px; padding: 28px; }
+  .stitched::before { content: ""; position: absolute; inset: 6px; border: 2px dashed var(--gold); border-radius: 2px; pointer-events: none; }
+  .seam { height: 3px; background: repeating-linear-gradient(90deg, var(--gold) 0 12px, transparent 12px 20px); }
+  header { padding: 20px 0 40px; background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 52%, var(--sand) 100%); }
+  .top { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 24px; }
+  .top a { color: var(--panel); font-weight: 600; text-decoration: none; border-bottom: 3px solid var(--panel); }
+  .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px; align-items: center; }
+  .subtitle { font-size: 24px; margin: 0; color: var(--paper); }
+  .subtitle-zh { font-size: 24px; margin: 0 0 16px; color: var(--muted); }
+  .line { font-size: 19px; color: var(--gold); }
+  .trailer { margin: 0; border: 3px solid var(--edge); border-radius: 4px; overflow: hidden; background: #000; }
+  .trailer video { display: block; width: 100%; height: auto; }
+  .button {
+    font-family: "Pixel", system-ui, sans-serif; font-size: 24px; -webkit-font-smoothing: none;
+    display: inline-block; padding: 8px 18px 10px; background: var(--gold); color: var(--panel); text-decoration: none;
+    border-radius: 4px; border: 2px solid var(--edge); box-shadow: 0 4px 0 var(--gold-deep);
+  }
+  .note { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
+  section { padding: 44px 0; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+  ul { padding-left: 22px; margin: 0; }
+  li { margin-bottom: 8px; }
+  .shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .shots img { width: 100%; border: 3px solid var(--edge); border-radius: 4px; background: #000; }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; }
+  th, td { text-align: left; padding: 8px 12px 8px 0; vertical-align: top; }
+  th { color: var(--gold); font-weight: normal; }
+  tr + tr td, tr + tr th { border-top: 1px solid var(--panel-hi); }
+  kbd {
+    font-family: "Pixel", system-ui, sans-serif; font-size: 12px; -webkit-font-smoothing: none;
+    padding: 3px 6px 4px; color: var(--panel); background: var(--paper); border-radius: 3px; box-shadow: 0 2px 0 #c9c1ad;
+  }
+  footer { padding: 36px 0 56px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 860px) {
+    .hero, .two { grid-template-columns: minmax(0, 1fr); }
+    .shots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .trailer { order: -1; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    h1 { font-size: 28px; }
+    .stitched { padding: 22px 18px; }
+    .shots { grid-template-columns: minmax(0, 1fr); }
+    table, tbody, tr, th, td { display: block; }
+    th { padding-bottom: 0; }
+    tr + tr td { border-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="top">
+      <a href="index.html">Shoupeng Gao · portfolio</a>
+      <a href="index.html#process">How it was designed</a>
+    </div>
+    <div class="hero">
+      <div class="stitched">
+        <h1>Islands in the Sky</h1>
+        <p class="pixel subtitle">The Lost Kingdom</p>
+        <p class="pixel subtitle-zh">空中之岛 · 失落的王国</p>
+        <p class="line">Stitch a broken sky kingdom back together, one island at a time.</p>
+        <p>The kingdom has broken into islands in the sky. The castles have lost their colour and their lords stand still.
+          You carry a spool of golden thread that never runs out. Run and jump to the crystal at the end of each level and
+          tie its knot: the island you came from flies along the thread to join it, and the lord wakes and recognises
+          something about you.</p>
+        <a class="button" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
+        <p class="note">Free, in English or Chinese. Keyboard, gamepad, or a phone held sideways.
+          From China, use the mirror in Tokyo: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.</p>
+      </div>
+      <figure class="trailer">
+        <video controls playsinline webkit-playsinline preload="metadata" poster="assets/trailer-poster.png" width="1280" height="720" aria-label="Trailer, 85 seconds, recorded in-engine on 17 November 2026 from the build that is online">
+          <source src="assets/trailer.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </div>
+</header>
+<div class="seam"></div>
+
+<main class="wrap">
+  <section>
+    <div class="shots">
+      <img class="pixelated" src="assets/shots/home.png" alt="Morning on the farm island where the boy grew up; he asks who she is" width="640" height="360" loading="lazy">
+      <img class="pixelated" src="assets/shots/thornhold.png" alt="Overcast sky at Thornhold, with grey stone islands, a plate and the baron's basket on its chain" width="640" height="360" loading="lazy">
+      <img class="pixelated" src="assets/shots/archive.png" alt="Dusk at the Archive: ledges of stacked books between tall columns" width="640" height="360" loading="lazy">
+      <img class="pixelated" src="assets/shots/mirrorhold.png" alt="Mirrorhold: icy rooms with tall mirrors set into the walls" width="640" height="360" loading="lazy">
+      <img class="pixelated" src="assets/shots/clock-tower.png" alt="Night at the Clock Tower: a stopped clock face and golden gears hanging in the air" width="640" height="360" loading="lazy">
+      <img class="pixelated" src="assets/shots/storm.png" alt="The Throne Isle under the storm, with the old king's face in the clouds and gold lightning" width="640" height="360" loading="lazy">
+    </div>
+  </section>
+
+  <section class="two">
+    <div class="stitched">
+      <h2>What is in it</h2>
+      <ul>
+        <li>Seven levels, seven castles. Five of them give you a relic that adds one move: a glide cloak, a double jump,
+          doors, a mirror shield and a rope. The next level opens with a safe place to try it, and the last level asks for
+          all of them.</li>
+        <li>Falling costs little: you are back on the last solid ground you stood on.</li>
+        <li>Few hints on screen. The map and a line of golden stitching show the way.</li>
+        <li>Eleven small knots off the main route. Find them all and your cloak gets a gold edge.</li>
+        <li>All the art is drawn in code. Music by Kevin MacLeod.</li>
+        <li>Your best time for each level is kept.</li>
+      </ul>
+    </div>
+    <div class="stitched">
+      <h2>Controls</h2>
+      <table>
+        <tr><th></th><td>Keyboard</td><td>Gamepad</td></tr>
+        <tr><th>Move</th><td><kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd></td><td>Stick or D-pad</td></tr>
+        <tr><th>Jump, hold to go higher</th><td><kbd>Space</kbd></td><td>A</td></tr>
+        <tr><th>Glide, hold in the air</th><td><kbd>Shift</kbd></td><td>X</td></tr>
+        <tr><th>Back to solid ground</th><td><kbd>R</kbd></td><td>Back</td></tr>
+        <tr><th>Pause</th><td><kbd>Esc</kbd></td><td>Start</td></tr>
+      </table>
+      <p class="note">The later relics use the same keys; the game says how when you get one. On a phone, held sideways,
+        the stick is bottom left, jump and glide bottom right, restart and pause top right.</p>
+    </div>
+  </section>
+</main>
+
+<div class="seam"></div>
+<footer class="wrap">
+  <p>Made by Shoupeng Gao with AI coding assistants (Claude Code, OpenAI Codex). How it was designed, and who did what:
+    <a href="index.html#process">the design process</a>.</p>
+  <p>Made with the Godot Engine (<a href="https://godotengine.org/license">MIT license</a>). Text in the game uses Ark Pixel
+    Font (SIL Open Font License 1.1, <a href="assets/OFL-ark-pixel-font.txt">license</a>). Music: "Morning", "Skye Cuillin",
+    "Ascending the Vale", "Midnight Tale", "Frozen Star", "Lord of the Land", "Teller of the Tales", "Heroic Age" and
+    "Enchanted Journey" by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under
+    <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.</p>
+</footer>
+
+</body>
+</html>
