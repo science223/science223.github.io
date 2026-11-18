@@ -220,6 +220,10 @@
   .ideas { border-collapse: collapse; width: 100%; margin: 10px 0 4px; font-size: 16px; line-height: 1.5; }
   .ideas th { text-align: left; vertical-align: top; color: var(--gold); font-weight: normal; white-space: nowrap; padding: 8px 16px 8px 0; }
   .ideas td { padding: 8px 0; }
+  .ideas td { vertical-align: top; }
+  .ideas tr:has(td.thumb) th, .ideas tr:has(td.thumb) td { padding-top: 12px; }
+  .ideas td.thumb { width: 176px; padding: 10px 16px 10px 0; vertical-align: top; }
+  .ideas td.thumb img { width: 160px; border: 2px solid var(--edge); border-radius: 3px; }
   .ideas tr + tr th, .ideas tr + tr td { border-top: 1px solid var(--panel-hi); }
   ul { padding-left: 22px; margin: 0 0 14px; }
   li { margin-bottom: 6px; }
@@ -248,6 +252,8 @@
     .ideas, .ideas tbody, .ideas tr, .ideas th, .ideas td { display: block; }
     .ideas th { padding: 10px 0 0; white-space: normal; }
     .ideas td { padding: 0 0 8px; }
+    .ideas td.thumb { width: auto; padding: 14px 0 4px; }
+    .ideas td.thumb img { width: 100%; max-width: 360px; }
     .ideas tr + tr td { border-top: 0; }
     .toc { grid-template-columns: minmax(0, 1fr); }
     .short-list { padding-left: 22px; }
@@ -648,12 +654,12 @@
           note with what the tests taught. Each idea comes in three steps: you run into it, you use it
           on purpose, then you trust it at a spot where you cannot see the next step.</p>
         <table class="ideas">
-          <tr><th>Gatekeep</th><td>The king's bridge is broken and Gatekeep's drawbridge is up. You work the bridge's machines in order: a lift, a ferry plank, the bridge keeper's winch, and a plate that lowers the drawbridge for a few seconds.</td></tr>
-          <tr><th>Thornhold</th><td>You run into a wall and slide down it. A lift takes you up inside it. Inside the second wall the baron's basket only comes down while you stand on a plate. From the top, a low glide gets you under a wall that hangs in the air.</td></tr>
-          <tr><th>The Book Tower</th><td>Each ledge is too high for one jump. You drop onto the books under a hanging scroll, jump at the column and jump again at the top.</td></tr>
-          <tr><th>Mirrorhold</th><td>Every mirror takes you back to the hall where Lady Viola stands. The way on is the one mirror she never looks into.</td></tr>
-          <tr><th>The Empty Keep</th><td>A wall like Thornhold's, but now the shield bounces you back through the empty hall. Here the walls are the road.</td></tr>
-          <tr><th>The Clock Tower</th><td>You climb a tower frozen in mid-explosion, then jump down the weight shaft yourself. The tower stopped in the middle of a fall.</td></tr>
+          <tr><td class="thumb"><img class="pixelated" src="assets/shots/gatekeep.png" alt="Level 1: the ferry plank hangs across the break on its chain, and the bridge keeper's hut sits below the far span" width="640" height="360" loading="lazy"></td><th>Gatekeep</th><td>The king's bridge is broken and Gatekeep's drawbridge is up. You work the bridge's machines in order: a lift, a ferry plank, the bridge keeper's winch, and a plate that lowers the drawbridge for a few seconds.</td></tr>
+          <tr><td class="thumb"><img class="pixelated" src="assets/shots/thornhold.png" alt="Level 2: the player stands in the baron's basket beside the plate that calls it" width="640" height="360" loading="lazy"></td><th>Thornhold</th><td>You run into a wall and slide down it. A lift takes you up inside it. Inside the second wall the baron's basket only comes down while you stand on a plate. From the top, a low glide gets you under a wall that hangs in the air.</td></tr>
+          <tr><td class="thumb"><img class="pixelated" src="assets/shots/archive.png" alt="Level 3: books on narrow ledges between tall columns at dusk" width="640" height="360" loading="lazy"></td><th>The Book Tower</th><td>Each ledge is too high for one jump. You drop onto the books under a hanging scroll, jump at the column and jump again at the top.</td></tr>
+          <tr><td class="thumb"><img class="pixelated" src="assets/shots/mirrorhold.png" alt="Level 4: icy rooms with tall mirrors set into the walls" width="640" height="360" loading="lazy"></td><th>Mirrorhold</th><td>Every mirror takes you back to the hall where Lady Viola stands. The way on is the one mirror she never looks into.</td></tr>
+          <tr><td class="thumb"><img class="pixelated" src="assets/shots/empty-keep.png" alt="Level 5: broken walls and a pair of mirror doors in the desert keep" width="640" height="360" loading="lazy"></td><th>The Empty Keep</th><td>A wall like Thornhold's, but now the shield bounces you back through the empty hall. Here the walls are the road.</td></tr>
+          <tr><td class="thumb"><img class="pixelated" src="assets/shots/clock-tower.png" alt="Level 6: a stopped clock face and golden gears hanging in the air at night" width="640" height="360" loading="lazy"></td><th>The Clock Tower</th><td>You climb a tower frozen in mid-explosion, then jump down the weight shaft yourself. The tower stopped in the middle of a fall.</td></tr>
         </table>
         <p class="tag">WHO DID WHAT</p>
         <p>I asked for longer levels with a reason behind each layout. Claude Code weighed the ideas, built the levels and wrote a design note for each.</p>
