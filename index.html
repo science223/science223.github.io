@@ -967,11 +967,13 @@
       big.classList.toggle("fit", fit);
       if (fit) {
         // Pixel art: grow by whole steps (2x, 3x) so pixels stay square; shrink smoothly if it is too big.
-        big.style.width = Math.round(w * (scale >= 1 ? Math.floor(scale) : scale)) + "px";
-        big.style.height = "auto";
+        var k = scale >= 1 ? Math.floor(scale) : scale;
+        big.style.width = Math.round(w * k) + "px";
+        big.style.height = Math.round(h * k) + "px";
       } else {
-        big.style.width = "auto";
-        big.style.height = Math.min(h, innerHeight - 80) + "px";
+        var hh = Math.min(h, innerHeight - 80);
+        big.style.height = hh + "px";
+        big.style.width = Math.round(w * hh / h) + "px";
       }
       dlg.showModal();
     }
