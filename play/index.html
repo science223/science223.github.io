@@ -173,6 +173,25 @@ body {
 	font: 15px/1.5 system-ui, sans-serif;
 	text-align: center;
 }
+/* 11-17 候选：电脑窗口太小、游戏只按 1 倍画的时候，右上角黑边里给一个全屏按钮 */
+#big {
+	display: none;
+	position: fixed;
+	top: 12px;
+	right: 12px;
+	z-index: 5;
+	padding: 8px 14px 9px;
+	border: 2px solid #f2c94c;
+	border-radius: 4px;
+	background: #2b2238;
+	color: #f7f3e8;
+	font: 16px "Pixel", system-ui, sans-serif;
+	-webkit-font-smoothing: none;
+	cursor: pointer;
+}
+#big.show {
+	display: block;
+}
 </style>
 <link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
@@ -190,6 +209,7 @@ body {
 	<div id="status-notice"></div>
 </div>
 
+<button id="big" type="button">Full screen</button>
 <div id="turn"><i></i><span id="turn-words">Turn your phone sideways</span><button id="turn-go" type="button">Play sideways</button><p id="turn-help"></p></div>
 
 <script src="index.js"></script>
@@ -598,6 +618,30 @@ const engine = new Engine(GODOT_CONFIG);
 			status.remove();
 		}, 400);
 	}, fail);
+}());
+
+// 11-17 候选：游戏画面 640×360、只按整数倍放大。窗口高不到 720 个像素时只能 1 倍，四周大片黑边。
+// 电脑上（不是触屏）这时在右上角黑边里给一个全屏按钮；进了全屏、或窗口够大就藏起来。F11 本来也行。
+(function () {
+	const big = document.getElementById('big');
+	if (!big || !document.documentElement.requestFullscreen) {
+		return;
+	}
+	const zh = (navigator.language || '').toLowerCase().indexOf('zh') === 0;
+	big.textContent = zh ? '全屏，画面大一倍' : 'Full screen for a bigger picture';
+	const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+	function check() {
+		const r = window.devicePixelRatio || 1;
+		const scale = Math.floor(Math.min(window.innerWidth * r / 640, window.innerHeight * r / 360));
+		big.classList.toggle('show', !touch && !document.fullscreenElement && scale < 2);
+	}
+	big.addEventListener('click', function () {
+		document.documentElement.requestFullscreen().catch(function () {});
+		document.getElementById('canvas').focus();
+	});
+	window.addEventListener('resize', check);
+	document.addEventListener('fullscreenchange', check);
+	check();
 }());
 </script>
 </body>
