@@ -250,6 +250,54 @@
     .ideas tr + tr td { border-top: 0; }
     .toc { grid-template-columns: minmax(0, 1fr); }
     .short-list { padding-left: 22px; }
+    nav .nav-part { display: none; }
+  }
+
+  /* 分部分的标题：设计过程按四块分开 */
+  html { scroll-padding-top: 12px; }
+  .part-head { display: flex; align-items: baseline; gap: 14px; margin: 40px 0 0; padding-top: 18px; border-top: 3px solid var(--panel-hi); }
+  .part-head span { font-size: 12px; letter-spacing: 1px; color: var(--muted); }
+  .part-head b { font-weight: normal; font-size: 24px; color: var(--gold); }
+
+  /* 侧边目录：宽屏固定在左边，窄屏收进右下角的按钮 */
+  .side-toc { font-size: 14px; line-height: 1.35; }
+  .side-toc a { display: block; color: var(--muted); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--panel-hi); }
+  .side-toc a:hover { color: var(--paper); }
+  .side-toc a.active { color: var(--gold); border-left-color: var(--gold); }
+  .side-toc .grp { font-family: "Pixel", system-ui, sans-serif; -webkit-font-smoothing: none; font-size: 12px; letter-spacing: 1px; color: var(--paper); margin: 14px 0 4px; }
+  .side-toc .grp:first-of-type { margin-top: 4px; }
+  .side-toc a.sub { padding-left: 20px; }
+  .side-toc a.play {
+    font-family: "Pixel", system-ui, sans-serif; -webkit-font-smoothing: none; font-size: 16px;
+    text-align: center; color: var(--panel); background: var(--gold); border: 2px solid var(--edge);
+    border-radius: 4px; box-shadow: 0 3px 0 var(--gold-deep); padding: 6px 8px 8px; margin: 0 0 10px;
+  }
+  .toc-toggle {
+    font-family: "Pixel", system-ui, sans-serif; -webkit-font-smoothing: none; font-size: 16px;
+    position: fixed; right: 12px; bottom: 16px; z-index: 21;
+    padding: 8px 14px 10px; color: var(--panel); background: var(--gold);
+    border: 2px solid var(--edge); border-radius: 4px; box-shadow: 0 3px 0 var(--gold-deep);
+    cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .toc-toggle.shown { opacity: 1; pointer-events: auto; }
+  @media (min-width: 1200px) {
+    .wrap { max-width: 1392px; }
+    .layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 36px; align-items: start; }
+    .side-toc { position: sticky; top: 0; max-height: 100vh; overflow-y: auto; padding: 32px 4px 24px 0; }
+    .toc-toggle { display: none; }
+  }
+  @media (max-width: 1199px) {
+    .side-toc {
+      display: none; position: fixed; right: 12px; bottom: 70px; z-index: 20;
+      width: min(300px, calc(100vw - 24px)); max-height: calc(100vh - 100px); overflow-y: auto;
+      padding: 14px 16px; background: var(--panel); border: 3px solid var(--edge); border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .side-toc.open { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .toc-toggle { transition: none; }
   }
 </style>
 </head>
@@ -262,9 +310,13 @@
         <h1>Shoupeng Gao</h1>
         <p class="lead">Game designer and computer science student at Wenzhou-Kean University.</p>
       </div>
-      <nav>
+      <nav aria-label="Sections">
         <a href="#the-game">How to play</a>
         <a href="#process">Design process</a>
+        <a class="nav-part" href="#part-movement">Movement</a>
+        <a class="nav-part" href="#part-levels">Level design</a>
+        <a class="nav-part" href="#part-story">Story &amp; world</a>
+        <a class="nav-part" href="#part-iteration">Iteration</a>
         <a href="#about">About</a>
       </nav>
     </div>
@@ -308,7 +360,34 @@
 </header>
 <div class="seam"></div>
 
-<main class="wrap">
+<div class="layout wrap">
+<aside class="side-toc" id="toc" aria-label="Contents">
+  <a class="play" href="play/index.html" target="_blank" rel="noopener">Play in browser</a>
+  <p class="grp">THE GAME</p>
+  <a href="#the-game">How to play</a>
+  <a href="#credits">Who made what</a>
+  <p class="grp">DESIGN PROCESS</p>
+  <a href="#short">The short version</a>
+  <p class="grp">MOVEMENT</p>
+  <a class="sub" href="#step-1">1. Flying to platforming</a>
+  <a class="sub" href="#step-2">2. One rule for every relic</a>
+  <p class="grp">LEVEL DESIGN</p>
+  <a class="sub" href="#step-3">3. Teaching through the map</a>
+  <a class="sub" href="#step-4">4. Measuring room</a>
+  <a class="sub" href="#step-5">5. Rising and falling difficulty</a>
+  <a class="sub" href="#step-6">6. One idea per level</a>
+  <p class="grp">STORY &amp; WORLD</p>
+  <a class="sub" href="#step-7">7. The story</a>
+  <a class="sub" href="#step-8">8. Tapestry and kintsugi</a>
+  <a class="sub" href="#step-9">9. The Throne Isle</a>
+  <p class="grp">ITERATION</p>
+  <a class="sub" href="#step-10">10. Longer, then smaller</a>
+  <a class="sub" href="#step-11">11. Can a new player read it?</a>
+  <p class="grp">WRAP-UP</p>
+  <a href="#learned">What I learned, and next</a>
+  <a href="#about">About</a>
+</aside>
+<main>
 
   <section id="the-game">
     <div class="two-col">
@@ -327,7 +406,7 @@
         <p>You can pick any level from the menu. Off the main route there are eleven small optional knots; find all of a
           level's knots and a gold thread joins them on the level select.</p>
       </div>
-      <div>
+      <div id="credits">
         <h3>Who made what</h3>
         <dl class="facts">
           <dt>My role</dt><dd>Game direction, story outline and design decisions. The level drafts and the story text were written with Claude.</dd>
@@ -397,6 +476,7 @@
       </nav>
     </div>
 
+    <h3 class="part-head pixel" id="part-movement"><span>PART 1</span><b>Movement</b></h3>
     <article class="step" id="step-1">
       <div>
         <h3>1. From flying to platforming</h3>
@@ -458,6 +538,7 @@
       </div>
     </article>
 
+    <h3 class="part-head pixel" id="part-levels"><span>PART 2</span><b>Level design</b></h3>
     <article class="step" id="step-3">
       <div>
         <h3>3. Teaching through the map</h3>
@@ -586,6 +667,7 @@
       </div>
     </article>
 
+    <h3 class="part-head pixel" id="part-story"><span>PART 3</span><b>Story &amp; world</b></h3>
     <article class="step" id="step-7">
       <div>
         <h3>7. A story I outlined myself</h3>
@@ -676,6 +758,7 @@
       </div>
     </article>
 
+    <h3 class="part-head pixel" id="part-iteration"><span>PART 4</span><b>Iteration</b></h3>
     <article class="step" id="step-10">
       <div>
         <h3>10. Longer, then smaller</h3>
@@ -823,6 +906,8 @@
   </section>
 
 </main>
+</div>
+<button class="toc-toggle" id="toc-toggle" type="button" aria-controls="toc" aria-expanded="false">Contents</button>
 
 <footer class="wrap">
   <p>Headings use Ark Pixel Font (SIL Open Font License 1.1, <a href="assets/OFL-ark-pixel-font.txt">licence text</a>).
@@ -853,6 +938,44 @@
       });
     }, { threshold: 0.3 });
     vids.forEach(function (v) { seen.observe(v); });
+  })();
+
+  // Contents: highlight the part you are reading; on narrow screens it opens from the button in the corner.
+  (function () {
+    var toc = document.getElementById("toc");
+    var btn = document.getElementById("toc-toggle");
+    if (!toc || !btn) return;
+    var links = [].slice.call(toc.querySelectorAll('a[href^="#"]'));
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+
+    function setOpen(open) {
+      toc.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "Close" : "Contents";
+    }
+    btn.addEventListener("click", function () { setOpen(!toc.classList.contains("open")); });
+    links.forEach(function (a) { a.addEventListener("click", function () { setOpen(false); }); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    document.addEventListener("click", function (e) {
+      if (toc.classList.contains("open") && !toc.contains(e.target) && e.target !== btn) setOpen(false);
+    });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var line = window.innerHeight * 0.3;
+      var current = -1;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i] && targets[i].getBoundingClientRect().top <= line) current = i;
+      }
+      links.forEach(function (a, i) { a.classList.toggle("active", i === current); });
+      btn.classList.toggle("shown", window.scrollY > 500);
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
   })();
 </script>
 
