@@ -306,6 +306,20 @@
     html { scroll-behavior: auto; }
     .toc-toggle { transition: none; }
   }
+  /* 点开看大图 */
+  .media img, .ideas td.thumb img { cursor: zoom-in; }
+  dialog.big {
+    max-width: none; max-height: none; width: 100vw; height: 100vh; margin: 0; padding: 0;
+    border: 0; background: rgba(10, 8, 18, 0.94); color: var(--paper);
+  }
+  dialog.big::backdrop { background: rgba(10, 8, 18, 0.94); }
+  dialog.big .scroller { width: 100%; height: 100%; overflow: auto; display: flex; cursor: zoom-out; padding-top: 40px; box-sizing: border-box; }
+  dialog.big img { margin: auto; max-width: none; image-rendering: pixelated; }
+  dialog.big img.fit { max-width: calc(100vw - 32px); max-height: calc(100vh - 80px); }
+  dialog.big .bar {
+    position: fixed; left: 0; right: 0; top: 0; margin: 0; padding: 10px 16px; font-size: 14px;
+    color: var(--muted); background: rgba(10, 8, 18, 0.85); text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -899,6 +913,10 @@
 
 </main>
 </div>
+<dialog class="big" id="zoom" aria-label="Full-size image">
+  <div class="scroller"><img alt=""></div>
+  <p class="bar">Tap or press Esc to close</p>
+</dialog>
 <button class="toc-toggle" id="toc-toggle" type="button" aria-controls="toc" aria-expanded="false">Contents</button>
 
 <footer class="wrap">
@@ -930,6 +948,41 @@
       });
     }, { threshold: 0.3 });
     vids.forEach(function (v) { seen.observe(v); });
+  })();
+
+  // Screenshots and maps open at full size. Wide maps (like level 1) scroll sideways on small screens.
+  (function () {
+    var dlg = document.getElementById("zoom");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    var big = dlg.querySelector("img");
+    function open(img) {
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+      // Shrink to the screen unless that would make it less than half size (a wide map on a phone):
+      // then show it at its own size, no taller than the screen, and let it scroll sideways.
+      var scale = Math.min((innerWidth - 32) / w, (innerHeight - 80) / h);
+      var fit = scale >= 0.5;
+      big.classList.toggle("fit", fit);
+      if (fit) {
+        // Pixel art: grow by whole steps (2x, 3x) so pixels stay square; shrink smoothly if it is too big.
+        big.style.width = Math.round(w * (scale >= 1 ? Math.floor(scale) : scale)) + "px";
+        big.style.height = "auto";
+      } else {
+        big.style.width = "auto";
+        big.style.height = Math.min(h, innerHeight - 80) + "px";
+      }
+      dlg.showModal();
+    }
+    [].slice.call(document.querySelectorAll(".media img, .ideas td.thumb img")).forEach(function (img) {
+      img.tabIndex = 0;
+      img.setAttribute("role", "button");
+      img.addEventListener("click", function () { open(img); });
+      img.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img); }
+      });
+    });
+    dlg.addEventListener("click", function () { dlg.close(); });
   })();
 
   // Contents: highlight the part you are reading; on narrow screens it opens from the button in the corner.
