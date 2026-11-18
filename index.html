@@ -410,11 +410,11 @@
       <div id="credits">
         <h3>Who made what</h3>
         <dl class="facts">
-          <dt>My role</dt><dd>Game direction, story outline, design decisions and playtesting. I worked with Claude to draft the levels and the story text.</dd>
+          <dt>My role</dt><dd>Game direction, story outline, design decisions and playtesting. Claude drafted the levels and the story text from my direction and outline.</dd>
           <dt>Programming</dt><dd>Built with AI coding assistants under my direction: Claude Code, with OpenAI Codex and Cursor for parts of the code, the level tuning and the video tools.</dd>
-          <dt>Playtesting</dt><dd>I play the builds that go online, and I have played the game through to the ending. The biggest rebuilds on this page started from my own sessions: cutting the dive (<a href="#step-1">step 1</a>), the double jump (<a href="#step-2">step 2</a>) and the machines in level 1 (<a href="#step-10">step 10</a>).</dd>
+          <dt>Playtesting</dt><dd>I play the builds that go online, and I have played the game through to the ending. Three of the biggest changes on this page came after I played: the dive was cut (<a href="#step-1">step 1</a>), the flip became a double jump (<a href="#step-2">step 2</a>), and level 1 got its machines (<a href="#step-10">step 10</a>).</dd>
           <dt>Working with AI</dt><dd>I set the goal, play the build and send drafts back. Three of those calls changed the game: cutting the dive and pull-up (<a href="#step-1">step 1</a>), throwing out the world book (<a href="#step-7">step 7</a>), and calling off the 44-minute level (<a href="#step-10">step 10</a>).</dd>
-          <dt>Music</dt><dd>Nine pieces by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. They replaced my first score, synthesized in code, after I listened to it. The sound effects are synthesized in code.</dd>
+          <dt>Music</dt><dd>Nine pieces by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. I replaced my first score, synthesized in code, because it sounded harsh. The sound effects are synthesized in code.</dd>
           <dt>This page</dt><dd>The text was drafted with Claude from my project notes.</dd>
         </dl>
       </div>
@@ -484,7 +484,7 @@
         <p class="tag">START</p>
         <p>I started from three verbs, drift, dive and pull up, and picked the pull-up as the thrill: dive to build speed,
           then pull yourself back up into the sky. My reference was a real wingsuit: no engine, fast, turning a fall into
-          forward motion. I held the prototypes to four rules and sent them back until they met them:</p>
+          forward motion. I held the prototypes to four rules and sent them back on each miss:</p>
         <ul>
           <li>Gliding is how you move, not a resource you trade.</li>
           <li>No updrafts.</li>
@@ -595,8 +595,8 @@
         <p class="tag">NOW</p>
         <p>Measured on 11 November on the plate versions of levels 1 and 2. Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
           about 1.6&nbsp;s from the left of the bridge tail. Level 2: the glide across the yard lands from anywhere on the
-          inner ledge, and the last low glide has 0.7&nbsp;s. In levels 3 to 6 every required step has 0.40&nbsp;s or more; the tightest, a rope step in level 6, leaves
-          0.50&nbsp;s when you catch the rope twice, as the route does.</p>
+          inner ledge, and the last low glide has 0.7&nbsp;s. In levels 3 to 6 every required step measures 0.40&nbsp;s or more. The tightest is a rope step in level 6:
+          0.50&nbsp;s when you catch the rope twice, as the route does, and 0.33&nbsp;s if you catch it once.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>The rule, no step that only works if you hit it exactly, is mine. The checker, the autopilot, the exit check and the jitter test were written by Claude Code and Codex.</p>
       </div>
@@ -798,8 +798,8 @@
         <p>Levels 3 to 7 keep their layouts: their relics already give you something to do, and the clock tower is meant to
           stand still.</p>
         <p class="tag">TRADE-OFF</p>
-        <p>Level 2 now asks more of your head than your hands: its last glide window went from 0.6 to 0.7&nbsp;s, and
-          the challenge moved to working out the basket.</p>
+        <p>The rebuild moves level 2's challenge from the hands to working out the basket: its last glide window went
+          from 0.6 to 0.7&nbsp;s.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>The length goal, calling it off and asking for machines were mine. Claude wrote the generator and rebuilt both levels; a second model reviewed them.</p>
       </div>
@@ -824,7 +824,7 @@
           where it would go next. Four problems stood out. Only three of the eleven optional knots added on
           13 November were noticed. The plates were not read as something to step on. After a double jump the cloak
           would not open, and nothing on screen said why; in four places that drops you into the clouds. In level 5 the goal
-          crystal at your feet was not read as the goal. A fifth, gold standing for too many things, is the next one to solve.</p>
+          crystal at your feet was not read as the goal. A fifth, gold standing for too many things, is still open.</p>
         <p class="tag">DECISION</p>
         <p>Change how things are drawn, not the levels. A narrow plate now stands on short legs and sinks when you step on
           it. An optional knot is a bright four-point star. A goal crystal you have not touched glows, with motes of light
@@ -833,12 +833,13 @@
         <p class="tag">RESULT</p>
         <p>Screenshots from the same camera positions, with the same questions, before and after. Of the eight knots in frame, the model pointed out
           four before the changes, then seven and six in two runs afterwards. A dark outline, tried first, scored two and was dropped. The plates were
-          now read as something to step on, and the crystal in level 5 was no longer marked as a place to get stuck. The
-          grey cloak changes in motion, so it goes to the playtests rather than to still frames.</p>
+          now read as something to step on, though not yet linked to the basket they call. The crystal in level 5 was no
+          longer marked as a place to get stuck, though not yet named as the goal. The grey cloak changes in motion, which
+          still frames do not show.</p>
         <p class="tag">WHAT THE METHOD IS FOR</p>
-        <p>A model reading screenshots is good at finding where a player might hesitate and rough at judging how much: of
-          the twelve spots it first rated as places to get stuck, two kept that rating when checked again. It picks the
-          places; playtests rank them.</p>
+        <p>A model reading screenshots points at where a player might get stuck and is rough about how badly: of the
+          twelve spots it rated that way, two kept the rating when checked again. It picks the places to watch; playtests
+          decide how much each one matters.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>Claude set up the blind tests and planned the four changes overnight; Grok, a second model, read the screenshots,
           and Cursor wrote most of the drawing code. I decided to put them live.</p>
@@ -857,10 +858,10 @@
             it, and called off the 44-minute level after seeing it.</li>
           <li>Small and well designed beats long. I asked for half-hour levels, then said I had been wrong: what I wanted
             was one small level that is well designed.</li>
-          <li>Measure the hands, test the eyes. Scripts prove a jump has room; whether a player reads the screen takes a
-            different test, which is what step 11 is for.</li>
-          <li>Directing AI is design work. The assistants build fast; the game came from deciding what to keep: fewer moves,
-            stopping the 44-minute level, and machines in level 1 after I played it.</li>
+          <li>Measure the hands, test the eyes. Scripts measure whether a jump has time; whether a player reads the screen
+            needs a different test. Step 11 is the first one, run on screenshots.</li>
+          <li>Directing AI is design work. The assistants build fast; the calls I can point to are about what to keep: fewer
+            moves, stopping the 44-minute level, and machines in level 1 after I played it.</li>
         </ul>
       </div>
       <div class="stitched">
@@ -871,7 +872,7 @@
           <li>whether the golden stitching reads as a route;</li>
           <li>how long people stand at the baron's basket before they work it out;</li>
           <li>whether anyone goes after the optional knots;</li>
-          <li>whether the drop into the bridge keeper's hut reads as the way on.</li>
+          <li>whether people stall or fall at the step from the bridge keeper's platform down to his hut.</li>
         </ul>
       </div>
     </div>
