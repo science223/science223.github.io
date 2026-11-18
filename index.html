@@ -958,7 +958,8 @@
     function open(img) {
       big.src = img.currentSrc || img.src;
       big.alt = img.alt;
-      var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+      // Use the size written on the tag: on a slow connection the full image may not have loaded yet.
+      var w = +img.getAttribute("width") || img.naturalWidth, h = +img.getAttribute("height") || img.naturalHeight;
       // Shrink to the screen unless that would make it less than half size (a wide map on a phone):
       // then show it at its own size, no taller than the screen, and let it scroll sideways.
       var scale = Math.min((innerWidth - 32) / w, (innerHeight - 80) / h);
