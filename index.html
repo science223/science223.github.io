@@ -366,8 +366,8 @@
           <a class="more" href="game.html">Game page</a>
         </div>
         <p class="pitch story-pitch">A boy raised on a farm island climbs a kingdom torn into islands in the sky, to find the woman calling
-          him in a dream. At the end of each castle's level you tie a broken golden knot: that island's time starts again,
-          and its lord recognises something about you.</p>
+          him in a dream. At the end of each castle's level you retie a broken golden knot. The island's time starts again, its lord wakes,
+          and the lord recognises something about you.</p>
         <p class="note">Plays with a keyboard, or with touch buttons on a phone held sideways.
           From China, use the mirror in Tokyo: <a href="https://relaylink.fun/game/play/">relaylink.fun/game/play</a>.
           The first load is about 13&nbsp;MB; after that the game opens from your browser's storage.</p>
@@ -406,15 +406,15 @@
   <a class="sub" href="#step-2">2. One rule for every relic</a>
   <p class="grp">LEVEL DESIGN</p>
   <a class="sub" href="#step-3">3. Teaching through the map</a>
-  <a class="sub" href="#step-4">4. Measuring room</a>
+  <a class="sub" href="#step-4">4. Measuring timing room</a>
   <a class="sub" href="#step-5">5. Rising and falling difficulty</a>
   <a class="sub" href="#step-6">6. One idea per level</a>
   <p class="grp">STORY &amp; WORLD</p>
   <a class="sub" href="#step-7">7. The story</a>
-  <a class="sub" href="#step-8">8. Tapestry and kintsugi</a>
-  <a class="sub" href="#step-9">9. The Throne Isle</a>
+  <a class="sub" href="#step-8">8. Art direction</a>
+  <a class="sub" href="#step-9">9. The last level</a>
   <p class="grp">ITERATION</p>
-  <a class="sub" href="#step-10">10. Longer, then smaller</a>
+  <a class="sub" href="#step-10">10. 44 minutes to four machines</a>
   <a class="sub" href="#step-11">11. Reading the screen</a>
   <p class="grp">WRAP-UP</p>
   <a href="#learned">What I learned, and next</a>
@@ -436,8 +436,8 @@
         </dl>
         <p>While gliding, press the other way to turn around. A gamepad works too: stick to move, A to jump, X to glide.
           On a phone held sideways there are touch buttons, with restart and pause in the top right corner.</p>
-        <p>You can pick any level from the menu. Off the main route there are eleven small optional knots; find all of a
-          level's knots and a gold thread joins them on the level select.</p>
+        <p>You can pick any level from the menu. Off the main route there are eleven small optional knots. Find all of a
+          level's knots and a gold thread joins them on the level select; find all eleven and your cloak gets a gold edge.</p>
       </div>
       <div id="credits">
         <h3>Who made what</h3>
@@ -478,13 +478,15 @@
       <ol class="short-list">
         <li><a href="#step-1"><b>I cut the move I started from.</b></a> The game began as a glider built around a dive and
           a pull-up. After flying it I moved the core to running and jumping, and gliding became one button.</li>
-        <li><a href="#step-2"><b>One rule for every relic.</b></a> A relic can change your direction, not your speed. The
-          doors break the rule on purpose, and the bracers became a double jump after I played them.</li>
+        <li><a href="#step-2"><b>One rule for every relic.</b></a> A relic can change your direction, not your speed: the
+          shield bounces you and the rope swings you. The paired doors break the rule on purpose, letting you out higher
+          than you went in, and the bracers became a double jump after I played them.</li>
         <li><a href="#step-4"><b>Every required jump is measured.</b></a> I asked for no jump that only works if you hit it
-          exactly. Scripts measure the timing window of every required step against a 0.4&nbsp;s target and run each level
-          with random jitter.</li>
-        <li><a href="#step-10"><b>Longer, then smaller.</b></a> I asked for half-hour levels, saw the 44-minute result and
-          called it off. Level 1 was rebuilt three times and is now built around four machines.</li>
+          exactly. Scripts measure how long each required step stays possible, its timing window, against a 0.4&nbsp;s
+          target, and replay each level with small random shifts in the inputs.</li>
+        <li><a href="#step-10"><b>From a 44-minute level to four machines.</b></a> I asked for half-hour levels, saw the 44-minute result and
+          called it off. Level 1 was rebuilt three times and is now built around four machines: a lift, a ferry plank, a
+          winch and a drawbridge.</li>
         <li><a href="#step-11"><b>Reading the screen.</b></a> Blind tests on screenshots, by a second model with no
           design notes, found four things a newcomer could miss. Four drawing changes followed, and the optional knots it
           spotted went from four of eight to six or seven.</li>
@@ -494,16 +496,16 @@
       <p class="tag">ALL STEPS</p>
       <nav class="toc" aria-label="Design process steps">
         <a href="#step-1">1. From flying to platforming</a>
-        <a href="#step-2">2. One rule behind every relic</a>
-        <a href="#step-3">3. Teaching through the map</a>
-        <a href="#step-4">4. Measuring room instead of guessing</a>
+        <a href="#step-2">2. One rule: a relic turns you, never speeds you up</a>
+        <a href="#step-3">3. Teaching through the map, not on-screen hints</a>
+        <a href="#step-4">4. Measuring the timing room of every required step</a>
         <a href="#step-5">5. Difficulty that rises and falls</a>
         <a href="#step-6">6. One idea per level</a>
         <a href="#step-7">7. A story I outlined myself</a>
-        <a href="#step-8">8. Tapestry and kintsugi</a>
-        <a href="#step-9">9. The Throne Isle</a>
-        <a href="#step-10">10. Longer, then smaller</a>
-        <a href="#step-11">11. Reading the screen</a>
+        <a href="#step-8">8. Art direction: woven rock, gold in the cracks</a>
+        <a href="#step-9">9. A last level that uses every relic</a>
+        <a href="#step-10">10. From a 44-minute level to four machines</a>
+        <a href="#step-11">11. Making knots, plates and goals easier to read</a>
         <a href="#learned">What I learned, and what is next</a>
       </nav>
     </div>
@@ -545,15 +547,15 @@
 
     <article class="step" id="step-2">
       <div>
-        <h3>2. One rule behind every relic</h3>
+        <h3>2. One rule: a relic turns you, never speeds you up</h3>
         <p class="tag">RULE</p>
         <p>A relic can change the direction you are moving, but not your speed. The code tracks this as an energy ceiling,
           y − v²/(2g): the highest point you could reach if all your speed became height. Drag only lowers it.</p>
-        <p>The rule decided what each relic looks like. The doors give back the speed you came in with, turned to match the
-          exit. The Mirror Shield is a bounce at the speed you hit the wall, because a wall jump would be a push. The rope
+        <p>The rule decided what each relic looks like. The Twin Doors are a linked pair: you leave one at the speed you
+          entered the other, turned to match the exit. The Mirror Shield is a bounce at the speed you hit the wall, because a wall jump would be a push. The rope
           cannot be pumped, so you swing only as high as the energy you brought.</p>
         <p class="tag">TWO EXCEPTIONS</p>
-        <p>The doors break the ceiling: going in low and coming out high is free height. So I check how high each pair can
+        <p>The doors break the ceiling: a low entrance and a high exit give you height for free. So I check how high each pair can
           carry you, and a low island needs a door back.</p>
         <p>The Leaping Bracers are the other exception. They started as a flip that turned a fall into a rise at the same
           speed. Playing them, I found the flip felt more like a double jump, so I made it one: press jump in the
@@ -573,7 +575,7 @@
     <h3 class="part-head pixel" id="part-levels"><span>PART 2</span><b>Level design</b></h3>
     <article class="step" id="step-3">
       <div>
-        <h3>3. Teaching through the map</h3>
+        <h3>3. Teaching through the map, not on-screen hints</h3>
         <p class="tag">DECISION</p>
         <p>Key hints are off by default, and signs and stones only tell the story. The keys appear on the controls page and on
           the card you get with a relic. Level 1 can be finished with only the arrow keys and jump.</p>
@@ -582,7 +584,7 @@
         <p>The route is drawn into the world instead. Golden stitching, a dashed line with a light running along it, marks a
           step that is easy to miss: where a new ability first appears, or, in the rebuilt levels 1 and 2, the drop into the
           bridge keeper's hut, the gap from the drawbridge to Gatekeep, the glide across the yard and the low glide from the
-          basket. A miss there costs little: you land on something below or go back to the platform you left. Claude Code
+          basket (the machines are in <a href="#step-10">step 10</a>). A miss there costs little: you land on something below or go back to the platform you left. Claude Code
           built the stitching and placed it in the levels.</p>
         <p class="tag">READ AS A ROUTE</p>
         <p>In a blind test on screenshots, a model that had not seen any design notes read a chain with gold links as
@@ -599,16 +601,16 @@
 
     <article class="step" id="step-4">
       <div>
-        <h3>4. Measuring room instead of guessing</h3>
+        <h3>4. Measuring the timing room of every required step</h3>
         <p class="tag">PROBLEM</p>
         <p>Every session I played on my computer wrote a playtest log. In one session on the physics test course, all five falls happened at the
-          same gap, each with the glide opened at a different moment. An automated level checker put a number on it: that gap had a
-          0.20&nbsp;s timing window: a press had to land inside that span to make it. A test
+          same gap, each with the glide opened at a different moment. An automated level checker put a number on it: the press had to land inside a
+          0.20&nbsp;s span, the gap's timing window. A test
           layout with the wall shortened and moved, and the landing island lowered, widened it to 0.60&nbsp;s.</p>
         <p class="tag">DECISION</p>
         <p>I asked for room on every step: no jump that only works if you hit it exactly. The targets are a timing window of at
-          least 0.4&nbsp;s on every required step, which only the last level may go below, and 75% of jitter runs reaching
-          the end. Scripts written
+          least 0.4&nbsp;s on every required step, which only the last level may go below, and 75% of runs reaching
+          the end when the inputs are shifted at random (the jitter test below). Scripts written
           by Claude Code and Codex check them:</p>
         <ul>
           <li>The level checker: an autopilot tries twelve input strategies, most of them at more than 30 timings, from each island and
@@ -624,7 +626,7 @@
         <p>To design levels myself, I had the checks built into the editor: selecting an island draws its jump arc and glide
           line, and a double-click runs the level checker. Claude also recorded a five-minute narrated tutorial of this workflow for me.</p>
         <p class="tag">NOW</p>
-        <p>Measured on 11 November on the plate versions of levels 1 and 2. Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
+        <p>These were measured on 11 November on the plate versions of levels 1 and 2 (the machines in <a href="#step-10">step 10</a>). Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
           about 1.6&nbsp;s from the left of the bridge tail. Level 2: the glide across the yard lands from anywhere on the
           inner ledge, and the last low glide has 0.7&nbsp;s. In levels 3 to 6 every required step, taken the way the route takes it, has 0.40&nbsp;s or more.</p>
         <p class="tag">WHO DID WHAT</p>
@@ -648,7 +650,7 @@
           0.4&nbsp;s, so the difficulty inside a level never rose or fell.</p>
         <p class="tag">METHOD</p>
         <p>I asked Claude to look up how other platformers handle difficulty. Three ideas came back. Teach a move where a
-          miss costs nothing, test it, then twist it. Shape the curve like a saw, with places to rest, instead of a straight
+          miss costs nothing, test it, then twist it. Shape the difficulty like the teeth of a saw, with places to rest, instead of a straight
           ramp. Forgive the player in ways they never see, like Celeste's jump just after leaving a ledge; the game already
           had that. So each level now opens loose, has a place to rest in the middle, and ends with a few steps in a row
           that use the new move together with older ones.</p>
@@ -737,13 +739,13 @@
 
     <article class="step" id="step-8">
       <div>
-        <h3>8. Tapestry and kintsugi</h3>
+        <h3>8. Art direction: woven rock, gold in the cracks</h3>
         <p class="tag">DECISION</p>
         <p>I asked for art that is comfortable to look at and has its own character. The direction is tapestry and kintsugi:
           the rock on each island is drawn as layers of weave, with gold in the cracks. When you finish a link, the gold
           lights up.</p>
         <p class="tag">RESULT</p>
-        <p>Each of the six levels has its own sky. Claude Code generated all of it in code, like the rest of the game's
+        <p>Each of the first six levels has its own sky. Claude Code generated all of it in code, like the rest of the game's
           art.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>I asked for art that is comfortable to look at and has its own character, then for each level to look different, then for more polish. Claude proposed tapestry and kintsugi and drew all of it in code.</p>
@@ -760,15 +762,16 @@
 
     <article class="step" id="step-9">
       <div>
-        <h3>9. The Throne Isle</h3>
+        <h3>9. A last level that uses every relic</h3>
         <p class="tag">DECISION</p>
         <p>The last level is the storm that broke the kingdom, with the old king still inside it. You do not fight the storm.
           Five golden knots hold the storm together, and each one sits behind a harder version of an obstacle you passed to
           earn a relic: a stepped wall to slip under for the cloak, a double jump up into a bell of books for the bracers, a
           door at the bottom of a pit, a mirror well for the shield, and three hanging rocks to swing across for the rope.
           Gold lightning marks the ground for 0.8&nbsp;s before it strikes. Each knot you tie shrinks the storm and saves
-          your place. The sixth knot sits at the centre, at the end of a run that uses every move in a row with no save in
-          between. This is the one level allowed below 0.4&nbsp;s. The checker first rated the first knot at 0.30&nbsp;s,
+          your place. A sixth knot sits at the centre, at the end of a run that uses every move in a row with no save in
+          between.</p>
+        <p>This is the one level allowed below 0.4&nbsp;s. The checker first rated the first knot at 0.30&nbsp;s,
           because it only tried a jump, which hits the first wall. Once it also tried walking off with a glide that you let
           go of for a moment, the same step came out at 1.03&nbsp;s: the hard part there is knowing not to jump.</p>
         <p class="tag">RESULT</p>
@@ -787,13 +790,13 @@
     <h3 class="part-head pixel" id="part-iteration"><span>PART 4</span><b>Iteration</b></h3>
     <article class="step" id="step-10">
       <div>
-        <h3>10. Longer, then smaller</h3>
+        <h3>10. From a 44-minute level to four machines</h3>
         <p class="tag">PROBLEM</p>
         <p>The levels were short: I finished level 1 in 32.8&nbsp;s. I set a target of about half an
           hour per level, with some story along the way.</p>
         <p class="tag">DECISION</p>
-        <p>Claude first estimated the length from the autopilot route, times how much slower a person might be. I did not
-          accept that: the autopilot never dies or stops, and nobody knows the multiplier. We aimed at 45 minutes of route
+        <p>Claude first estimated play time by multiplying the autopilot's route time by a guess at how much slower a
+          person is. I did not accept that: the autopilot never dies or stops, and the multiplier was a guess. We aimed at 45 minutes of route
           instead, half an hour plus 50% headroom, and built level 1 first as a sample.</p>
         <p class="tag">RESULT</p>
         <p>Claude wrote a generator that placed about 3,000 islands in eight sections and checked every jump in a physics
@@ -805,29 +808,31 @@
         <p>Levels 1 and 2 became <em>hakoniwa</em>, the Japanese word for a box garden: a small, closed world you learn by
           moving around in it, with more than one way through and no way to fall out of it. In level 1 your home and
           Gatekeep face each other across a deep valley. The king's bridge crosses the valley and breaks off in the
-          middle, 230&nbsp;px, further than any running jump. Fall anywhere and you land on the valley floor, where
-          Gatekeep's wall is too high to climb, so you look up and see the bridge.</p>
+          middle, 230&nbsp;px, further than any running jump. In that first version a fall anywhere landed you on the valley floor, where
+          Gatekeep's wall is too high to climb, so you looked up and saw the bridge.</p>
         <p class="tag">PROBLEM</p>
         <p>Playing the new level 1, I found three problems: it was too easy, many of its ledges were never needed, and nothing
-          the player did changed anything in the level. I asked for the switches and moving platforms every platformer has.</p>
+          the player did changed anything in the level. I asked for the switches and moving platforms most platformers have.</p>
         <p class="tag">DECISION</p>
         <p>The broken bridge became a machine. You step on a plate; you do not press a new button, so it works the same on a
           phone. Moving stone is grey and grass is ground, and a plate that moves something out of reach trails a chain to
-          it. A lift takes you from the grave up to the bridgehead. A plate on the bridgehead calls a ferry plank across the
+          it.</p>
+        <p>In level 1, a lift takes you from the grave up to the bridgehead. A plate on the bridgehead calls a ferry plank across the
           gap. The far span hangs high above the break, and its chain runs down into the bridge keeper's hut: you have to
           drop into the hut and work his winch before you can go on. Last, the bridge tail lowers Gatekeep's drawbridge for a
-          few seconds. Level 1 went from 29 islands to 12, and the valley floor went with them: a fall now puts you back on the last solid ground you stood on. In level 2 a lift replaces the stairs inside the first wall, and
-          the baron's basket replaces the six steps inside the second. The basket only comes down while you stand on a
+          few seconds. Level 1 went from 29 islands to 12, and the valley floor went with them: a fall now puts you back on the last solid ground you stood on.</p>
+        <p>In level 2 a lift replaces the stairs inside the first wall, and
+          the baron's basket replaces the six steps inside the second wall. The basket only comes down while you stand on a
           plate, so you wait for it there and jump in. It carries you to the top of the wall, where the low glide under the
           hanging wall spends that height.</p>
         <p class="tag">RESULT</p>
-        <p>Checking the levels against the design principles found real problems, among them: the jump onto the drawbridge started from a
+        <p>Checking the levels against a list of game design principles found real problems, among them: the jump onto the drawbridge started from a
           spot where you could not see where you would land, the plates were three pixels tall, and a third of the level
           was spent waiting for platforms. An independent review by a second model found more, among them: the drawbridge
-          timer started while the drawbridge was still off screen; the ferry plank did not catch a full-speed jump (in the
-          game the jump landed on its last pixel and slid off); and in level 2 the basket left half a second after you
-          stepped off the plate, so trying it taught the opposite of what you had to do. Everything listed here was changed
-          and checked again by the autopilot, the exit check on every island, and the jitter test.</p>
+          timer started while the drawbridge was still off screen; the ferry plank did not catch a full-speed jump (in
+          the game the player landed on its last pixel and slid off); and in level 2 the basket left half a second after you
+          stepped off the plate, so trying it taught the opposite of what you had to do. Everything listed here was changed,
+          and the levels were checked again by the autopilot, the exit check on every island, and the jitter test.</p>
         <p>Levels 3 to 7 keep their layouts: their relics already give you something to do.</p>
         <p class="tag">NOW</p>
         <p>The rebuild moves level 2's challenge from the hands to working out the basket: its last glide window went
@@ -849,11 +854,11 @@
 
     <article class="step" id="step-11">
       <div>
-        <h3>11. Reading the screen</h3>
+        <h3>11. Making knots, plates and goals easier to read</h3>
         <p class="tag">PROBLEM</p>
         <p>To find what a first-time player could miss, Claude ran
-          blind tests: a second model got screenshots from the game, no design notes, and was asked what each thing was and
-          where it would go next. Four problems stood out. Only three of the eleven optional knots added on
+          blind tests: a second model got screenshots from the game, no design notes, and was asked to name each thing on screen and say
+          where it would go next as a player. Four problems stood out. Only three of the eleven optional knots added on
           13 November were noticed. The plates were not read as something to step on. After a double jump the cloak
           would not open, and nothing on screen said why; in four places that drops you into the clouds. In level 5 the goal
           crystal at your feet was not read as the goal.</p>
@@ -863,9 +868,10 @@
           rising from it. A double jump leaves a puff of air under you, and the spent cloak turns grey and short until you
           land.</p>
         <p class="tag">RESULT</p>
-        <p>Screenshots from the same camera positions, with the same questions, before and after. Of the eight knots in frame, the model pointed out
-          four before the changes, then seven and six in two runs afterwards. A dark outline, tried first, scored two and was dropped. The plates were
-          now read as something to step on, and the crystal in level 5 was no longer marked as a place to get stuck.</p>
+        <p>The test was repeated before and after, with the same questions on screenshots from the same camera positions.
+          Of the eight knots in frame in those screenshots, the model pointed out
+          four before the changes, then seven and six in two runs afterwards. A dark outline, tried first, scored two and was dropped. The model
+          now read the plates as something to step on, and no longer marked the crystal in level 5 as a place to get stuck.</p>
         <p class="tag">WHO DID WHAT</p>
         <p>Claude set up the blind tests and planned the four changes overnight; Grok, a second model, read the screenshots,
           and Cursor wrote most of the drawing code. I decided to put them live.</p>
@@ -930,7 +936,7 @@
     Game art and sound effects were generated in code for this project. Music: "Morning", "Skye Cuillin", "Ascending the Vale",
     "Midnight Tale", "Frozen Star", "Lord of the Land", "Teller of the Tales", "Heroic Age" and "Enchanted Journey" by Kevin MacLeod
     (<a href="https://incompetech.com">incompetech.com</a>), licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons: By Attribution 4.0</a>.</p>
-  <p>Last updated 19 November 2026.</p>
+  <p>Last updated 21 November 2026.</p>
 </footer>
 
 <script>
