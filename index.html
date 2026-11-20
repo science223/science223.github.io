@@ -414,7 +414,7 @@
   <a class="sub" href="#step-8">8. Art direction</a>
   <a class="sub" href="#step-9">9. The last level</a>
   <p class="grp">ITERATION</p>
-  <a class="sub" href="#step-10">10. 44 minutes to four machines</a>
+  <a class="sub" href="#step-10">10. A 44-minute level, then four machines</a>
   <a class="sub" href="#step-11">11. Reading the screen</a>
   <p class="grp">WRAP-UP</p>
   <a href="#learned">What I learned, and next</a>
@@ -482,8 +482,8 @@
           shield bounces you and the rope swings you. The paired doors break the rule on purpose, letting you out higher
           than you went in, and the bracers became a double jump after I played them.</li>
         <li><a href="#step-4"><b>Every required jump is measured.</b></a> I asked for no jump that only works if you hit it
-          exactly. Scripts measure how long each required step stays possible, its timing window, against a 0.4&nbsp;s
-          target, and replay each level with small random shifts in the inputs.</li>
+          exactly. Scripts measure the timing window of every required step (how early or late the press can be) against a
+          0.4&nbsp;s target, and replay each level with small random shifts in the inputs.</li>
         <li><a href="#step-10"><b>From a 44-minute level to four machines.</b></a> I asked for half-hour levels, saw the 44-minute result and
           called it off. Level 1 was rebuilt three times and is now built around four machines: a lift, a ferry plank, a
           winch and a drawbridge.</li>
@@ -496,7 +496,7 @@
       <p class="tag">ALL STEPS</p>
       <nav class="toc" aria-label="Design process steps">
         <a href="#step-1">1. From flying to platforming</a>
-        <a href="#step-2">2. One rule: a relic turns you, never speeds you up</a>
+        <a href="#step-2">2. One rule: a relic changes your direction, not your speed</a>
         <a href="#step-3">3. Teaching through the map, not on-screen hints</a>
         <a href="#step-4">4. Measuring the timing room of every required step</a>
         <a href="#step-5">5. Difficulty that rises and falls</a>
@@ -547,7 +547,7 @@
 
     <article class="step" id="step-2">
       <div>
-        <h3>2. One rule: a relic turns you, never speeds you up</h3>
+        <h3>2. One rule: a relic changes your direction, not your speed</h3>
         <p class="tag">RULE</p>
         <p>A relic can change the direction you are moving, but not your speed. The code tracks this as an energy ceiling,
           y − v²/(2g): the highest point you could reach if all your speed became height. Drag only lowers it.</p>
@@ -626,7 +626,7 @@
         <p>To design levels myself, I had the checks built into the editor: selecting an island draws its jump arc and glide
           line, and a double-click runs the level checker. Claude also recorded a five-minute narrated tutorial of this workflow for me.</p>
         <p class="tag">NOW</p>
-        <p>These were measured on 11 November on the plate versions of levels 1 and 2 (the machines in <a href="#step-10">step 10</a>). Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
+        <p>The numbers below were measured on 11 November on the plate versions of levels 1 and 2 (the machines in <a href="#step-10">step 10</a>). Level 1: after you step on the ferry plate you can jump for 0.2 to 2.75&nbsp;s, and at the drawbridge you can wait
           about 1.6&nbsp;s from the left of the bridge tail. Level 2: the glide across the yard lands from anywhere on the
           inner ledge, and the last low glide has 0.7&nbsp;s. In levels 3 to 6 every required step, taken the way the route takes it, has 0.40&nbsp;s or more.</p>
         <p class="tag">WHO DID WHAT</p>
@@ -812,7 +812,7 @@
           Gatekeep's wall is too high to climb, so you looked up and saw the bridge.</p>
         <p class="tag">PROBLEM</p>
         <p>Playing the new level 1, I found three problems: it was too easy, many of its ledges were never needed, and nothing
-          the player did changed anything in the level. I asked for the switches and moving platforms most platformers have.</p>
+          the player did changed anything in the level. I asked for the switches and moving platforms every platformer has.</p>
         <p class="tag">DECISION</p>
         <p>The broken bridge became a machine. You step on a plate; you do not press a new button, so it works the same on a
           phone. Moving stone is grey and grass is ground, and a plate that moves something out of reach trails a chain to
@@ -826,7 +826,7 @@
           plate, so you wait for it there and jump in. It carries you to the top of the wall, where the low glide under the
           hanging wall spends that height.</p>
         <p class="tag">RESULT</p>
-        <p>Checking the levels against a list of game design principles found real problems, among them: the jump onto the drawbridge started from a
+        <p>Checking the levels against the design principles found real problems, among them: the jump onto the drawbridge started from a
           spot where you could not see where you would land, the plates were three pixels tall, and a third of the level
           was spent waiting for platforms. An independent review by a second model found more, among them: the drawbridge
           timer started while the drawbridge was still off screen; the ferry plank did not catch a full-speed jump (in
@@ -858,7 +858,7 @@
         <p class="tag">PROBLEM</p>
         <p>To find what a first-time player could miss, Claude ran
           blind tests: a second model got screenshots from the game, no design notes, and was asked to name each thing on screen and say
-          where it would go next as a player. Four problems stood out. Only three of the eleven optional knots added on
+          where a player would go next. Four problems stood out. Only three of the eleven optional knots added on
           13 November were noticed. The plates were not read as something to step on. After a double jump the cloak
           would not open, and nothing on screen said why; in four places that drops you into the clouds. In level 5 the goal
           crystal at your feet was not read as the goal.</p>
